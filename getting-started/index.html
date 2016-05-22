@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>Tutorial 1: Getting Started</title>
+</head>
+
+<script src="cytoscape.js"></script>
+
+<style>
+    #cy {
+        width: 400px;
+        height: 400px;
+        display: block;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <h1>A basic graph</h1>
+    <div id="cy"></div>
+    <script>
+        var cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: [{
+            data: {
+            id: 'a'
+            }
+        }, {
+            data: {
+            id: 'b'
+            }
+        }, {
+            data: {
+            id: 'ab',
+            source: 'a',
+            target: 'b'
+            }
+        }]
+        });
+    </script>
+</body>
