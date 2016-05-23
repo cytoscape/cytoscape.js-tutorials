@@ -269,6 +269,6 @@ Once a graph has been created, it can be manipulated via a variety of methods, a
 
 Take a look at my finished graphs:
 
-- [Getting started]({{site.url}}assets/getting-started/index.html)
-- [Style & Layout]({{site.url}}assets/getting-started/index-layout.html)
-- [Adding nodes with `cy.add()`]({{site.url}}assets/getting-started/index-addingNodes.html)
+- [Getting started]({{site.baseurl}}/assets/getting-started/index.html)
+- [Style & Layout]({{site.baseurl}}/assets/getting-started/index-layout.html)
+- [Adding nodes with `cy.add()`]({{site.baseurl}}/assets/getting-started/index-addingNodes.html)
