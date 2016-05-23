@@ -1,4 +1,5 @@
-# Coding starts May 22!
+# Getting Started
+This is the first in a series of tutorials about Cytoscape.js. Cytoscape.js is a graph theory library for analysis and visualization. 
 
 ## List format as I write
 
