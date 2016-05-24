@@ -48,19 +48,14 @@
                 data: {id: 'node' + i}
                 }
             );
-        }
-        for (var i = 0; i < 10; i++) {
-            var source = 'node' + i
-            if (i % 2 == 0) {
-                cy.add({
-                    data: {id: 'edge' + i, source: source, target: 'a'}
-                })
-            }
-            else {
-                cy.add({
-                    data: {id: 'edge' + i, source: source, target: 'b'}
-                })
-            }
+            var source = 'node' + i;
+            cy.add({
+                data: {
+                    id: 'edge' + i,
+                    source: source,
+                    target: (i % 2 == 0 ? 'a' : 'b')
+                }
+            });
         }
         cy.layout({
             name: 'circle'

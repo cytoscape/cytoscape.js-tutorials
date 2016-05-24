@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Getting started with Cytoscape.js
+subtitle: Making a simple graph
+tags:
+- tutorial
 ---
 
 This is the first in a series of tutorials about Cytoscape.js.
@@ -145,10 +148,10 @@ By now, `index.html` should be finished and resemble this:
                 {data: {id: 'a'}},
                 {data: {id: 'b'}},
                 {data: {
-                id: 'ab',
-                source: 'a',
-                target: 'b'
-                }
+                    id: 'ab',
+                    source: 'a',
+                    target: 'b'
+                    }
                 }]
         });
     </script>
@@ -261,14 +264,21 @@ Try it out with:
 for (var i = 0; i < 10; i++) {
     cy.add({
         data: {id: 'node' + i}
-    });
+        }
+    );
+    var source = 'node' + i;
     cy.add({
-        data: {id: 'edge' + i, source: 'a', target: 'node' + i}
+        data: {
+            id: 'edge' + i,
+            source: source,
+            target: (i % 2 == 0 ? 'a' : 'b')
+        }
     });
 }
 ```
 
-This adds 10 new nodes to the graph. If you examine the graph now, you may notice that the layout has been messed up.
+This adds 10 new nodes to the graph with half the edges going to `a` and half going to `b`.
+If you examine the graph now, you may notice that the layout has been messed up.
 To fix this, add a call to [`cy.layout()`](http://js.cytoscape.org/#cy.layout) after you are done adding nodes and edges.
 
 ```javascript
