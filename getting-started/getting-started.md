@@ -1,3 +1,8 @@
+---
+layout: post
+title: Getting started with Cytoscape.js
+---
+
 This is the first in a series of tutorials about Cytoscape.js.
 Cytoscape.js is a graph theory library for analysis and visualization.
 This encompasses a variety of uses, from network biology to social network analysis.
@@ -36,7 +41,8 @@ This ensures that the scripts on `index.html` can "see" `cytoscape.js`.
 Now let's make a graph!
 
 ## Adding a graph
-Adding a graph to this page can be broken down into two parts. 
+Adding a graph to this page can be broken down into two parts.
+
 1. Provide an area to draw the graph
 2. Create a graph instance by providing it with two nodes and an edge.
 
@@ -114,8 +120,6 @@ By now, `index.html` should be finished and resemble this:
 
 ```html
 <!doctype html>
-<head>
-    <!doctype html>
 <head>
     <title>Tutorial 1: Getting Started</title>
 </head>
