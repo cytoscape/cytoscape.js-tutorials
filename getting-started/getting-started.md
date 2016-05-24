@@ -181,6 +181,22 @@ var cy = cytoscape({
 });
 ```
 
+Next up is displaying labels in the graph so that nodes can be identified.
+Labels are added via the `'label`' property of style.
+Since labels are already provided (via the `id` property of `data`), we'll use those.
+
+```javascript
+style: [
+    {
+        selector: 'node',
+        style: {
+            'shape': 'hexagon',
+            'background-color': 'red',
+            'label': 'data(id)'
+        }
+    }]
+```
+
 The final "essential" component of a graph in Cytoscape.js is the layout.
 Like `style`, `elements`, and `containers`, `layout` is also specified as a part of the object passed to `cytoscape` during construction.
 To the existing `cy` object, add (after `elements`):
@@ -257,7 +273,7 @@ cy.layout({
 });
 ```
 
-Cytoscape.js has a wealth of functions available; far more than can be covered intutorials.
+Cytoscape.js has a wealth of functions available; far more than can be covered in tutorials.
 
 
 ## Conclusion

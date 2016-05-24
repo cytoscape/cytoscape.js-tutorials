@@ -1,2 +1,1 @@
-- Displaying labels on nodes and edges
-- More to come :)
+- Done (currently)
