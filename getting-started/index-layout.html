@@ -5,9 +5,8 @@
 <head>
     <meta charset="utf-8"></meta>
     <title>Tutorial 1: Getting Started</title>
+    <script src="cytoscape.js"></script>
 </head>
-
-<script src="cytoscape.js"></script>
 
 <style>
     #cy {
@@ -23,54 +22,64 @@
     <div id="cy"></div>
     <script>
         var cy = cytoscape({
-            container: document.getElementById('cy'),
-            elements: [
-                // nodes
-                {data: {id: 'a'}},
-                {data: {id: 'b'}},
-                {data: {id: 'c'}},
-                {data: {id: 'd'}},
-                {data: {id: 'e'}},
-                {data: {id: 'f'}},
-                // edges
-                {data: {
-                    id: 'ab',
-                    source: 'a',
-                    target: 'b'
-                }},
-                {data: {
-                    id: 'cd',
-                    source: 'c',
-                    target: 'd'
-                }},
-                {data: {
-                    id: 'ef',
-                    source: 'e',
-                    target: 'f'
-                }},
-                {data: {
-                    id: 'ac',
-                    source: 'a',
-                    target: 'd'
-                }},
-                {data: {
-                    id: 'be',
-                    source: 'b',
-                    target: 'e'
-                }}
-            ],
-            style: [
-                {
-                    selector: 'node',
-                    style: {
-                        'shape': 'hexagon',
-                        'background-color': 'red',
-                        'label': 'data(id)'
-                    }
-                }],
-            layout: {
-                name: 'grid'
+          container: document.getElementById('cy'),
+          elements: [
+            // nodes
+            { data: { id: 'a' } },
+            { data: { id: 'b' } },
+            { data: { id: 'c' } },
+            { data: { id: 'd' } },
+            { data: { id: 'e' } },
+            { data: { id: 'f' } },
+            // edges
+            {
+              data: {
+                id: 'ab',
+                source: 'a',
+                target: 'b'
+              }
+            },
+            {
+              data: {
+                id: 'cd',
+                source: 'c',
+                target: 'd'
+              }
+            },
+            {
+              data: {
+                id: 'ef',
+                source: 'e',
+                target: 'f'
+              }
+            },
+            {
+              data: {
+                id: 'ac',
+                source: 'a',
+                target: 'd'
+              }
+            },
+            {
+              data: {
+                id: 'be',
+                source: 'b',
+                target: 'e'
+              }
             }
+          ],
+          style: [
+            {
+              selector: 'node',
+              style: {
+                'shape': 'hexagon',
+                'background-color': 'red',
+                'label': 'data(id)'
+              }
+            }],
+          layout: {
+            name: 'grid'
+          }
         });
     </script>
 </body>
