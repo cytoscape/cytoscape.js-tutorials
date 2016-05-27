@@ -3,11 +3,12 @@
 <html>
 
 <head>
-    <meta charset="utf-8"></meta>
+    <meta charset='utf-8'></meta>
     <title>Tutorial 2: Glycolysis</title>
+    <script src='cytoscape.js'></script>
+    <script src='gly_elements.js'></script>
+    <script src='glycolysis.js'></script>
 </head>
-
-<script src="cytoscape.js"></script>
 
 <style>
     #cy {
@@ -20,10 +21,5 @@
 </style>
 
 <body>
-    <div id="cy"></div>
-    <script>
-        var cy = cytoscape({
-        container: document.getElementById('cy')
-        });
-    </script>
+    <div id='cy'></div>
 </body>

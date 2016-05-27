@@ -9,6 +9,7 @@ module.exports = {
         'browser': true
     },
     globals: {
-        'cytoscape': false
+        'cytoscape': false,
+        'GlyElements': false
     }
 };

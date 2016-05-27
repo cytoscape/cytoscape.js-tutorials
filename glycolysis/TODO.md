@@ -1,0 +1,6 @@
+- Figure out why compound nodes are not being ordered correctly in grid layout
+- Add a button to HTML page that animates a viewport change
+- Get SVGs for each step
+- Make SVGs background for the steps
+- (Possibly?) Display information on edges
+  - Would require hard-coding edges instead of dynamically generating them.
