@@ -7,5 +7,8 @@ module.exports = {
     },
     env: {
         'browser': true
+    },
+    globals: {
+        'cytoscape': false
     }
 };

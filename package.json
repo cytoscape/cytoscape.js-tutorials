@@ -1,0 +1,23 @@
+{
+  "name": "tutorials",
+  "version": "1.0.0",
+  "description": "Cytoscape.js tutorials under development",
+  "main": "README.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cytoscape/cytoscape.js-tutorials.git"
+  },
+  "author": "Joseph Stahl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cytoscape/cytoscape.js-tutorials/issues"
+  },
+  "homepage": "https://github.com/cytoscape/cytoscape.js-tutorials#readme",
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-google": "^0.5.0"
+  }
+}
