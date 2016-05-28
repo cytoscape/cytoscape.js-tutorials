@@ -27,28 +27,61 @@ document.addEventListener("DOMContentLoaded", function() {
     avoidOverlapPadding: 80
   });
 
-  function viewSelected() {
-    var selected = cy.$(':selected');
-    cy.fit(selected, 50);
+  function zoomOut() {
+    cy.animate({
+      fit: {
+        eles: cy.nodes(),
+        padding: 100
+      },
+      duration: 700,
+      easing: 'ease-out-circ',
+      queue: true
+    });
+  }
+
+  function panIn(target) {
+    cy.animate({
+      fit: {
+        eles: target,
+        padding: 0
+      },
+      duration: 700,
+      easing: 'ease-in-out-circ',
+      queue: true
+    });
+  }
+
+  function findSuccessor(selected) {
+    var connectedNodes = selected.connectedEdges().connectedNodes();
+    var max = connectedNodes.max(function(ele) {
+      return Number(ele.id());
+      // Need to use Number; otherwise, id() provide string
+      // which messes up comparison (says that "10" < "9")
+
+      // max returns object with value and ele
+    });
+    return max.ele;
   }
 
   function advanceLayout() {
     var oldSelect = cy.$(':selected');
+    oldSelect.unselect();
+    var nextSelect = findSuccessor(oldSelect);
+    nextSelect.select();
 
-    // TEMP CODE TO TEST BUTTON
-    cy.$('#1').select();
-    viewSelected();
+    zoomOut();
+    panIn(nextSelect);
   }
 
   // Initialization: select first element to focus on.
-  cy.$('node[molecule = "Glucose"]').select();
-  viewSelected();
+  var startNode = cy.$('node[molecule = "Glucose"]');
+  startNode.select();
+  panIn(startNode);
   // TUTORIAL: this can be more succintly written as cy.$('#0').select()
 
-  // var advanceButton = document.createElement('input');
-  // advanceButton.type = 'button';
-  // advanceButton.id = 'advance';
-  // advanceButton.textContent = "Next Step";
-  // advanceButton.onclick = advanceLayout();
-  // document.body.appendChild(advanceButton);
+  var advanceButton = document.createElement('button');
+  advanceButton.id = 'advance';
+  advanceButton.textContent = "Next Step";
+  advanceButton.onclick = advanceLayout;
+  document.body.appendChild(advanceButton);
 });
