@@ -5,59 +5,70 @@ var GlyElements = {
     {
       data: {
         id: 0,
-        molecule: 'Glucose'
+        molecule: 'Glucose',
+        image: 'glucose.svg'
       }
     }, {
       data: {
         id: 1,
-        molecule: 'G6P'
+        molecule: 'G6P',
+        image: 'g6p.svg'
       }
     }, {
       data: {
         id: 2,
-        molecule: 'F6P'
+        molecule: 'F6P',
+        image: 'f6p.svg'
       }
     }, {
       data: {
         id: 3,
-        molecule: 'F1,6BP'
+        molecule: 'F1,6BP',
+        image: 'f16bp.svg'
       }
     },
     // GADP & DHAP is in equilibrium
     {
       data: {
         id: 4,
-        molecule: 'GADP'
+        molecule: 'GADP',
+        image: 'gadp.svg'
       }
     }, {
       data: {
         id: 5,
-        molecule: 'DHAP'
+        molecule: 'DHAP',
+        image: 'dhap.svg'
       }
     }, {
       data: {
         id: 6,
-        molecule: '1,3PG'
+        molecule: '1,3BPG',
+        image: '13bpg.svg'
       }
     }, {
       data: {
         id: 7,
-        molecule: '3PG'
+        molecule: '3PG',
+        image: '3pg.svg'
       }
     }, {
       data: {
         id: 8,
-        molecule: '2PG'
+        molecule: '2PG',
+        image: '2pg.svg'
       }
     }, {
       data: {
         id: 9,
-        molecule: 'PEP'
+        molecule: 'PEP',
+        image: 'pep.svg'
       }
     }, {
       data: {
         id: 10,
-        molecule: 'Pyruvate'
+        molecule: 'Pyruvate',
+        image: 'pyruvate.svg'
       }
     }
   ],
