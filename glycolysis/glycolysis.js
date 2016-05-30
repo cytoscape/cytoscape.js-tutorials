@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
     position: function(ele) {
       if (ele.data().molecule === 'DHAP') {
         // DHAP is, as usual, a special case
-        return { row: ele.id() - 1, col: 1 }; // layout to right of GADP
+        return { row: ele.id(), col: 1 }; // layout to right of GADP
       }
       return { row: ele.id(), col: 0 };
     }
