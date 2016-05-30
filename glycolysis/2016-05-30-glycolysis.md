@@ -10,6 +10,7 @@ This is the second in a series of tutorials by [Joseph Stahl](https://josephstah
 The [first post]({% post_url 2016-05-24-getting-started %}) covers creating a 2-node graph with Cytoscape.js and is recommended reading for those unfamiliar with the software.
 
 # Getting ready
+
 ## A container for the graph: `index.html`
 As before, Cytoscape.js requires an area to draw the graph. A simple `index.html` will get us started.
 CSS will again be inline with the HTML to keep things simple.
@@ -119,6 +120,7 @@ glycolysis/
 ```
 
 # Making the graph: `glycolysis.js`
+
 ## Waiting for `<div>`: Ensuring `cytoscape.js` has a container to use
 [Last time]({% post_url 2016-05-24-getting-started %}), it was possible to place `var cy = cytoscape({...})` after the `<div>` element to make sure that the graph had a container to use.
 Because of putting `<script src='glycolysis.js'></script>` in `<head>`, ordering will not work this time.
@@ -155,7 +157,7 @@ Now that we are sure there is a `<div>` element to draw within, it's time to cal
 
 Remember that this will all be indented within the function. As done previously, the graph will be created within the `cy` element.
 The object passed to `cytoscape()` also contains some style directives for the graph.
-In [getting-started]({% post_url 2016-05-24-getting-started %}, the `id` property was used for labels; now, `molecule` will be used to provide more descriptive names.
+In [getting-started]({% post_url 2016-05-24-getting-started %}), the `id` property was used for labels; now, `molecule` will be used to provide more descriptive names.
 Edges are given labels in the same manner as nodes: specify that a style is being applied to them via a [selector](http://js.cytoscape.org/#selectors) then provide properties as a `style` object.
 Currently, only a `label` style is applied so that viewers of the graph can tell what enzyme is involved in each step.
 
@@ -198,7 +200,7 @@ Since only the style of a single node will be modified at a time, a [selector](h
 Selectors use a [CSS-esque string for selecting elements, detailed in the Cytoscape.js documentation](http://js.cytoscape.org/#selectors/notes-amp-caveats).
 `'#' + ele.id()` will select individual elements to ensure that an image is only applied to that element.
 The [`'#'` character](http://js.cytoscape.org/#selectors/group-class-amp-id) tells the `selector()` function that it will be matching elements based on ID.
-String concatenation is used to join `'#'` with ele.id()` (recall that `ele` is passed to this function via `forEach()`) to form the completed selector string.
+String concatenation is used to join `'#'` with `ele.id()` (recall that `ele` is passed to this function via `forEach()`) to form the completed selector string.
 
 At this point, the graph's style object has been narrowed down to the style referring to a single element.
 Now it is time to modify that style.
@@ -241,7 +243,6 @@ glycolysis/
     +-- glycolysis.js
     +-- index.html
 ```
-
 
 ## Laying out the graph
 Now that all nodes are added and have images, it's time to lay out the graph.
@@ -315,7 +316,6 @@ Finally, let's [lock the elements](http://js.cytoscape.org/#nodes.lock) to make 
 
 This will lock the graph in the current layout, preventing users from dragging nodes around (but not from scrolling the viewpoint).
 
-**Congratulations, you've made a glycolysis graph!
-It should look similar to this: **
+**Congratulations, you've made a glycolysis graph! It should look similar to this:**
 
 ![Graph before adding animation button]({{site.baseurl}}/public/demos/glycolysis/assets/graph_before_button.png)
