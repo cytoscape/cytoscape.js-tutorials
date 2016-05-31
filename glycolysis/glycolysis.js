@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
       connectedNodes = selected.target();
     } else {
       connectedNodes = selected.connectedEdges().targets();
+      connectedNodes = connectedNodes.difference(selected);
     }
     var successor = connectedNodes.max(function(ele) {
       return Number(ele.id());
@@ -74,15 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // max returns object with value and ele
     });
-
-    if (Number(successor.ele.id()) > Number(selected.id())) {
-      return successor.ele;
-    }
-    // May need to backtrack when successor == selected (ex: if DHAP is selected)
-    var predecessor = connectedNodes.min(function(ele) {
-      return Number(ele.id());
-    });
-    return predecessor.ele;
+    return successor.ele;
   }
 
   function advanceViewport() {
@@ -98,9 +91,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function makeAdvanceButton() {
-    var advanceButton = document.createElement('button');
+    var advanceButton = document.createElement('input');
+    advanceButton.type = 'button';
     advanceButton.id = 'advance';
-    advanceButton.textContent = "Next Step";
+    advanceButton.value = "Next Step";
     advanceButton.onclick = advanceViewport;
     return advanceButton;
   }

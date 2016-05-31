@@ -319,3 +319,239 @@ This will lock the graph in the current layout, preventing users from dragging n
 **Congratulations, you've made a glycolysis graph! It should look similar to this:**
 
 ![Graph before adding animation button]({{site.baseurl}}/public/demos/glycolysis/assets/graph_before_button.png)
+
+# Animation
+
+Now that the graph has been created and filled, it's time to add some animation.
+After the graph is loaded, the viewport will zoom in to the first element (glucose).
+Then, each time a "Next Step" button is clicked, the graph will scroll to focus on the next element.
+
+The process of animating the graph is broken down into several steps:
+
+1. Focusing on the first element of the graph after loading
+2. Creating an advanceViewport function to find the next element and focus on it
+  - Another function will be uesd for finding the next element
+  - The function created in Step 1 (for focusing on an element) can be reused for focusing on the next element
+3. Adding a button to the graph which will execute the advanceViewport function
+
+## Focusing on the first element
+
+First of all, a function must be written that can focus on an element passed to it.
+We'll call it `panIn(target)`, where `target` is a Cytoscape.js element. 
+`function panIn(target) {...}` should be placed right after `cy.nodes().lock()`, within the Event Listener function. 
+
+```javascript
+  function panIn(target) {
+    cy.animate({
+      fit: {
+        eles: target,
+        padding: 40
+      },
+      duration: 700,
+      easing: 'linear',
+      queue: true
+    });
+  }
+```
+
+[`cy.animate({...})`](http://js.cytoscape.org/#cy.animate) is a Cytoscape.js function which animates a change in the viewport.
+Its net effect is a combination of [`cy.animation({...})`](http://js.cytoscape.org/#cy.animation) and [`ani.play()`](http://js.cytoscape.org/#ani.play) which will create an animation on a viewport and run that animation, respectively.
+`cy.animate()` is a viewport animation, meaning that it changes the view of the graph without moving any elements around.
+I've specified the options necessary for this tutorial but more options [are documented with `cy.animate()`](http://js.cytoscape.org/#cy.animate).
+
+- `fit:`
+  - `eles: target` will focus the viewport around `target`. `target` is initially the first element (glucose) but will change as the user advances the view with the "Next Step" button.
+  - `padding: 40` adds white space around `target` to help things look less crowded
+- `duration: 700` tells Cytoscape.js to draw the animation out for 700ms (so that enzyme text may be read)
+- `easing: 'linear'` causes the animation to proceed at a steady rate instead of speeding up initially then slowing down (`linear` is the default if `easing` is unspecified)
+- `queue: true` will queue up animations so that successive clicks of "Next Step" will advance the graph several steps.
+
+Now that a function which can animate viewport changes has been created, it's time to put it to use.
+To start, we'll focus on the first element of the graph after loading (instead of displaying several elements).
+
+```javascript
+  var startNode = cy.$('node[molecule = "Glucose"]');
+```
+
+This function should be placed after `panIn(target)`, i.e. the last statement in the function given to the Event Listener.
+[`cy.$(selector)`](http://js.cytoscape.org/#cy.$) is a quick way to get all elements from the graph that match a selector (it is simply an alias to `cy.filter()`).
+As with previous selectors, the selector is a specially formatted string.
+The first part, `node`, will select all nodes in the graph (this could also be done with `cy.nodes()`, which also acceptors a selector to filter nodes).
+The second part, `[molecule = "Glucose"]`, selects only the glucose node so that the graph is focused on a single node.
+[Square brakets](http://js.cytoscape.org/#selectors/data) are used in selectors to perform matching against data attributes.
+In this case, we are matching against the `molecule` attribute that was defined in `gly_elements.js` and is being used as node labels.
+Because the matching is against a string, `"Glucose"` must be enclosed in double quotes.
+
+Once the initial node has been found, zooming in on it is easy.
+
+```javascript
+  panIn(startNode);
+```
+
+This will call `panIn(target)` with `startNode` (glucose) as the target.
+If you reload `index.html`, the graph should now focus on only the first element (glucose) instead of all elements.
+
+## Writing `advanceViewport()`
+
+Cytoscape.js has a special query, `':selected'`, which we will use to our advance to advance the viewport.
+This affords more flexibility than storing the node in a `currentView` variable, which would not allow users to click on different parts of the graph and animate from there.
+To start out, it's important to select the first node (glucose). Modify the previous code to insert a call to `cy.select()`:
+
+```javascript
+  var startNode = cy.$('node[molecule = "Glucose"]');
+  startNode.select();
+  panIn(startNode);
+```
+
+[`eles.select()`](http://js.cytoscape.org/#eles.select) will mark whichever node(s) it is called on as selected.
+In this case, only a single node (the glucose node) is selected. 
+
+Now that the starting node is selected, it's time to write the `advanceViewport()` function.
+Add it immediately after `panIn(target)`.
+
+```javascript
+  function advanceViewport() {
+    var oldSelect = cy.$(':selected');
+    oldSelect.unselect();
+    var nextSelect = findSuccessor(oldSelect);
+    nextSelect.select();
+    panIn(nextSelect);
+  }
+```
+
+`findSuccessor(oldSelect)` will be covered soon.
+The `':selected'` selector string comes in handy here, since the selected node can be found even if it has changed (via user interaction) since the last call to `advanceViewport()`.
+`oldSelect.unselect()` will [unselect](http://js.cytoscape.org/#eles.unselect) the selected node so that only one element (the successor) is selected at a time.
+`var nextSelect = findSuccessor(oldSelect)` finds the next element from `oldSelect`.
+Because some special treatment is required for DHAP (to avoid getting stuck in a loop), I chose to break `findSuccessor` out into its own function.
+Finally, the next element is selected and the animation is run, reusing the `panIn(target)` function previously defined.
+
+## Writing `findSuccessor(selected)`
+As usual, the edge case of DHAP makes things more complicated.
+Normally, the successor is whichever node has the highest ID relative to the current node.
+This will work for normally advancing through the graph because GADP (with id = 4) will have two successors, but the "correct" successor is 1,3BPG (id = 6) which will be chosen rather than DHAP (id = 5) after comparing IDs.
+However, this approach must be modified since users are allowed to select their own elements. If a user selects DHAP, its only successor is GADP but DHAP has a higher ID than GADP.
+Additionally, there is no guarantee that `selected` will be a node. If a user has selected an edge, then the behavior for finding connected nodes will change.
+
+```javascript
+  function findSuccessor(selected) {
+    var connectedNodes;
+    if (selected.isEdge()) {
+      connectedNodes = selected.target();
+    } else {
+      connectedNodes = selected.connectedEdges().targets();
+      connectedNodes = connectedNodes.difference(selected);
+    }
+    var successor = connectedNodes.max(function(ele) {
+      return Number(ele.id());
+    });
+    return successor.ele;
+  }
+```  
+
+First, `var connectedNodes` is declared. `connectedNodes` is then modified in the `if/else` block.
+The `if/else` block handles cases where the user has manually selected an edge instead of the nodes that are normally selected.
+If an edge is selected, [`selected.target()`](http://js.cytoscape.org/#edge.target) returns its target, paying attention to edge direction.
+If edge direction is unimportant, [`selected.connectedNodes()`](http://js.cytoscape.org/#edges.connectedNodes) may be used, which will return both the source and target.
+When a node is selected, `selected.connectedEdges().targets()` is used, which combines [`connectedEdges()`](http://js.cytoscape.org/#nodes.connectedEdges) with [`targets()`](http://js.cytoscape.org/#edges.targets) to find all targets of the selected node.
+Then, [`difference(selected)`](http://js.cytoscape.org/#eles.difference) is called on `connectedNodes` to make sure that the currently selected node does not end up in the new collection.
+This is necessary for handling DHAP, which is put into the `connectedNodes` collection when it is selected (because `connectedEdges()` includes the edge from GADP with DHAP as a target). 
+Usually `connectedNodes` is just one target, except for GADP which has two targets (DHAP and 1,3BPG).
+In the case of two targets, the successor is defined to be the one with the highest ID.
+
+```javascript
+    var successor = connectedNodes.max(function(ele) {
+      return Number(ele.id());
+    });
+```
+
+[`connectedNodes.max(function)`](http://js.cytoscape.org/#eles.max) takes a function as an argument and will return an object (`{ value, ele }`) that corresponds to the largest element.
+Any property of an element can be compared by `max()` via the function provided to `max()` which will return a specified property of `ele` for comparison.
+Like `forEach()`, `max()` will provide several parameters (`ele`, `i`, and `eles`) to the provided function but we will only be using `ele`.
+
+The call to `ele.id()` is wrapped with `Number()` here to ensure that integer comparison is done rather than string comparison.
+Once `max()` has finished, the `ele` property of `successor` is returned and will be the next node the animation focuses on with `panIn(nextSelect)`.
+
+
+## Adding a "Next Step" button
+Now that all the animation mechanics are taken care of, it's important to add a way to use these animations!
+Adding an animation button will be done by modifying the DOM within `glycolysis.js`.
+But first, let's give the button a style: medium sized, in the top right.
+Reopen `index.html` and add the following CSS style within the `<style>` tag, right after `#cy`.
+
+```html
+    #advance {
+        width: 20%;
+        height: 10%;
+        position: absolute;
+        top: 5%;
+        right: 5%;
+    }
+```
+
+Now return to `glycolysis.js`. In the interest of keeping things tidy, we'll create a function which returns a button we can append to the document.
+
+```javascript
+  function makeAdvanceButton() {
+    var advanceButton = document.createElement('input');
+    advanceButton.type = 'button';
+    advanceButton.id = 'advance';
+    advanceButton.value = "Next Step";
+    advanceButton.onclick = advanceViewport;
+    return advanceButton;
+  }
+```
+
+Again, this function goes inside the function being passed to `addEventListener()`.
+After creating the `'input'` element, a few properties are modified: 
+
+- `advanceButton.type = 'button'` marks the element as a button instead of another input such as a form
+- `advanceButton.id = 'advance'` will apply the CSS style previously defined in `index.html`
+- `advanceButton.value = "Next Step"` gives the input button a label so users know what id does
+- `advanceButton.onclick = advanceViewport` assigns an action to the button. In this case, when the button is clicked, the `advanceViewport()` function will run.
+
+Finally, the button is returned with `return advanceButton`. To add the newly created button to the webpage, place the following at the very bottom of the function given to `addEventListener()`:
+
+```javascript
+  document.body.appendChild(makeAdvanceButton());
+```
+
+This is a bit of DOM manipulation to add the newly created button to the webpage.
+This is done within `glycolysis.js` instead of simply adding a `<input>` tag to `index.html` because `advanceViewport()` is within `glycolysis.js`. 
+
+
+# Improving the graph
+
+## Looping back to the beginning
+Currently, the graph will reach pyruvate and the "Next Step" button will lose its effect (since pyruvate is the final metabolite and has no successor).
+One possibility is adding an edge back from pyruvate to glucose but this reduces accuracy of the graph—glucose cannot be produced from pyruvate.
+Instead, we'll modify `advanceViewport()` to recognize when it is at the last element and loop back to the beginning.
+`oldSelect` and `nextSelect` will refer to the same element when the graph has reached pyruvate, so comparing them will allow us to recognize this and return to the beginning.
+
+```javascript
+  function advanceViewport() {
+    var oldSelect = cy.$(':selected');
+    oldSelect.unselect();
+    var nextSelect = findSuccessor(oldSelect);
+    if (oldSelect.id() === cy.$('#10').id()) {
+      // loop back to beginning instead of repeating pyruvate
+      nextSelect = cy.$('#0');
+    }
+    nextSelect.select();
+    panIn(nextSelect);
+  }
+```
+
+The ID of `oldSelect` is compared with the ID of pyruvate and if equal, `nextSelect` is changed to the first element of the graph, glucose.
+These steps are easily accomplished with `cy.$('#0')`, another [selector which matches against element IDs](http://js.cytoscape.org/#selectors/group-class-amp-id).
+
+# Conclusion
+Now you should have a fully working glycolysis graph, looking similar to this: 
+
+![finished graph]({{site.baseurl}}/public/demos/glycolysis/assets/finished_graph.png)
+
+You can [interact with my finished graph]({{site.baseurl}}/public/demos/glycolysis/index.html) or [view the source code]((https://github.com/cytoscape/cytoscape.js-blog/tree/gh-pages/public/demos/glycolysis)
+
+Thanks to:
+- Metabolite SVGs: modified from Thomas Shafee (Own work) [<a href="http://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AGlycolysis_metabolic_pathway_3_annotated.svg">via Wikimedia Commons</a>
+- Pathway: [Glycolysis on Wikipedia](https://en.wikipedia.org/wiki/Glycolysis) by Wikipedia contributors, licensed under [CC-BY-SA](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
