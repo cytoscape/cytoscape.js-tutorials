@@ -48,18 +48,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   cy.nodes().lock();
 
-  // function zoomOut() {
-  //   cy.animate({
-  //     fit: {
-  //       eles: cy.nodes(),
-  //       padding: 100
-  //     },
-  //     duration: 700,
-  //     easing: 'ease-out-circ',
-  //     queue: true
-  //   });
-  // }
-
   function panIn(target) {
     cy.animate({
       fit: {
@@ -73,7 +61,12 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function findSuccessor(selected) {
-    var connectedNodes = selected.connectedEdges().connectedNodes();
+    var connectedNodes;
+    if (selected.isEdge()) {
+      connectedNodes = selected.connectedNodes();
+    } else {
+      connectedNodes = selected.connectedEdges().connectedNodes();
+    }
     var successor = connectedNodes.max(function(ele) {
       return Number(ele.id());
       // Need to use Number; otherwise, id() provide string
@@ -82,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // max returns object with value and ele
     });
 
-    if (Number(successor.ele.id()) >= Number(selected.id())) {
+    if (Number(successor.ele.id()) > Number(selected.id())) {
       return successor.ele;
     }
     // May need to backtrack when successor == selected (ex: if DHAP is selected)
@@ -96,13 +89,11 @@ document.addEventListener("DOMContentLoaded", function() {
     var oldSelect = cy.$(':selected');
     oldSelect.unselect();
     var nextSelect = findSuccessor(oldSelect);
-    if (nextSelect.id() === oldSelect.id()) {
+    if (oldSelect.id() === cy.$('#10').id()) {
       // loop back to beginning instead of repeating pyruvate
       nextSelect = cy.$('#0');
     }
     nextSelect.select();
-
-    // zoomOut();
     panIn(nextSelect);
   }
 
