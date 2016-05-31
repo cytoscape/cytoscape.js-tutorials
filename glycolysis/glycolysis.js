@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return predecessor.ele;
   }
 
-  function advanceLayout() {
+  function advanceViewport() {
     var oldSelect = cy.$(':selected');
     oldSelect.unselect();
     var nextSelect = findSuccessor(oldSelect);
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var advanceButton = document.createElement('button');
     advanceButton.id = 'advance';
     advanceButton.textContent = "Next Step";
-    advanceButton.onclick = advanceLayout;
+    advanceButton.onclick = advanceViewport;
     return advanceButton;
   }
 
