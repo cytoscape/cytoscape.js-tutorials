@@ -63,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function() {
   function findSuccessor(selected) {
     var connectedNodes;
     if (selected.isEdge()) {
-      connectedNodes = selected.connectedNodes();
+      connectedNodes = selected.target();
     } else {
-      connectedNodes = selected.connectedEdges().connectedNodes();
+      connectedNodes = selected.connectedEdges().targets();
     }
     var successor = connectedNodes.max(function(ele) {
       return Number(ele.id());
