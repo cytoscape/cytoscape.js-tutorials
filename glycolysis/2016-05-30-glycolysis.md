@@ -6,6 +6,9 @@ tags:
 - tutorial
 ---
 
+# TODO:
+- Bring up to date with recent code changes
+
 This is the second in a series of tutorials by [Joseph Stahl](https://josephstahl.com/) about [Cytoscape.js](http://js.cytoscape.org).
 The [first post]({% post_url 2016-05-24-getting-started %}) covers creating a 2-node graph with Cytoscape.js and is recommended reading for those unfamiliar with the software.
 
