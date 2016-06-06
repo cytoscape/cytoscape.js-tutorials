@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", function() {
           'width': 200,
           'height': 200,
           'background-opacity': 0,
-          'background-image': function( ele ){ return 'assets/' + ele.data().image; },
+          'background-image': function(ele) {
+            return ele.data('image');
+          },
           'background-fit': 'contain',
           'background-clip': 'none'
         }
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
       avoidOverlap: true,
       avoidOverlapPadding: 80,
       position: function(ele) {
-        if (ele.data().molecule === 'DHAP') {
+        if (ele.data('molecule') === 'DHAP') {
           // DHAP is, as usual, a special case
           return { row: ele.id() - 1, col: 1 }; // layout to right of GADP
         }
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
         padding: 200
       },
       duration: 700,
-      easing: 'linear',
+      easing: 'ease',
       queue: true
     });
   }
