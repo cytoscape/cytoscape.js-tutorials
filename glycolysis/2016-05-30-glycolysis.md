@@ -652,5 +652,6 @@ Now you should have a fully working glycolysis graph, looking similar to this:
 You can [interact with my finished graph]({{site.baseurl}}/public/demos/glycolysis/index.html) or [view the source code](https://github.com/cytoscape/cytoscape.js-blog/tree/gh-pages/public/demos/glycolysis)
 
 Thanks to:
+
 - Metabolite SVGs: modified from Thomas Shafee (Own work) [<a href="http://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AGlycolysis_metabolic_pathway_3_annotated.svg">via Wikimedia Commons</a>
 - Pathway: [Glycolysis on Wikipedia](https://en.wikipedia.org/wiki/Glycolysis) by Wikipedia contributors, licensed under [CC-BY-SA](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
