@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         selector: 'node',
         style: {
           'label': 'data(molecule)',
+          'width': '200px',
+          'height': '200px',
           'color': 'blue',
           'font-size': '26px',
           'text-halign': 'right',
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
       fit: false, // it's okay if some of the graph is hidden off-screen because viewport scrolls
       columns: 2,
       avoidOverlap: true,
-      avoidOverlapPadding: 280,
+      avoidOverlapPadding: 80,
       position: function(ele) {
         if (ele.data().molecule === 'DHAP') {
           // DHAP is, as usual, a special case
@@ -42,11 +44,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
+  cy.autolock(true);
+
   cy.nodes().forEach(function(ele) {
     cy.style().selector('node#' + ele.id())
       .style({
-        'width': 200,
-        'height': 200,
         'background-opacity': 0,
         'background-image': 'assets/' + ele.data().image,
         'background-fit': 'contain',
@@ -54,8 +56,6 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .update();
   });
-
-  cy.autolock(true);
 
   function panIn(target) {
     cy.animate({
@@ -86,34 +86,34 @@ document.addEventListener("DOMContentLoaded", function() {
     return successor.ele;
   }
 
-  function advanceViewport(previous) {
+  function advanceByButton(previous) {
     // unselecting is not strictly necessary since cy defaults to single selection
     previous.unselect();
     var nextSelect = findSuccessor(previous);
-    if (previous.id() === cy.$('#10').id()) {
+    if (previous.id() === cy.nodes('#10').id()) {
       // loop back to beginning instead of repeating pyruvate
-      nextSelect = cy.$('#0');
+      nextSelect = cy.nodes('#0');
     }
     nextSelect.select();
     panIn(nextSelect);
   }
 
-  // Initialization: select first element to focus on.
-  var startNode = cy.$('node[molecule = "Glucose"]');
-  startNode.select();
-  panIn(startNode);
-
   var advanceButton = document.getElementById('advance');
   advanceButton.addEventListener('click', function() {
     var previous = cy.$(':selected');
-    advanceViewport(previous);
+    advanceByButton(previous);
   });
 
   cy.on('tap', 'node', function(event) {
-    // acts as advanceViewport for manually selected nodes
+    // acts as advanceByButton for manually selected nodes
     var target = event.cyTarget;
     cy.nodes().unselect();
     target.select();
     panIn(target);
   });
+
+  // Initialization: select first element to focus on.
+  var startNode = cy.$('node[molecule = "Glucose"]');
+  startNode.select();
+  panIn(startNode);
 });
