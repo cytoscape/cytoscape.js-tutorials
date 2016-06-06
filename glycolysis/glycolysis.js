@@ -14,7 +14,13 @@ document.addEventListener("DOMContentLoaded", function() {
           'color': 'blue',
           'font-size': '26px',
           'text-halign': 'right',
-          'text-valign': 'center'
+          'text-valign': 'center',
+          'width': 200,
+          'height': 200,
+          'background-opacity': 0,
+          'background-image': function( ele ){ return 'assets/' + ele.data().image; },
+          'background-fit': 'contain',
+          'background-clip': 'none'
         }
       }, {
         selector: 'edge',
@@ -45,17 +51,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   cy.autolock(true);
-
-  cy.nodes().forEach(function(ele) {
-    cy.style().selector('node#' + ele.id())
-      .style({
-        'background-opacity': 0,
-        'background-image': 'assets/' + ele.data().image,
-        'background-fit': 'contain',
-        'background-clip': 'none'
-      })
-      .update();
-  });
 
   function panIn(target) {
     cy.animate({
