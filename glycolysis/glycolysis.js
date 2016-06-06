@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
           'width': 200,
           'height': 200,
           'background-opacity': 0,
-          'background-image': function(ele) {
-            return ele.data('image');
-          },
+          'background-image': 'data(image)',
           'background-fit': 'contain',
           'background-clip': 'none'
         }
