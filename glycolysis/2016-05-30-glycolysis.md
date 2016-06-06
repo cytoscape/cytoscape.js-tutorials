@@ -235,7 +235,6 @@ A background image may be added in a very similar manner to the label; `'data(im
 - [`'background-opacity'`](http://js.cytoscape.org/#style/node-body) makes the back of the node transparent instead of the usual gray color.
 - [`'background-image'`, `'background-fit'`, and `'background-clip'`](http://js.cytoscape.org/#style/background-image) all refer to the background images being used (the metabolite SVGs).
   - `'background-image': 'data(image)'` uses the filename previously defined in `gly_elements.js`.
-  [`ele.data()`](http://js.cytoscape.org/#eles.data) provides an easy way to access the data of an element; in this case, the `image` value is retrieved.
   - `'background-fit: 'contain'` shrinks the images as needed to fit within the 200px nodes
   - `'background-clip': 'none'` ensures that images that square images within round nodes are not cropped. Alternatively, node shaped could be changed to `square` when initializing the graph.
 
