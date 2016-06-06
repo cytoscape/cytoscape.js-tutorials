@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
           'font-size': '26px',
           'text-halign': 'right',
           'text-valign': 'center',
-          'width': 200,
-          'height': 200,
           'background-opacity': 0,
           'background-image': 'data(image)',
           'background-fit': 'contain',
