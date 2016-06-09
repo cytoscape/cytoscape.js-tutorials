@@ -1,0 +1,11 @@
+{
+  "name": "twitter_api",
+  "version": "1.0.0",
+  "description": "Download tweets for the Twitter Cytoscape.js tutorial",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joseph Stahl",
+  "license": "ISC"
+}

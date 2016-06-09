@@ -1,0 +1,11 @@
+{
+  "name": "twitter_graph",
+  "version": "1.0.0",
+  "description": "Visualize a social network with Cytoscape.js",
+  "main": "cytoscape.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joseph Stahl",
+  "license": "ISC"
+}

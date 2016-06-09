@@ -1,8 +1,8 @@
 {
-  "name": "tutorials",
+  "name": "cytoscape.js-tutorials",
   "version": "1.0.0",
-  "description": "Cytoscape.js tutorials under development",
-  "main": "README.md",
+  "description": "Tutorials for Cytoscape.js",
+  "main": "twitter_api/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/cytoscape/cytoscape.js-tutorials#readme",
   "devDependencies": {
-    "eslint": "^2.10.2",
+    "eslint": "^2.11.1",
     "eslint-config-google": "^0.5.0"
   }
 }
