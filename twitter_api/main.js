@@ -8,13 +8,19 @@ var T = new Twit({
   timeout_ms: 60 * 1000
 });
 
-var outputFile = 'twitter_api/followers.txt';
-
-function getFollowerPromise(screenName) {
-  return T.get('followers/ids', { screen_name: screenName });
+function writeFollowers(username) {
+  T.get('followers/list', { screen_name: username, count: 200, skip_status: true }, function writeData(err, data) {
+    if (err) {
+      throw err;
+    }
+    fs.appendFileSync(username + '.txt', JSON.stringify(data));
+    if (data.next_cursor != 0) {
+      T.get('followers/list',
+        { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
+        writeData
+        );
+    }
+  });
 }
 
-getFollowerPromise('cytoscape')
-  .then(function(result) {
-    fs.writeFile(outputFile, result.data.ids);
-  });
+writeFollowers('cytoscape');
