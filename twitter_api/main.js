@@ -9,18 +9,28 @@ var T = new Twit({
 });
 
 function writeFollowers(username) {
-  T.get('followers/list', { screen_name: username, count: 200, skip_status: true }, function writeData(err, data) {
+  T.get('followers/list', { screen_name: username, count: 200, skip_status: true }, function saveData(err, data) {
     if (err) {
       throw err;
     }
-    fs.appendFileSync(username + '.txt', JSON.stringify(data));
-    if (data.next_cursor != 0) {
+    fs.appendFileSync(username + '-followers.json', JSON.stringify(data.users, null, 4));
+    if (data.next_cursor !== 0) {
       T.get('followers/list',
         { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
-        writeData
+        saveData
         );
     }
   });
 }
 
+function writeUser(username) {
+  T.get('users/show', { screen_name: username }, function(err, data) {
+    if (err) {
+      throw err;
+    }
+    fs.appendFileSync(username + '-user.json', JSON.stringify(data, null, 4));
+  });
+}
+
 writeFollowers('cytoscape');
+writeUser('cytoscape');
