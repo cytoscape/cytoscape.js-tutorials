@@ -9,10 +9,32 @@ document.addEventListener('DOMContentLoaded', function() {
       {
         selector: 'node',
         style: {
-          'label': 'data(username)'
+          'label': 'data(username)',
+          'background-color': function(ele) {
+            if (ele.data('followerCount') < 200) {
+              // http://www.colourlovers.com/palette/4268287/paleta_2
+              return '#FFE769';
+            }
+            return '#C2ED97';
+          }
         }
       }
     ]
+  });
+  var concentricLayout = cy.makeLayout({
+    name: 'concentric',
+    concentric: function(node) {
+      if (node.data('username') === username) {
+        return 100;
+      }
+      return Math.random() * 20;
+    },
+    levelWidth: function() {
+      return 5;
+    }
+  });
+  var forceLayout = cy.makeLayout({
+    name: 'cose'
   });
 
   // add main user
@@ -34,7 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var element = {};
       element.data = {
         id: follower.id_str,
-        username: follower.screen_name
+        username: follower.screen_name,
+        followerCount: follower.followers_count,
+        tweetCount: follower.statuses_count
       };
       var edge = {};
       edge.data = {
@@ -48,20 +72,17 @@ document.addEventListener('DOMContentLoaded', function() {
     cy.add(followers);
     cy.add(edges);
     // layout
-    var n = 0;
-    cy.layout({
-      name: 'concentric',
-      concentric: function(node) {
-        if (node.data('username') === username) {
-          return 100;
-        }
-        n += 1;
-        return n % 20;
-      },
-      levelWidth: function() {
-        return 5;
-      }
-    });
+    concentricLayout.run();
+  });
+
+  var concentricButton = document.getElementById('concentricButton');
+  concentricButton.addEventListener('click', function() {
+    concentricLayout.run();
+  });
+
+  var forceButton = document.getElementById('forceButton');
+  forceButton.addEventListener('click', function() {
+    forceLayout.run();
   });
 });
 
