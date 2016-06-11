@@ -9,18 +9,24 @@ var T = new Twit({
 });
 
 function writeFollowers(username) {
-  T.get('followers/list', { screen_name: username, count: 200, skip_status: true }, function saveData(err, data) {
-    if (err) {
-      throw err;
-    }
-    fs.appendFileSync(username + '-followers.json', JSON.stringify(data.users, null, 4));
-    if (data.next_cursor !== 0) {
-      T.get('followers/list',
-        { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
-        saveData
-        );
-    }
-  });
+  var followers = [];
+  T.get('followers/list',
+    { screen_name: username, count: 200, skip_status: true },
+    function saveData(err, data) {
+      if (err) {
+        throw err;
+      }
+
+      followers = followers.concat(data.users);
+
+      if (data.next_cursor === 0) {
+        fs.appendFileSync(username + '-followers.json', JSON.stringify(followers, null, 4));
+      } else {
+        T.get('followers/list',
+          { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
+          saveData);
+      }
+    });
 }
 
 function writeUser(username) {
