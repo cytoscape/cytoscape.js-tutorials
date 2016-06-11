@@ -38,5 +38,5 @@ function writeUser(username) {
   });
 }
 
-writeFollowers('cytoscape');
-writeUser('cytoscape');
+writeFollowers('josephst18');
+writeUser('josephst18');
