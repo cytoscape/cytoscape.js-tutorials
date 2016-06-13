@@ -87,7 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// from http://stackoverflow.com/questions/14388452/how-do-i-load-a-json-object-from-a-file-with-ajax
+/**
+ * Load a JSON file using AJAX (XMLHttpRequest) and execute callback when done.
+ * @param {string} path - path of the JSON file relative to this file
+ * @param {function} callback - function to execute once JSON is loaded; is called as function(data) where data is loaded from JSON file
+ * @see http://stackoverflow.com/questions/14388452/how-do-i-load-a-json-object-from-a-file-with-ajax
+*/
 function fetchJSONFile(path, callback) {
   var httpRequest = new XMLHttpRequest();
   httpRequest.overrideMimeType('application/json');
