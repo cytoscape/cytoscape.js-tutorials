@@ -23,7 +23,7 @@ xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
 xhr.send(data);
 ```
 
-- POST /twitter/followers
+- POST /twitter/followers (from Postman)
 
 ```javascript
 var data = "username=josephst18";

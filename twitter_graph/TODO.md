@@ -1,0 +1,4 @@
+- Add Qtip extension
+- Get followers of followers to make force-directred more interesting (will there be cliques?)
+- Use Express API instead of already downloaded files (will this be too slow?)
+  - Don't do until done with other steps; otherwise, API calls will be rate-limited as I test

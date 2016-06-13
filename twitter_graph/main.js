@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   var username = 'josephst18';
+  // TODO: try to get userId from user JSON
   var userId = '371074472';
   var cy = cytoscape({
     container: document.getElementById('cy'),
