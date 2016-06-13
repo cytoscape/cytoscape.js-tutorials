@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   var username = 'josephst18';
   // TODO: try to get userId from user JSON
-  var userId = '371074472';
+  var userId = 371074472;
   var cy = cytoscape({
     container: document.getElementById('cy'),
     style: [
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         style: {
           'label': 'data(username)',
           'background-color': function(ele) {
+            // TODO: change to size instead of color
             if (ele.data('followerCount') < 200) {
               // http://www.colourlovers.com/palette/4268287/paleta_2
               return '#FFE769';
@@ -84,6 +85,17 @@ document.addEventListener('DOMContentLoaded', function() {
   var forceButton = document.getElementById('forceButton');
   forceButton.addEventListener('click', function() {
     forceLayout.run();
+  });
+
+  cy.on('select', 'node', function(event) {
+    var target = event.cyTarget;
+    target.qtip({
+      content: {
+        text: '<a href="http://twitter.com/' +
+          target.data('username') +
+          '">Twitter profile</a>'
+      }
+    });
   });
 });
 
