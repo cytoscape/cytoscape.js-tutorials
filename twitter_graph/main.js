@@ -11,14 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
         selector: 'node',
         style: {
           'label': 'data(username)',
-          'background-color': function(ele) {
-            // TODO: change to size instead of color
-            if (ele.data('followerCount') < 200) {
-              // http://www.colourlovers.com/palette/4268287/paleta_2
-              return '#FFE769';
-            }
-            return '#C2ED97';
-          }
+          'width': 'mapData(followerCount, 0, 400, 50, 150)',
+          'height': 'mapData(followerCount, 0, 400, 50, 150)',
+          'background-color': '#02779E',
+          'background-opacity': 'mapData(tweetCount, 0, 2000, 0, 1)'
         }
       }
     ]
@@ -44,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var element = {};
     element.data = {
       id: data.id_str,
-      username: data.screen_name
+      username: data.screen_name,
+      followerCount: data.followers_count,
+      tweetCount: data.statuses_count
     };
     cy.add(element);
   });
