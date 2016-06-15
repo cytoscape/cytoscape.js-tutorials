@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
           'width': 'mapData(followerCount, 0, 400, 50, 150)',
           'height': 'mapData(followerCount, 0, 400, 50, 150)',
           'background-color': '#02779E',
-          'background-opacity': 'mapData(tweetCount, 0, 2000, 0, 1)'
+          'background-opacity': 'mapData(tweetCount, 0, 2000, 0.1, 1)'
         }
       }
     ]
