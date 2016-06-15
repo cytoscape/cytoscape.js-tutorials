@@ -17,17 +17,16 @@ router.post('/followers', function(req, res, next) {
     { screen_name: username, count: 200, skip_status: true },
     function collectData(err, data) {
       if (err) {
-        throw err;
-      }
-
-      followers = followers.concat(data.users);
-
-      if (data.next_cursor === 0) {
-        res.send(JSON.stringify(followers, null, 4));
+        res.status(500).send('Could not get user data');
       } else {
-        T.get('followers/list',
-          { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
-          collectData);
+        followers = followers.concat(data.users);
+        if (data.next_cursor === 0) {
+          res.send(JSON.stringify(followers, null, 4));
+        } else {
+          T.get('followers/list',
+            { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
+            collectData);
+        }
       }
     });
 });
@@ -37,9 +36,10 @@ router.post('/user', function(req, res, next) {
   var username = req.body.username;
   T.get('users/show', { screen_name: username }, function(err, data) {
     if (err) {
-      throw err;
+      res.status(500).send(undefined);
+    } else {
+      res.send(JSON.stringify(data, null, 4));
     }
-    res.send(JSON.stringify(data, null, 4));
   });
 });
 
