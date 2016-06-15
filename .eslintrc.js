@@ -10,6 +10,7 @@ module.exports = {
     },
     globals: {
         'cytoscape': false,
-        'GlyElements': false
+        'GlyElements': false,
+        '$': false
     }
 };

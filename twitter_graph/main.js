@@ -2,8 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   var username = 'josephst18';
-  // TODO: try to get userId from user JSON
-  var userId = 371074472;
   var cy = cytoscape({
     container: document.getElementById('cy'),
     style: [
@@ -35,45 +33,58 @@ document.addEventListener('DOMContentLoaded', function() {
     name: 'cose'
   });
 
-  // add main user
-  fetchJSONFile(username + '-user.json', function(data) {
-    var element = {};
-    element.data = {
-      id: data.id_str,
-      username: data.screen_name,
-      followerCount: data.followers_count,
-      tweetCount: data.statuses_count
-    };
-    cy.add(element);
+  var userPromise = $.ajax({
+    url: 'http://127.0.0.1:8000/' + username + '-user.json',
+    type: 'GET',
+    dataType: 'json'
   });
 
-  // add followers
-  fetchJSONFile(username + '-followers.json', function(data) {
-    var followers = [];
-    var edges = [];
-    for (var i = 0; i < data.length; i++) {
-      var follower = data[i];
-      var element = {};
-      element.data = {
-        id: follower.id_str,
-        username: follower.screen_name,
-        followerCount: follower.followers_count,
-        tweetCount: follower.statuses_count
-      };
-      var edge = {};
-      edge.data = {
-        id: 'follower-' + follower.id,
-        source: follower.id_str,
-        target: userId
-      };
-      followers.push(element);
-      edges.push(edge);
-    }
-    cy.add(followers);
-    cy.add(edges);
-    // layout
-    concentricLayout.run();
+  var followersPromise = $.ajax({
+    url: 'http://127.0.0.1:8000/' + username + '-followers.json',
+    type: 'GET',
+    dataType: 'json'
   });
+
+  Promise.all([userPromise, followersPromise]).then(initCy);
+
+  function initCy(then) {
+    var mainUser = then[0];
+    var mainUserId = mainUser.id_str; // saves calls while adding edges
+    var followers = then[1];
+
+    // main user
+    cy.add({
+      data: {
+        id: mainUser.id_str,
+        username: mainUser.screen_name,
+        followerCount: mainUser.followers_count,
+        tweetCount: mainUser.statuses_count
+      }
+    });
+
+    // followers
+    cy.batch(function() {
+      followers.forEach(function(ele) {
+        cy.add({
+          data: {
+            id: ele.id_str,
+            username: ele.screen_name,
+            followerCount: ele.followers_count,
+            tweetCount: ele.statuses_count
+          }
+        });
+        cy.add({
+          data: {
+            id: 'follower-' + ele.id_str,
+            source: ele.id_str,
+            target: mainUserId
+          }
+        });
+      });
+    });
+
+    concentricLayout.run();
+  }
 
   var concentricButton = document.getElementById('concentricButton');
   concentricButton.addEventListener('click', function() {
@@ -96,26 +107,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
-/**
- * Load a JSON file using AJAX (XMLHttpRequest) and execute callback when done.
- * @param {string} path - path of the JSON file relative to this file
- * @param {function} callback - function to execute once JSON is loaded; is called as function(data) where data is loaded from JSON file
- * @see http://stackoverflow.com/questions/14388452/how-do-i-load-a-json-object-from-a-file-with-ajax
-*/
-function fetchJSONFile(path, callback) {
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.overrideMimeType('application/json');
-  httpRequest.onreadystatechange = function() {
-    if (httpRequest.readyState === 4) {
-      if (httpRequest.status === 200) {
-        var data = JSON.parse(httpRequest.responseText);
-        if (callback) {
-          callback(data);
-        }
-      }
-    }
-  };
-  httpRequest.open('GET', path);
-  httpRequest.send();
-}
