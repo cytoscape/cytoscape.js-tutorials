@@ -27,10 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     levelWidth: function() {
       return 5;
-    }
+    },
+    animate: false
   });
   var forceLayout = cy.makeLayout({
-    name: 'cose'
+    name: 'cose',
+    animate: false
   });
 
   var userPromise = $.ajax({
@@ -103,6 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
         text: '<a href="http://twitter.com/' +
           target.data('username') +
           '">Twitter profile</a>'
+      },
+      style: {
+        classes: 'qtip-bootstrap'
       }
     });
   });
