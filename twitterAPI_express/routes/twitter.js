@@ -11,7 +11,7 @@ var T = new Twit({
 
 /* POST followers. */
 router.post('/followers', function(req, res, next) {
-  var followers = [];
+  // var followers = []; Only necessary if getting many pages of users
   var username = req.body.username;
   T.get('followers/list',
     { screen_name: username, count: 200, skip_status: true },
@@ -19,14 +19,17 @@ router.post('/followers', function(req, res, next) {
       if (err) {
         res.status(500).send('Could not get user data');
       } else {
-        followers = followers.concat(data.users);
-        if (data.next_cursor === 0) {
-          res.send(JSON.stringify(followers, null, 4));
-        } else {
-          T.get('followers/list',
-            { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
-            collectData);
-        }
+        // Only return a single page to stay under API rate limit
+        res.json(data.users);
+
+        // followers = followers.concat(data.users);
+        // if (data.next_cursor === 0) {
+        //   res.send(JSON.stringify(followers, null, 4));
+        // } else {
+        //   T.get('followers/list',
+        //     { screen_name: username, count: 200, skip_status: true, cursor: data.next_cursor },
+        //     collectData);
+        // }
       }
     });
 });
@@ -38,7 +41,7 @@ router.post('/user', function(req, res, next) {
     if (err) {
       res.status(500).send(undefined);
     } else {
-      res.send(JSON.stringify(data, null, 4));
+      res.json(data);
     }
   });
 });
