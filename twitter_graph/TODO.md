@@ -3,7 +3,6 @@
 - Use Express API instead of already downloaded files (will this be too slow?)
   - Don't do until done with other steps; otherwise, API calls will be rate-limited as I test
   - Could load using JQuery now that I am using it for Qtip
-    - And use a Promise (see Wine and Cheese demo) to wait to add followers until main user loaded
 - Performance?
   - Rewrite using the JQuery method of waiting on DOM instead of DOMContentLoaded event
 

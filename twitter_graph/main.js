@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       username = userInput;
     }
-
     Promise.all(getDataPromise(username)).then(initCy);
   });
 
