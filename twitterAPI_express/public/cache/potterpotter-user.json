@@ -1,0 +1,296 @@
+{
+    "id": 7288532,
+    "id_str": "7288532",
+    "name": "陶芸家 佐々木弘吉 HiroSasaki",
+    "screen_name": "potterpotter",
+    "location": "Hamada,Shimane  Japan",
+    "profile_location": null,
+    "description": "筋トレ/アート/サッカー/写真/釣り/バイク/車。I love Japan.青山学院大学卒 窯の名前は、石州亀山焼。2008島根県ふるさと伝統工芸品指定2010 島根県優秀専門技能者認定 #相互フォロー #TeamFollowBack",
+    "url": "https://t.co/tIvcYOiB5k",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/tIvcYOiB5k",
+                    "expanded_url": "https://www.facebook.com/kameyamayaki",
+                    "display_url": "facebook.com/kameyamayaki",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 633725,
+    "friends_count": 685600,
+    "listed_count": 2566,
+    "created_at": "Fri Jul 06 10:33:04 +0000 2007",
+    "favourites_count": 13256,
+    "utc_offset": 32400,
+    "time_zone": "Osaka",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 57779,
+    "lang": "ja",
+    "status": {
+        "created_at": "Fri Jun 17 22:56:18 +0000 2016",
+        "id": 743940362633306100,
+        "id_str": "743940362633306112",
+        "text": "RT @fmhazu: 昨日より\n　　素敵な今日でありたい…\n\n今日より\n　　素敵な明日でありたい…\n\nそう想いながら\n少しずつでも\n前に進んでいけたらいい https://t.co/Ra0LWFykAu",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "fmhazu",
+                    "name": "ＫＵＲＯ兎",
+                    "id": 713308404425498600,
+                    "id_str": "713308404425498626",
+                    "indices": [
+                        3,
+                        10
+                    ]
+                }
+            ],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743912068546367500,
+                    "id_str": "743912068546367491",
+                    "indices": [
+                        79,
+                        102
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                    "url": "https://t.co/Ra0LWFykAu",
+                    "display_url": "pic.twitter.com/Ra0LWFykAu",
+                    "expanded_url": "http://twitter.com/fmhazu/status/743912079627689984/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "large": {
+                            "w": 1024,
+                            "h": 750,
+                            "resize": "fit"
+                        },
+                        "medium": {
+                            "w": 1024,
+                            "h": 750,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 498,
+                            "resize": "fit"
+                        }
+                    },
+                    "source_status_id": 743912079627690000,
+                    "source_status_id_str": "743912079627689984",
+                    "source_user_id": 713308404425498600,
+                    "source_user_id_str": "713308404425498626"
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743912068546367500,
+                    "id_str": "743912068546367491",
+                    "indices": [
+                        79,
+                        102
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                    "url": "https://t.co/Ra0LWFykAu",
+                    "display_url": "pic.twitter.com/Ra0LWFykAu",
+                    "expanded_url": "http://twitter.com/fmhazu/status/743912079627689984/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "large": {
+                            "w": 1024,
+                            "h": 750,
+                            "resize": "fit"
+                        },
+                        "medium": {
+                            "w": 1024,
+                            "h": 750,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 498,
+                            "resize": "fit"
+                        }
+                    },
+                    "source_status_id": 743912079627690000,
+                    "source_status_id_str": "743912079627689984",
+                    "source_user_id": 713308404425498600,
+                    "source_user_id_str": "713308404425498626"
+                }
+            ]
+        },
+        "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Mobile Web (M5)</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "created_at": "Fri Jun 17 21:03:55 +0000 2016",
+            "id": 743912079627690000,
+            "id_str": "743912079627689984",
+            "text": "昨日より\n　　素敵な今日でありたい…\n\n今日より\n　　素敵な明日でありたい…\n\nそう想いながら\n少しずつでも\n前に進んでいけたらいい https://t.co/Ra0LWFykAu",
+            "truncated": false,
+            "entities": {
+                "hashtags": [],
+                "symbols": [],
+                "user_mentions": [],
+                "urls": [],
+                "media": [
+                    {
+                        "id": 743912068546367500,
+                        "id_str": "743912068546367491",
+                        "indices": [
+                            67,
+                            90
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                        "url": "https://t.co/Ra0LWFykAu",
+                        "display_url": "pic.twitter.com/Ra0LWFykAu",
+                        "expanded_url": "http://twitter.com/fmhazu/status/743912079627689984/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "large": {
+                                "w": 1024,
+                                "h": 750,
+                                "resize": "fit"
+                            },
+                            "medium": {
+                                "w": 1024,
+                                "h": 750,
+                                "resize": "fit"
+                            },
+                            "small": {
+                                "w": 680,
+                                "h": 498,
+                                "resize": "fit"
+                            }
+                        }
+                    }
+                ]
+            },
+            "extended_entities": {
+                "media": [
+                    {
+                        "id": 743912068546367500,
+                        "id_str": "743912068546367491",
+                        "indices": [
+                            67,
+                            90
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClLoFb3VEAM3d0t.jpg",
+                        "url": "https://t.co/Ra0LWFykAu",
+                        "display_url": "pic.twitter.com/Ra0LWFykAu",
+                        "expanded_url": "http://twitter.com/fmhazu/status/743912079627689984/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "large": {
+                                "w": 1024,
+                                "h": 750,
+                                "resize": "fit"
+                            },
+                            "medium": {
+                                "w": 1024,
+                                "h": 750,
+                                "resize": "fit"
+                            },
+                            "small": {
+                                "w": 680,
+                                "h": 498,
+                                "resize": "fit"
+                            }
+                        }
+                    }
+                ]
+            },
+            "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "is_quote_status": false,
+            "retweet_count": 58,
+            "favorite_count": 137,
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false,
+            "lang": "ja"
+        },
+        "is_quote_status": false,
+        "retweet_count": 58,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "ja"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "FFFFFF",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/131558955/twitterbg4.jpg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/131558955/twitterbg4.jpg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/986016108/hiro701_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/986016108/hiro701_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/7288532/1372643306",
+    "profile_link_color": "204F3C",
+    "profile_sidebar_border_color": "D3D2CF",
+    "profile_sidebar_fill_color": "F0DD71",
+    "profile_text_color": "36270C",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

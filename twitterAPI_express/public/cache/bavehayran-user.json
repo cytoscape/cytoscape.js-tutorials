@@ -1,0 +1,283 @@
+{
+    "id": 2752365288,
+    "id_str": "2752365288",
+    "name": "Ömer fd",
+    "screen_name": "bavehayran",
+    "location": "",
+    "profile_location": null,
+    "description": "",
+    "url": null,
+    "entities": {
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 145438,
+    "friends_count": 138555,
+    "listed_count": 154,
+    "created_at": "Thu Aug 21 15:43:14 +0000 2014",
+    "favourites_count": 55616,
+    "utc_offset": null,
+    "time_zone": null,
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 167,
+    "lang": "tr",
+    "status": {
+        "created_at": "Sat Jun 18 00:16:33 +0000 2016",
+        "id": 743960558551064600,
+        "id_str": "743960558551064577",
+        "text": "RT @bavehayran: Döviz ve pankartları okuduktan sonra, \nSöz bitmiştir dedim. \nYa siz ! https://t.co/duZqc4CE2o",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "bavehayran",
+                    "name": "Ömer fd",
+                    "id": 2752365288,
+                    "id_str": "2752365288",
+                    "indices": [
+                        3,
+                        14
+                    ]
+                }
+            ],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743775037799403500,
+                    "id_str": "743775037799403520",
+                    "indices": [
+                        86,
+                        109
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                    "url": "https://t.co/duZqc4CE2o",
+                    "display_url": "pic.twitter.com/duZqc4CE2o",
+                    "expanded_url": "http://twitter.com/bavehayran/status/743775050285875201/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "large": {
+                            "w": 1024,
+                            "h": 513,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 341,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 1024,
+                            "h": 513,
+                            "resize": "fit"
+                        }
+                    },
+                    "source_status_id": 743775050285875200,
+                    "source_status_id_str": "743775050285875201",
+                    "source_user_id": 2752365288,
+                    "source_user_id_str": "2752365288"
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743775037799403500,
+                    "id_str": "743775037799403520",
+                    "indices": [
+                        86,
+                        109
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                    "url": "https://t.co/duZqc4CE2o",
+                    "display_url": "pic.twitter.com/duZqc4CE2o",
+                    "expanded_url": "http://twitter.com/bavehayran/status/743775050285875201/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "large": {
+                            "w": 1024,
+                            "h": 513,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 341,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 1024,
+                            "h": 513,
+                            "resize": "fit"
+                        }
+                    },
+                    "source_status_id": 743775050285875200,
+                    "source_status_id_str": "743775050285875201",
+                    "source_user_id": 2752365288,
+                    "source_user_id_str": "2752365288"
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "created_at": "Fri Jun 17 11:59:25 +0000 2016",
+            "id": 743775050285875200,
+            "id_str": "743775050285875201",
+            "text": "Döviz ve pankartları okuduktan sonra, \nSöz bitmiştir dedim. \nYa siz ! https://t.co/duZqc4CE2o",
+            "truncated": false,
+            "entities": {
+                "hashtags": [],
+                "symbols": [],
+                "user_mentions": [],
+                "urls": [],
+                "media": [
+                    {
+                        "id": 743775037799403500,
+                        "id_str": "743775037799403520",
+                        "indices": [
+                            70,
+                            93
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                        "url": "https://t.co/duZqc4CE2o",
+                        "display_url": "pic.twitter.com/duZqc4CE2o",
+                        "expanded_url": "http://twitter.com/bavehayran/status/743775050285875201/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "large": {
+                                "w": 1024,
+                                "h": 513,
+                                "resize": "fit"
+                            },
+                            "small": {
+                                "w": 680,
+                                "h": 341,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 1024,
+                                "h": 513,
+                                "resize": "fit"
+                            }
+                        }
+                    }
+                ]
+            },
+            "extended_entities": {
+                "media": [
+                    {
+                        "id": 743775037799403500,
+                        "id_str": "743775037799403520",
+                        "indices": [
+                            70,
+                            93
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClJrdMjWEAAOhdo.jpg",
+                        "url": "https://t.co/duZqc4CE2o",
+                        "display_url": "pic.twitter.com/duZqc4CE2o",
+                        "expanded_url": "http://twitter.com/bavehayran/status/743775050285875201/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "large": {
+                                "w": 1024,
+                                "h": 513,
+                                "resize": "fit"
+                            },
+                            "small": {
+                                "w": 680,
+                                "h": 341,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 1024,
+                                "h": 513,
+                                "resize": "fit"
+                            }
+                        }
+                    }
+                ]
+            },
+            "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "is_quote_status": false,
+            "retweet_count": 47,
+            "favorite_count": 154,
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false,
+            "lang": "tr"
+        },
+        "is_quote_status": false,
+        "retweet_count": 47,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "tr"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "022330",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme15/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme15/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/731213752998236165/jMTaAzo-_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/731213752998236165/jMTaAzo-_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/2752365288/1456347964",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "A8C7F7",
+    "profile_sidebar_fill_color": "C0DFEC",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

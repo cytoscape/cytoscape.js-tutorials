@@ -1,0 +1,90 @@
+{
+    "id": 2472970045,
+    "id_str": "2472970045",
+    "name": "SPEAK-EZ™",
+    "screen_name": "lewissouthward",
+    "location": "Turn On Notifications!",
+    "profile_location": null,
+    "description": "Club Owner / DJ / RAPPER / Model                                                   Enquiries/Press/MGT: twmusicmgt@mail.com",
+    "url": "https://t.co/aulmhuauQ5",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/aulmhuauQ5",
+                    "expanded_url": "https://www.youtube.com/channel/UC2iOoyKpK3ob-Ro5eIH1spg",
+                    "display_url": "youtube.com/channel/UC2iOo…",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 100141,
+    "friends_count": 771,
+    "listed_count": 8,
+    "created_at": "Thu May 01 19:51:09 +0000 2014",
+    "favourites_count": 946,
+    "utc_offset": 3600,
+    "time_zone": "London",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 1212,
+    "lang": "en",
+    "status": {
+        "created_at": "Wed Jun 08 20:30:46 +0000 2016",
+        "id": 740642245548859400,
+        "id_str": "740642245548859392",
+        "text": "hectic things mannnnnnnn",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 1,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "131516",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme14/bg.gif",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme14/bg.gif",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/737756728775741440/VzPy_8-o_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/737756728775741440/VzPy_8-o_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/2472970045/1463085924",
+    "profile_link_color": "009999",
+    "profile_sidebar_border_color": "EEEEEE",
+    "profile_sidebar_fill_color": "EFEFEF",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": true,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

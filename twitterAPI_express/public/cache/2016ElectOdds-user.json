@@ -1,22 +1,22 @@
 {
-    "id": 371074472,
-    "id_str": "371074472",
-    "name": "Joseph Stahl",
-    "screen_name": "josephst18",
-    "location": "Earth",
+    "id": 2608652665,
+    "id_str": "2608652665",
+    "name": "2016 Elect Odds",
+    "screen_name": "2016ElectOdds",
+    "location": "",
     "profile_location": null,
-    "description": "Student at Vanderbilt University, tech enthusiast, musician, and twin brother.",
-    "url": "https://t.co/SAYG8kTcCa",
+    "description": "Odds, Polls, and News about the 2016 Presidential Elections",
+    "url": "http://t.co/zT3W7lD6KW",
     "entities": {
         "url": {
             "urls": [
                 {
-                    "url": "https://t.co/SAYG8kTcCa",
-                    "expanded_url": "http://josephstahl.com",
-                    "display_url": "josephstahl.com",
+                    "url": "http://t.co/zT3W7lD6KW",
+                    "expanded_url": "http://electionodds.net",
+                    "display_url": "electionodds.net",
                     "indices": [
                         0,
-                        23
+                        22
                     ]
                 }
             ]
@@ -26,35 +26,46 @@
         }
     },
     "protected": false,
-    "followers_count": 105,
-    "friends_count": 459,
-    "listed_count": 5,
-    "created_at": "Sat Sep 10 04:31:57 +0000 2011",
-    "favourites_count": 268,
-    "utc_offset": -18000,
-    "time_zone": "Central Time (US & Canada)",
-    "geo_enabled": true,
+    "followers_count": 6625,
+    "friends_count": 6064,
+    "listed_count": 64,
+    "created_at": "Mon Jul 07 00:56:38 +0000 2014",
+    "favourites_count": 1,
+    "utc_offset": null,
+    "time_zone": null,
+    "geo_enabled": false,
     "verified": false,
-    "statuses_count": 805,
+    "statuses_count": 187,
     "lang": "en",
     "status": {
-        "created_at": "Fri Jun 17 05:14:58 +0000 2016",
-        "id": 743673265944567800,
-        "id_str": "743673265944567808",
-        "text": "It's too bad they'll fine him even when he was right--those fouls were totally unreasonable. https://t.co/8Uuf63EQIy",
+        "created_at": "Sat Jun 18 00:00:35 +0000 2016",
+        "id": 743956536632893400,
+        "id_str": "743956536632893440",
+        "text": "Updated odds from @PredictIt_ for the Presidency and Congress show low odds of either party having control. Details: https://t.co/6KsahfBVP1",
         "truncated": false,
         "entities": {
             "hashtags": [],
             "symbols": [],
-            "user_mentions": [],
+            "user_mentions": [
+                {
+                    "screen_name": "PredictIt_",
+                    "name": "PredictIt",
+                    "id": 2201169726,
+                    "id_str": "2201169726",
+                    "indices": [
+                        18,
+                        29
+                    ]
+                }
+            ],
             "urls": [
                 {
-                    "url": "https://t.co/8Uuf63EQIy",
-                    "expanded_url": "https://twitter.com/BenGolliver/status/743666087368212480",
-                    "display_url": "twitter.com/BenGolliver/st…",
+                    "url": "https://t.co/6KsahfBVP1",
+                    "expanded_url": "http://bit.ly/YFaBo7",
+                    "display_url": "bit.ly/YFaBo7",
                     "indices": [
-                        93,
-                        116
+                        117,
+                        140
                     ]
                 }
             ]
@@ -69,9 +80,7 @@
         "coordinates": null,
         "place": null,
         "contributors": null,
-        "quoted_status_id": 743666087368212500,
-        "quoted_status_id_str": "743666087368212480",
-        "is_quote_status": true,
+        "is_quote_status": false,
         "retweet_count": 0,
         "favorite_count": 0,
         "favorited": false,
@@ -86,9 +95,8 @@
     "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
     "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
     "profile_background_tile": false,
-    "profile_image_url": "http://pbs.twimg.com/profile_images/680135333753667584/hqJ-NGfZ_normal.jpg",
-    "profile_image_url_https": "https://pbs.twimg.com/profile_images/680135333753667584/hqJ-NGfZ_normal.jpg",
-    "profile_banner_url": "https://pbs.twimg.com/profile_banners/371074472/1436495243",
+    "profile_image_url": "http://pbs.twimg.com/profile_images/485956114089914368/NMQA-KU8_normal.jpeg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/485956114089914368/NMQA-KU8_normal.jpeg",
     "profile_link_color": "0084B4",
     "profile_sidebar_border_color": "C0DEED",
     "profile_sidebar_fill_color": "DDEEF6",

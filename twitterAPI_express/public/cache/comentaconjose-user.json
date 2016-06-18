@@ -1,0 +1,100 @@
+{
+    "id": 566489482,
+    "id_str": "566489482",
+    "name": "Comenta con José",
+    "screen_name": "comentaconjose",
+    "location": "Andalucía, España",
+    "profile_location": null,
+    "description": "#Informático #Blogger #Comentarista #SocialMedia #CommunityManager #CEO #Consejero #Amigo #FollowBack https://t.co/zQB7kunIF8",
+    "url": "http://t.co/XhHwmTI5wy",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "http://t.co/XhHwmTI5wy",
+                    "expanded_url": "http://comentaconjose.blogspot.com.es/",
+                    "display_url": "comentaconjose.blogspot.com.es",
+                    "indices": [
+                        0,
+                        22
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": [
+                {
+                    "url": "https://t.co/zQB7kunIF8",
+                    "expanded_url": "https://www.facebook.com/pcomentaconjose",
+                    "display_url": "facebook.com/pcomentaconjose",
+                    "indices": [
+                        102,
+                        125
+                    ]
+                }
+            ]
+        }
+    },
+    "protected": false,
+    "followers_count": 322125,
+    "friends_count": 218644,
+    "listed_count": 608,
+    "created_at": "Sun Apr 29 17:13:30 +0000 2012",
+    "favourites_count": 16763,
+    "utc_offset": 7200,
+    "time_zone": "Madrid",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 39334,
+    "lang": "es",
+    "status": {
+        "created_at": "Fri Jun 17 21:35:08 +0000 2016",
+        "id": 743919934623854600,
+        "id_str": "743919934623854593",
+        "text": "Que convenidas son algunas personas...",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 8,
+        "favorite_count": 12,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "es"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/439382383289069568/Co0mPuwM.jpeg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/439382383289069568/Co0mPuwM.jpeg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/466231781574713346/C4HxM5R9_normal.jpeg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/466231781574713346/C4HxM5R9_normal.jpeg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/566489482/1393603925",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

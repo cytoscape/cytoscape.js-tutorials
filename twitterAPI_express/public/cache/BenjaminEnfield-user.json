@@ -1,0 +1,137 @@
+{
+    "id": 167781199,
+    "id_str": "167781199",
+    "name": "Benjamin Enfield",
+    "screen_name": "BenjaminEnfield",
+    "location": "U.S UK Canada ",
+    "profile_location": null,
+    "description": "B.E Promotions - Co Owner of @Hits93Toronto for Major Distribution/RadioPlay/Promo to over 36M ppl DM ME - Credits @RocNation @DefJamRecords @XXL + More",
+    "url": "https://t.co/NpaILcTiFW",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/NpaILcTiFW",
+                    "expanded_url": "http://hits93.com",
+                    "display_url": "hits93.com",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 1151404,
+    "friends_count": 312353,
+    "listed_count": 2546,
+    "created_at": "Sat Jul 17 13:56:56 +0000 2010",
+    "favourites_count": 84934,
+    "utc_offset": -39600,
+    "time_zone": "Midway Island",
+    "geo_enabled": false,
+    "verified": true,
+    "statuses_count": 120332,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 23:45:11 +0000 2016",
+        "id": 743952664761897000,
+        "id_str": "743952664761896961",
+        "text": "#Need 90 day #RadioPlay on our #Verified\n\n#RadioStation @Hits93Toronto to over 21 #million people ??\n\nDM ME \n\n📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻📻",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "Need",
+                    "indices": [
+                        0,
+                        5
+                    ]
+                },
+                {
+                    "text": "RadioPlay",
+                    "indices": [
+                        13,
+                        23
+                    ]
+                },
+                {
+                    "text": "Verified",
+                    "indices": [
+                        31,
+                        40
+                    ]
+                },
+                {
+                    "text": "RadioStation",
+                    "indices": [
+                        42,
+                        55
+                    ]
+                },
+                {
+                    "text": "million",
+                    "indices": [
+                        82,
+                        90
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "Hits93Toronto",
+                    "name": "Hits 93 Toronto",
+                    "id": 796435297,
+                    "id_str": "796435297",
+                    "indices": [
+                        56,
+                        70
+                    ]
+                }
+            ],
+            "urls": []
+        },
+        "source": "<a href=\"http://www.hootsuite.com\" rel=\"nofollow\">Hootsuite</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 3,
+        "favorite_count": 6,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "131516",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme14/bg.gif",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme14/bg.gif",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/696030139583430657/zP-D1wFe_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/696030139583430657/zP-D1wFe_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/167781199/1454781492",
+    "profile_link_color": "31D8F5",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "EFEFEF",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

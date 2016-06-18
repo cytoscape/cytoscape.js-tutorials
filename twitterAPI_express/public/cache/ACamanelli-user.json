@@ -1,0 +1,98 @@
+{
+    "id": 25631102,
+    "id_str": "25631102",
+    "name": "♠️Anthony Camanelli",
+    "screen_name": "ACamanelli",
+    "location": "Los Angeles, California, USA",
+    "profile_location": null,
+    "description": "Official Twitter - Anthony Camanelli. Celebrity driver - Owner of Monaco Limo. $10 Less Than A Rideshare. Log on today - Airport or the Oscars. #CarService #LAX",
+    "url": "https://t.co/4gyal1pXiQ",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/4gyal1pXiQ",
+                    "expanded_url": "http://MonacoLimo.com",
+                    "display_url": "MonacoLimo.com",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 328194,
+    "friends_count": 326524,
+    "listed_count": 234,
+    "created_at": "Sat Mar 21 03:18:14 +0000 2009",
+    "favourites_count": 4109,
+    "utc_offset": -25200,
+    "time_zone": "Pacific Time (US & Canada)",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 9867,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 22:57:38 +0000 2016",
+        "id": 743940696923463700,
+        "id_str": "743940696923463680",
+        "text": "Anthony is getting some much needed Vitamin D poolside 🌴 in between clients.  Friday night in LA....it's gonna be a late one 🚦 #Monaco",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "Monaco",
+                    "indices": [
+                        127,
+                        134
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 2,
+        "favorite_count": 7,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "9AE4E8",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/620836383/huyt5evljxaneeeg82k9.jpeg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/620836383/huyt5evljxaneeeg82k9.jpeg",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/457193069532553216/U5e6EHbR_normal.jpeg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/457193069532553216/U5e6EHbR_normal.jpeg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/25631102/1411579922",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "BDDCAD",
+    "profile_sidebar_fill_color": "DDFFCC",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

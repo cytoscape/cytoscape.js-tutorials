@@ -1,0 +1,101 @@
+{
+    "id": 14645160,
+    "id_str": "14645160",
+    "name": "Brian Brushwood",
+    "screen_name": "shwood",
+    "location": "Austin, TX",
+    "profile_location": null,
+    "description": "Host of Scam School for Discovery & Hacking The System for NatGeo. Two Billboard #1 comedy albums. Eats fire. Sticks nails in eyes. Jackass and...pro dancer?",
+    "url": "http://t.co/8V78mxE476",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "http://t.co/8V78mxE476",
+                    "expanded_url": "http://www.shwood.com",
+                    "display_url": "shwood.com",
+                    "indices": [
+                        0,
+                        22
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 1304927,
+    "friends_count": 1067197,
+    "listed_count": 7926,
+    "created_at": "Sun May 04 05:42:34 +0000 2008",
+    "favourites_count": 34,
+    "utc_offset": -18000,
+    "time_zone": "Central Time (US & Canada)",
+    "geo_enabled": false,
+    "verified": true,
+    "statuses_count": 65888,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 22:35:15 +0000 2016",
+        "id": 743935061884428300,
+        "id_str": "743935061884428289",
+        "text": "@TheBloodyScreen yuuuuuuuuuuup",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "TheBloodyScreen",
+                    "name": "JayDee/TBSproduction",
+                    "id": 344748076,
+                    "id_str": "344748076",
+                    "indices": [
+                        0,
+                        16
+                    ]
+                }
+            ],
+            "urls": []
+        },
+        "source": "<a href=\"http://tapbots.com/tweetbot\" rel=\"nofollow\">Tweetbot for iΟS</a>",
+        "in_reply_to_status_id": 743933786770055200,
+        "in_reply_to_status_id_str": "743933786770055168",
+        "in_reply_to_user_id": 344748076,
+        "in_reply_to_user_id_str": "344748076",
+        "in_reply_to_screen_name": "TheBloodyScreen",
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 1,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "und"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "9AE4E8",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/2612677/bbrevolution-poster_copy_sm.jpg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/2612677/bbrevolution-poster_copy_sm.jpg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/577575716406996992/FQdDFPrR_normal.jpeg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/577575716406996992/FQdDFPrR_normal.jpeg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/14645160/1431498523",
+    "profile_link_color": "0000FF",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "E0FF92",
+    "profile_text_color": "000000",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

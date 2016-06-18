@@ -1,0 +1,90 @@
+{
+    "id": 250034113,
+    "id_str": "250034113",
+    "name": "R Wright",
+    "screen_name": "under_foot",
+    "location": "Neighbor",
+    "profile_location": null,
+    "description": "No BS",
+    "url": "http://t.co/Hflw1FFoKX",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "http://t.co/Hflw1FFoKX",
+                    "expanded_url": "http://haloashfox.gmail.com",
+                    "display_url": "haloashfox.gmail.com",
+                    "indices": [
+                        0,
+                        22
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 144572,
+    "friends_count": 157239,
+    "listed_count": 126,
+    "created_at": "Thu Feb 10 08:28:04 +0000 2011",
+    "favourites_count": 287,
+    "utc_offset": null,
+    "time_zone": null,
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 5058,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 07:11:01 +0000 2016",
+        "id": 743702474695942100,
+        "id_str": "743702474695942144",
+        "text": "Goodnight !  I have too many tweets in my head. All worthless. See ya !",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 2,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/742470860213080064/yC4KlLb1_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/742470860213080064/yC4KlLb1_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/250034113/1465853845",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "C0DEED",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": true,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

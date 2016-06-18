@@ -1,0 +1,355 @@
+{
+    "id": 355784391,
+    "id_str": "355784391",
+    "name": "Mindfulness Wellness",
+    "screen_name": "911well",
+    "location": "Ottawa, Canada",
+    "profile_location": null,
+    "description": "How u handle Stress has an effect on ur Health - Mental Health issues r the great epidemic of this generation - Mindfulness - Exercise - #MentalHealth",
+    "url": null,
+    "entities": {
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 1074976,
+    "friends_count": 359315,
+    "listed_count": 3733,
+    "created_at": "Mon Aug 15 21:54:19 +0000 2011",
+    "favourites_count": 94122,
+    "utc_offset": -14400,
+    "time_zone": "America/Montreal",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 53166,
+    "lang": "en",
+    "status": {
+        "created_at": "Sat Jun 18 00:15:55 +0000 2016",
+        "id": 743960397858873300,
+        "id_str": "743960397858873344",
+        "text": "RT @JoshuaLevittND: Raw honey is incredibly effective in treating the skin after a burn. #Honey #Natural #Remedies #Nutrition #Wellness htt…",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "Honey",
+                    "indices": [
+                        89,
+                        95
+                    ]
+                },
+                {
+                    "text": "Natural",
+                    "indices": [
+                        96,
+                        104
+                    ]
+                },
+                {
+                    "text": "Remedies",
+                    "indices": [
+                        105,
+                        114
+                    ]
+                },
+                {
+                    "text": "Nutrition",
+                    "indices": [
+                        115,
+                        125
+                    ]
+                },
+                {
+                    "text": "Wellness",
+                    "indices": [
+                        126,
+                        135
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "JoshuaLevittND",
+                    "name": "Dr. Joshua Levitt",
+                    "id": 277254568,
+                    "id_str": "277254568",
+                    "indices": [
+                        3,
+                        18
+                    ]
+                }
+            ],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743928741877809200,
+                    "id_str": "743928741877809152",
+                    "indices": [
+                        139,
+                        140
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                    "url": "https://t.co/r9ylCLrMVZ",
+                    "display_url": "pic.twitter.com/r9ylCLrMVZ",
+                    "expanded_url": "http://twitter.com/JoshuaLevittND/status/743928744579072000/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "small": {
+                            "w": 330,
+                            "h": 184,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 330,
+                            "h": 184,
+                            "resize": "fit"
+                        },
+                        "large": {
+                            "w": 330,
+                            "h": 184,
+                            "resize": "fit"
+                        }
+                    },
+                    "source_status_id": 743928744579072000,
+                    "source_status_id_str": "743928744579072000",
+                    "source_user_id": 277254568,
+                    "source_user_id_str": "277254568"
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743928741877809200,
+                    "id_str": "743928741877809152",
+                    "indices": [
+                        139,
+                        140
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                    "url": "https://t.co/r9ylCLrMVZ",
+                    "display_url": "pic.twitter.com/r9ylCLrMVZ",
+                    "expanded_url": "http://twitter.com/JoshuaLevittND/status/743928744579072000/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "small": {
+                            "w": 330,
+                            "h": 184,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 330,
+                            "h": 184,
+                            "resize": "fit"
+                        },
+                        "large": {
+                            "w": 330,
+                            "h": 184,
+                            "resize": "fit"
+                        }
+                    },
+                    "source_status_id": 743928744579072000,
+                    "source_status_id_str": "743928744579072000",
+                    "source_user_id": 277254568,
+                    "source_user_id_str": "277254568"
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "created_at": "Fri Jun 17 22:10:08 +0000 2016",
+            "id": 743928744579072000,
+            "id_str": "743928744579072000",
+            "text": "Raw honey is incredibly effective in treating the skin after a burn. #Honey #Natural #Remedies #Nutrition #Wellness https://t.co/r9ylCLrMVZ",
+            "truncated": false,
+            "entities": {
+                "hashtags": [
+                    {
+                        "text": "Honey",
+                        "indices": [
+                            69,
+                            75
+                        ]
+                    },
+                    {
+                        "text": "Natural",
+                        "indices": [
+                            76,
+                            84
+                        ]
+                    },
+                    {
+                        "text": "Remedies",
+                        "indices": [
+                            85,
+                            94
+                        ]
+                    },
+                    {
+                        "text": "Nutrition",
+                        "indices": [
+                            95,
+                            105
+                        ]
+                    },
+                    {
+                        "text": "Wellness",
+                        "indices": [
+                            106,
+                            115
+                        ]
+                    }
+                ],
+                "symbols": [],
+                "user_mentions": [],
+                "urls": [],
+                "media": [
+                    {
+                        "id": 743928741877809200,
+                        "id_str": "743928741877809152",
+                        "indices": [
+                            116,
+                            139
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                        "url": "https://t.co/r9ylCLrMVZ",
+                        "display_url": "pic.twitter.com/r9ylCLrMVZ",
+                        "expanded_url": "http://twitter.com/JoshuaLevittND/status/743928744579072000/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "small": {
+                                "w": 330,
+                                "h": 184,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 330,
+                                "h": 184,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 330,
+                                "h": 184,
+                                "resize": "fit"
+                            }
+                        }
+                    }
+                ]
+            },
+            "extended_entities": {
+                "media": [
+                    {
+                        "id": 743928741877809200,
+                        "id_str": "743928741877809152",
+                        "indices": [
+                            116,
+                            139
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClL3P83UgAA4zPH.jpg",
+                        "url": "https://t.co/r9ylCLrMVZ",
+                        "display_url": "pic.twitter.com/r9ylCLrMVZ",
+                        "expanded_url": "http://twitter.com/JoshuaLevittND/status/743928744579072000/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "small": {
+                                "w": 330,
+                                "h": 184,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 330,
+                                "h": 184,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 330,
+                                "h": 184,
+                                "resize": "fit"
+                            }
+                        }
+                    }
+                ]
+            },
+            "source": "<a href=\"http://www.hootsuite.com\" rel=\"nofollow\">Hootsuite</a>",
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "is_quote_status": false,
+            "retweet_count": 18,
+            "favorite_count": 25,
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false,
+            "lang": "en"
+        },
+        "is_quote_status": false,
+        "retweet_count": 18,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "000000",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/693669434444001280/G7EqKRJV_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/693669434444001280/G7EqKRJV_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/355784391/1463945771",
+    "profile_link_color": "4A913C",
+    "profile_sidebar_border_color": "000000",
+    "profile_sidebar_fill_color": "000000",
+    "profile_text_color": "000000",
+    "profile_use_background_image": false,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

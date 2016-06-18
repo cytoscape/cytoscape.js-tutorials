@@ -1,0 +1,140 @@
+{
+    "id": 317630994,
+    "id_str": "317630994",
+    "name": "César J.Obertein D.",
+    "screen_name": "CesarObertein",
+    "location": "Los Teques - Venezuela",
+    "profile_location": null,
+    "description": "Politólogo, Master en Planificación Estratégica,  Gerencia y Motivación, Frases, Información, videos, música, imágenes, tecnología, ciencia #Detodounpoco",
+    "url": "http://t.co/0jPZN59eux",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "http://t.co/0jPZN59eux",
+                    "expanded_url": "http://www.cesarobertein.com",
+                    "display_url": "cesarobertein.com",
+                    "indices": [
+                        0,
+                        22
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 459966,
+    "friends_count": 423685,
+    "listed_count": 549,
+    "created_at": "Wed Jun 15 06:56:39 +0000 2011",
+    "favourites_count": 5246,
+    "utc_offset": -16200,
+    "time_zone": "Caracas",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 39040,
+    "lang": "es",
+    "status": {
+        "created_at": "Fri Jun 17 19:56:31 +0000 2016",
+        "id": 743895118852329500,
+        "id_str": "743895118852329472",
+        "text": "¡Diario de lo Insólito está disponible! https://t.co/uQ5SPzCw9l Gracias a @gascomics @fritodehuevo @escmisterios #presentacióndelibro",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "presentacióndelibro",
+                    "indices": [
+                        113,
+                        133
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "gascomics",
+                    "name": "GAS Comics",
+                    "id": 2224325790,
+                    "id_str": "2224325790",
+                    "indices": [
+                        74,
+                        84
+                    ]
+                },
+                {
+                    "screen_name": "fritodehuevo",
+                    "name": "Fritodehuevo",
+                    "id": 774839576,
+                    "id_str": "774839576",
+                    "indices": [
+                        85,
+                        98
+                    ]
+                },
+                {
+                    "screen_name": "escmisterios",
+                    "name": "EscuelasdeMisterios",
+                    "id": 104786015,
+                    "id_str": "104786015",
+                    "indices": [
+                        99,
+                        112
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "https://t.co/uQ5SPzCw9l",
+                    "expanded_url": "http://paper.li/CesarObertein/1372967778?edition_id=94cb9370-34c5-11e6-b2cf-0cc47a0d1605",
+                    "display_url": "paper.li/CesarObertein/…",
+                    "indices": [
+                        40,
+                        63
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://paper.li\" rel=\"nofollow\">Paper.li</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "es"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/635794710/1mygwr01bnt1kqq6vte0.jpeg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/635794710/1mygwr01bnt1kqq6vte0.jpeg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/502326861410480128/xyJYR3al_normal.jpeg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/502326861410480128/xyJYR3al_normal.jpeg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/317630994/1410241734",
+    "profile_link_color": "1144EB",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "343A3D",
+    "profile_text_color": "FFD4FF",
+    "profile_use_background_image": true,
+    "has_extended_profile": true,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

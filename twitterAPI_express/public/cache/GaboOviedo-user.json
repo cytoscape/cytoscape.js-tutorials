@@ -1,0 +1,179 @@
+{
+    "id": 1343300677,
+    "id_str": "1343300677",
+    "name": "#BatallaDeLosGallos",
+    "screen_name": "GaboOviedo",
+    "location": "Córdoba, Northumberland , NL",
+    "profile_location": null,
+    "description": "Supernova Gabo ☠ MALEWIN Team , Amo a los animales.Canal de YouTube https://t.co/aTVpPjhaie FREE & rapero #BatallaDeLosGallos ID LOL: SUPERNOVA GABO",
+    "url": "https://t.co/Q92CxHjYKJ",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/Q92CxHjYKJ",
+                    "expanded_url": "https://www.facebook.com/GaboOviedoOfficial",
+                    "display_url": "facebook.com/GaboOviedoOffi…",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": [
+                {
+                    "url": "https://t.co/aTVpPjhaie",
+                    "expanded_url": "https://www.youtube.com/channel/UCOtj5pEOFqw89IkDUjwovGw",
+                    "display_url": "youtube.com/channel/UCOtj5…",
+                    "indices": [
+                        68,
+                        91
+                    ]
+                }
+            ]
+        }
+    },
+    "protected": false,
+    "followers_count": 101143,
+    "friends_count": 95750,
+    "listed_count": 32,
+    "created_at": "Thu Apr 11 01:49:24 +0000 2013",
+    "favourites_count": 9337,
+    "utc_offset": -10800,
+    "time_zone": "Brasilia",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 11562,
+    "lang": "es",
+    "status": {
+        "created_at": "Fri Jun 17 15:17:27 +0000 2016",
+        "id": 743824889715523600,
+        "id_str": "743824889715523585",
+        "text": "Profesor Jirafales gusta ud pasar a tomar una tacita de café..... https://t.co/R9kkjUFWU1",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743824885831635000,
+                    "id_str": "743824885831634944",
+                    "indices": [
+                        66,
+                        89
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClKYyu8XEAAQ9PH.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClKYyu8XEAAQ9PH.jpg",
+                    "url": "https://t.co/R9kkjUFWU1",
+                    "display_url": "pic.twitter.com/R9kkjUFWU1",
+                    "expanded_url": "http://twitter.com/GaboOviedo/status/743824889715523585/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "small": {
+                            "w": 320,
+                            "h": 320,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "large": {
+                            "w": 320,
+                            "h": 320,
+                            "resize": "fit"
+                        },
+                        "medium": {
+                            "w": 320,
+                            "h": 320,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743824885831635000,
+                    "id_str": "743824885831634944",
+                    "indices": [
+                        66,
+                        89
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClKYyu8XEAAQ9PH.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClKYyu8XEAAQ9PH.jpg",
+                    "url": "https://t.co/R9kkjUFWU1",
+                    "display_url": "pic.twitter.com/R9kkjUFWU1",
+                    "expanded_url": "http://twitter.com/GaboOviedo/status/743824889715523585/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "small": {
+                            "w": 320,
+                            "h": 320,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "large": {
+                            "w": 320,
+                            "h": 320,
+                            "resize": "fit"
+                        },
+                        "medium": {
+                            "w": 320,
+                            "h": 320,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 66,
+        "favorite_count": 88,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "es"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "4A913C",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/602518242695909377/6lgX5cPM.jpg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/602518242695909377/6lgX5cPM.jpg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/726148940190650368/hjpHwCk-_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/726148940190650368/hjpHwCk-_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/1343300677/1420368693",
+    "profile_link_color": "DD2E44",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "252429",
+    "profile_text_color": "666666",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

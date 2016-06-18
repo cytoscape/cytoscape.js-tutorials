@@ -1,0 +1,184 @@
+{
+    "id": 53210455,
+    "id_str": "53210455",
+    "name": "Darren Kavinoky",
+    "screen_name": "DarrenKavinoky",
+    "location": "Los Angeles, CA",
+    "profile_location": null,
+    "description": "No blah blah! Host #DeadlySins on @DiscoveryID Season 5 Premieres June 30, 2016 #TheBestSummer | TV Legal Analyst @TheInsider | Founder 1.800.NoCuffs®",
+    "url": "https://t.co/xZfC03da6b",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/xZfC03da6b",
+                    "expanded_url": "http://www.DarrenKavinoky.com",
+                    "display_url": "DarrenKavinoky.com",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 715760,
+    "friends_count": 358574,
+    "listed_count": 2727,
+    "created_at": "Thu Jul 02 22:33:04 +0000 2009",
+    "favourites_count": 46661,
+    "utc_offset": -25200,
+    "time_zone": "Pacific Time (US & Canada)",
+    "geo_enabled": true,
+    "verified": true,
+    "statuses_count": 31111,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 23:42:43 +0000 2016",
+        "id": 743952041182036000,
+        "id_str": "743952041182035968",
+        "text": "What are your plans this weekend for #FathersDay?  #TheBestSummer https://t.co/HUHOR0OoYH",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "FathersDay",
+                    "indices": [
+                        37,
+                        48
+                    ]
+                },
+                {
+                    "text": "TheBestSummer",
+                    "indices": [
+                        51,
+                        65
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743952037398777900,
+                    "id_str": "743952037398777860",
+                    "indices": [
+                        66,
+                        89
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClMMb7cVEAQqVnQ.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClMMb7cVEAQqVnQ.jpg",
+                    "url": "https://t.co/HUHOR0OoYH",
+                    "display_url": "pic.twitter.com/HUHOR0OoYH",
+                    "expanded_url": "http://twitter.com/DarrenKavinoky/status/743952041182035968/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "large": {
+                            "w": 1024,
+                            "h": 768,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 510,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 1024,
+                            "h": 768,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743952037398777900,
+                    "id_str": "743952037398777860",
+                    "indices": [
+                        66,
+                        89
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClMMb7cVEAQqVnQ.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClMMb7cVEAQqVnQ.jpg",
+                    "url": "https://t.co/HUHOR0OoYH",
+                    "display_url": "pic.twitter.com/HUHOR0OoYH",
+                    "expanded_url": "http://twitter.com/DarrenKavinoky/status/743952041182035968/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "large": {
+                            "w": 1024,
+                            "h": 768,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 510,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 1024,
+                            "h": 768,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 10,
+        "favorite_count": 9,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "010C0D",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/704818731315122177/1ZXjZtQc.jpg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/704818731315122177/1ZXjZtQc.jpg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/740924909174415363/yoLqxV-f_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/740924909174415363/yoLqxV-f_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/53210455/1458943683",
+    "profile_link_color": "C4080E",
+    "profile_sidebar_border_color": "000000",
+    "profile_sidebar_fill_color": "A9D1E8",
+    "profile_text_color": "505D63",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

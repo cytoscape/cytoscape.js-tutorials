@@ -1,0 +1,85 @@
+{
+    "id": 1120095661,
+    "id_str": "1120095661",
+    "name": "سعود العازمي M1.1",
+    "screen_name": "saod_bc",
+    "location": "للاعلان واتساب 0557889658",
+    "profile_location": null,
+    "description": "حقوق الطبع محفوظةTypical vision TM ///❤ BBM/5FFE984E   الخاص مهمل",
+    "url": null,
+    "entities": {
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 1119138,
+    "friends_count": 720767,
+    "listed_count": 444,
+    "created_at": "Fri Jan 25 19:24:38 +0000 2013",
+    "favourites_count": 13,
+    "utc_offset": -36000,
+    "time_zone": "Hawaii",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 212085,
+    "lang": "ar",
+    "status": {
+        "created_at": "Fri Jun 17 21:17:01 +0000 2016",
+        "id": 743915376073936900,
+        "id_str": "743915376073936896",
+        "text": "⛔️•~• للدعم والاعلان •~•⛔️\n\nمع أكبر حسابات #تويتر وبأسعار مناسبه ✅\n\n💠 نشر حسابات 💠\n\nشخصيه✨شركات✨متاجر✨بضائع\nللتواصل\n0557889658 واتساب",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "تويتر",
+                    "indices": [
+                        43,
+                        49
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 26,
+        "favorite_count": 3,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "ar"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/732266431937695744/oPRWsD1B_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/732266431937695744/oPRWsD1B_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/1120095661/1462474292",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "C0DEED",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": true,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

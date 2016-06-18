@@ -1,0 +1,7 @@
+{
+  "name": "twitter_graph",
+  "dependencies": {},
+  "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236"
+  }
+}

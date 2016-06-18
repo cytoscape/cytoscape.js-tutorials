@@ -1,0 +1,95 @@
+{
+    "id": 420458382,
+    "id_str": "420458382",
+    "name": "فقير حظ",
+    "screen_name": "ks1aa",
+    "location": "الرياض, المملكة العربية السعودية",
+    "profile_location": null,
+    "description": "الجرح الذي ﻻنتعلم منه ؛ نستحقه مجدداً.___________________ ♠ snap:sb-sb12 / https://t.co/Au3sUheVVV",
+    "url": null,
+    "entities": {
+        "description": {
+            "urls": [
+                {
+                    "url": "https://t.co/Au3sUheVVV",
+                    "expanded_url": "http://www.pin.bbm.com/5FBDED87",
+                    "display_url": "pin.bbm.com/5FBDED87",
+                    "indices": [
+                        75,
+                        98
+                    ]
+                }
+            ]
+        }
+    },
+    "protected": false,
+    "followers_count": 733895,
+    "friends_count": 631278,
+    "listed_count": 541,
+    "created_at": "Thu Nov 24 17:11:02 +0000 2011",
+    "favourites_count": 7,
+    "utc_offset": 10800,
+    "time_zone": "Kuwait",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 389064,
+    "lang": "ar",
+    "status": {
+        "created_at": "Fri Jun 17 16:36:50 +0000 2016",
+        "id": 743844866199793700,
+        "id_str": "743844866199793664",
+        "text": "مادُمت تنويِ الخير ، فَ انت بخير .\n\n #فقير_حظ",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "فقير_حظ",
+                    "indices": [
+                        37,
+                        45
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 3,
+        "favorite_count": 1,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "ar"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/730084740053798912/PJWu805s_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/730084740053798912/PJWu805s_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/420458382/1462900740",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "C0DEED",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": true,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

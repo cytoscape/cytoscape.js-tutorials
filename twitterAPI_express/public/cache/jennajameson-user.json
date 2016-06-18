@@ -1,0 +1,184 @@
+{
+    "id": 34900333,
+    "id_str": "34900333",
+    "name": "Jenna Jameson",
+    "screen_name": "jennajameson",
+    "location": "Beverly Hills, CA",
+    "profile_location": null,
+    "description": "https://t.co/qR3sBxifa8 https://t.co/PCi7zTsHYa https://t.co/96gTPDh1no snapchat- JennaandShay ⚓️sober⚓️",
+    "url": null,
+    "entities": {
+        "description": {
+            "urls": [
+                {
+                    "url": "https://t.co/qR3sBxifa8",
+                    "expanded_url": "http://YouTube.com/c/jennajamesonworld",
+                    "display_url": "YouTube.com/c/jennajameson…",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                },
+                {
+                    "url": "https://t.co/PCi7zTsHYa",
+                    "expanded_url": "http://Instagram.com/jennacantlose",
+                    "display_url": "Instagram.com/jennacantlose",
+                    "indices": [
+                        24,
+                        47
+                    ]
+                },
+                {
+                    "url": "https://t.co/96gTPDh1no",
+                    "expanded_url": "https://www.facebook.com/JennaJameson/",
+                    "display_url": "facebook.com/JennaJameson/",
+                    "indices": [
+                        48,
+                        71
+                    ]
+                }
+            ]
+        }
+    },
+    "protected": false,
+    "followers_count": 671454,
+    "friends_count": 11630,
+    "listed_count": 5755,
+    "created_at": "Fri Apr 24 11:13:39 +0000 2009",
+    "favourites_count": 43333,
+    "utc_offset": -25200,
+    "time_zone": "Pacific Time (US & Canada)",
+    "geo_enabled": false,
+    "verified": true,
+    "statuses_count": 34623,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 17:59:10 +0000 2016",
+        "id": 743865585184833500,
+        "id_str": "743865585184833537",
+        "text": "Good morning sweethearts https://t.co/XYrvP0fPAl",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743865579094704100,
+                    "id_str": "743865579094704129",
+                    "indices": [
+                        25,
+                        48
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClK9zZKUgAEVPs4.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClK9zZKUgAEVPs4.jpg",
+                    "url": "https://t.co/XYrvP0fPAl",
+                    "display_url": "pic.twitter.com/XYrvP0fPAl",
+                    "expanded_url": "http://twitter.com/jennajameson/status/743865585184833537/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "large": {
+                            "w": 960,
+                            "h": 1125,
+                            "resize": "fit"
+                        },
+                        "medium": {
+                            "w": 960,
+                            "h": 1125,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 580,
+                            "h": 680,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743865579094704100,
+                    "id_str": "743865579094704129",
+                    "indices": [
+                        25,
+                        48
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClK9zZKUgAEVPs4.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClK9zZKUgAEVPs4.jpg",
+                    "url": "https://t.co/XYrvP0fPAl",
+                    "display_url": "pic.twitter.com/XYrvP0fPAl",
+                    "expanded_url": "http://twitter.com/jennajameson/status/743865585184833537/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "large": {
+                            "w": 960,
+                            "h": 1125,
+                            "resize": "fit"
+                        },
+                        "medium": {
+                            "w": 960,
+                            "h": 1125,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 580,
+                            "h": 680,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 42,
+        "favorite_count": 387,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": true,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": true,
+    "profile_background_color": "B8B4B8",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/451927529977167872/149up2sN.jpeg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/451927529977167872/149up2sN.jpeg",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/743862505840082944/8X754muZ_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/743862505840082944/8X754muZ_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/34900333/1464462994",
+    "profile_link_color": "FA6ECE",
+    "profile_sidebar_border_color": "000000",
+    "profile_sidebar_fill_color": "F5DCF0",
+    "profile_text_color": "000000",
+    "profile_use_background_image": true,
+    "has_extended_profile": true,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

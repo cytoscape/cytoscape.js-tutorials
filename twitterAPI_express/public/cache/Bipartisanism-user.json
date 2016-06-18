@@ -1,0 +1,306 @@
+{
+    "id": 487600344,
+    "id_str": "487600344",
+    "name": "Bipartisan Report",
+    "screen_name": "Bipartisanism",
+    "location": "Seattle, USA",
+    "profile_location": null,
+    "description": "We bring the news.  News@BipartisanReport.com https://t.co/mULJvsi4wD #BiPaAv",
+    "url": "https://t.co/SOiKIzZMUE",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/SOiKIzZMUE",
+                    "expanded_url": "http://BipartisanReport.com",
+                    "display_url": "BipartisanReport.com",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": [
+                {
+                    "url": "https://t.co/mULJvsi4wD",
+                    "expanded_url": "http://Facebook.com/bipartisanism",
+                    "display_url": "Facebook.com/bipartisanism",
+                    "indices": [
+                        46,
+                        69
+                    ]
+                }
+            ]
+        }
+    },
+    "protected": false,
+    "followers_count": 196658,
+    "friends_count": 48258,
+    "listed_count": 1646,
+    "created_at": "Thu Feb 09 14:55:09 +0000 2012",
+    "favourites_count": 52512,
+    "utc_offset": -25200,
+    "time_zone": "Pacific Time (US & Canada)",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 22080,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 17 23:59:50 +0000 2016",
+        "id": 743956349927596000,
+        "id_str": "743956349927596032",
+        "text": "RT @PoliticalGroove: Every time John McCain speaks now... https://t.co/Wmt81mPwmO",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "PoliticalGroove",
+                    "name": "PoliticalGroove",
+                    "id": 197843269,
+                    "id_str": "197843269",
+                    "indices": [
+                        3,
+                        19
+                    ]
+                }
+            ],
+            "urls": [],
+            "media": [
+                {
+                    "id": 743543358367268900,
+                    "id_str": "743543358367268864",
+                    "indices": [
+                        58,
+                        81
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                    "url": "https://t.co/Wmt81mPwmO",
+                    "display_url": "pic.twitter.com/Wmt81mPwmO",
+                    "expanded_url": "http://twitter.com/PoliticalGroove/status/743543366005071872/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "medium": {
+                            "w": 640,
+                            "h": 480,
+                            "resize": "fit"
+                        },
+                        "large": {
+                            "w": 640,
+                            "h": 480,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 640,
+                            "h": 480,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        }
+                    },
+                    "source_status_id": 743543366005071900,
+                    "source_status_id_str": "743543366005071872",
+                    "source_user_id": 197843269,
+                    "source_user_id_str": "197843269"
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 743543358367268900,
+                    "id_str": "743543358367268864",
+                    "indices": [
+                        58,
+                        81
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                    "url": "https://t.co/Wmt81mPwmO",
+                    "display_url": "pic.twitter.com/Wmt81mPwmO",
+                    "expanded_url": "http://twitter.com/PoliticalGroove/status/743543366005071872/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "medium": {
+                            "w": 640,
+                            "h": 480,
+                            "resize": "fit"
+                        },
+                        "large": {
+                            "w": 640,
+                            "h": 480,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 640,
+                            "h": 480,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        }
+                    },
+                    "source_status_id": 743543366005071900,
+                    "source_status_id_str": "743543366005071872",
+                    "source_user_id": 197843269,
+                    "source_user_id_str": "197843269"
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "created_at": "Thu Jun 16 20:38:47 +0000 2016",
+            "id": 743543366005071900,
+            "id_str": "743543366005071872",
+            "text": "Every time John McCain speaks now... https://t.co/Wmt81mPwmO",
+            "truncated": false,
+            "entities": {
+                "hashtags": [],
+                "symbols": [],
+                "user_mentions": [],
+                "urls": [],
+                "media": [
+                    {
+                        "id": 743543358367268900,
+                        "id_str": "743543358367268864",
+                        "indices": [
+                            37,
+                            60
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                        "url": "https://t.co/Wmt81mPwmO",
+                        "display_url": "pic.twitter.com/Wmt81mPwmO",
+                        "expanded_url": "http://twitter.com/PoliticalGroove/status/743543366005071872/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "medium": {
+                                "w": 640,
+                                "h": 480,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 640,
+                                "h": 480,
+                                "resize": "fit"
+                            },
+                            "small": {
+                                "w": 640,
+                                "h": 480,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            }
+                        }
+                    }
+                ]
+            },
+            "extended_entities": {
+                "media": [
+                    {
+                        "id": 743543358367268900,
+                        "id_str": "743543358367268864",
+                        "indices": [
+                            37,
+                            60
+                        ],
+                        "media_url": "http://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                        "media_url_https": "https://pbs.twimg.com/media/ClGYvraVAAAGOix.jpg",
+                        "url": "https://t.co/Wmt81mPwmO",
+                        "display_url": "pic.twitter.com/Wmt81mPwmO",
+                        "expanded_url": "http://twitter.com/PoliticalGroove/status/743543366005071872/photo/1",
+                        "type": "photo",
+                        "sizes": {
+                            "medium": {
+                                "w": 640,
+                                "h": 480,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 640,
+                                "h": 480,
+                                "resize": "fit"
+                            },
+                            "small": {
+                                "w": 640,
+                                "h": 480,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            }
+                        }
+                    }
+                ]
+            },
+            "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "is_quote_status": false,
+            "retweet_count": 256,
+            "favorite_count": 388,
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false,
+            "lang": "en"
+        },
+        "is_quote_status": false,
+        "retweet_count": 256,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "000000",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme13/bg.gif",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme13/bg.gif",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/1815330356/sampson_normal.png",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/1815330356/sampson_normal.png",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/487600344/1436416610",
+    "profile_link_color": "3B94D9",
+    "profile_sidebar_border_color": "000000",
+    "profile_sidebar_fill_color": "000000",
+    "profile_text_color": "000000",
+    "profile_use_background_image": false,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}
