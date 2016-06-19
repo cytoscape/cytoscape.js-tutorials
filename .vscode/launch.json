@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Twitter API (Express)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/twitterAPI_express/bin/www",
+      "stopOnEntry": false,
+      "args": [],
+      "cwd": "${workspaceRoot}/twitterAPI_express",
+      "preLaunchTask": null,
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "externalConsole": false,
+      "sourceMaps": false,
+      "outDir": null
+    },
+    {
+        "name": "Launch localhost, Twitter graph",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:8080/index.html",
+        "webRoot": "${workspaceRoot}/twitter_graph",
+        "sourceMaps": true
+    },
+    {
+      "name": "Attach",
+      "type": "node",
+      "request": "attach",
+      "port": 5858,
+      "address": "localhost",
+      "restart": false,
+      "sourceMaps": false,
+      "outDir": null,
+      "localRoot": "${workspaceRoot}",
+      "remoteRoot": null
+    }
+  ]
+}
