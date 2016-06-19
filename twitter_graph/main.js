@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var userInput = document.getElementById('twitterHandle').value;
     if (userInput === 'Enter Twitter username') {
       // Default value
-      mainUser = 'josephst18';
+      mainUser = 'cytoscape';
     } else {
       mainUser = userInput;
     }
@@ -90,17 +90,15 @@ document.addEventListener('DOMContentLoaded', function() {
       // add followers
       try {
         var options = {
-          maxLevel: 5,
+          maxLevel: 4,
           usersPerLevel: 3,
-          graphFunc: addToGraph
+          addToGraphFunc: addToGraph,
+          layout: concentricLayout
         };
         addFollowersByLevel(1, options);
       } catch (error) {
-        console.log('Stopped adding to graph. Error: ' + error);
+        console.log(error);
       }
-
-      // layout graph
-      concentricLayout.run();
     });
   });
 
@@ -126,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
    *
    * @param {number} level The level of the graph being added to
    * @param {object} options Constant options for addFollowersByLevel
-   * @param {number} options.maxLevel The deepest level to add followers to
+   * @param {number} options.maxLevel The deepest level to add followers to (Main user's followers are at level=1)
    * @param {number} options.usersPerLevel Number of users to add followers at each level
    * @param {function} options.graphFunc Function passed to add JSON data to graph after Promise completes
    */
@@ -134,22 +132,52 @@ document.addEventListener('DOMContentLoaded', function() {
     var followerCompare = function(a, b) {
       return a.data('followerCount') - b.data('followerCount');
     };
+
     var topFollowers = cy.nodes()
         .filter('[level = ' + level + ']')
         .sort(followerCompare);
 
-    for (var i = topFollowers.length - 1;
-        i >= topFollowers.length - options.usersPerLevel && i >= 0;
-        i--) {
-      // the last element in collection is the one with the most followers
-      // will throw an error once Twitter API limit reached unless using cached data
-      Promise.all(getDataPromises(topFollowers[i].data('username')))
+    var topFollowerPromises = function(sortedFollowers) {
+      var topFollowerPosition = sortedFollowers.length - 1;
+      var promiseArr = [];
+      for (var i = 0; i < options.usersPerLevel; i++) {
+        if (sortedFollowers[topFollowerPosition - i]) {
+          // remember that sortedFollowers is an array of cytoscape elements
+          // NOT an array of usernames (hence accessing username with .data())
+          var user = sortedFollowers[topFollowerPosition - i].data('username');
+          var individualPromise = Promise.all(getDataPromises(user));
+          promiseArr.push(individualPromise);
+        }
+      }
+      return promiseArr;
+    };
+
+    var quit = false;
+    if (level < options.maxLevel && !quit) {
+      var followerPromises = topFollowerPromises(topFollowers);
+      Promise.all(followerPromises)
         .then(function(then) {
-          options.graphFunc(then, level);
+          // all data returned successfully!
+          for (var i = 0; i < then.length; i++) {
+            if (then[i][0].error || then[i][1].error) {
+              // error occured, such as rate limiting
+              var error = then[i][0].error ? then[i][0] : then[i][1];
+              console.log('Error occured. Code: ' + error.status + ' Text: ' + error.statusText);
+              if (error.status === 429) {
+                // rate limited, so stop sending requests
+                quit = true;
+              }
+            } else {
+              options.addToGraphFunc(then[i], level);
+            }
+          }
           addFollowersByLevel(level + 1, options);
-        }, function(err) {
-          console.log("Promise returned error: " + err.responseText);
+        }).catch(function(err) {
+          console.log('Could not get data. Error: ' + err);
         });
+    } else {
+      // reached the final level, now let's lay things out
+      options.layout.run();
     }
   }
 });
@@ -179,6 +207,7 @@ function getDataPromises(user) {
   // return [userPromise, followersPromise];
 
   // Express API
+  // Will use cached data if available
   var expressUserPromise = $.ajax({
     async: true,
     crossDomain: true,

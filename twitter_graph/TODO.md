@@ -1,10 +1,13 @@
 - DONE. Add Qtip extension
-- Get followers of followers to make force-directred more interesting (will there be cliques?)
-- Use Express API instead of already downloaded files (will this be too slow?)
+- DONE. Get followers of followers to make force-directred more interesting (will there be cliques?)
+- DONE. Use Express API instead of already downloaded files (will this be too slow?)
   - Don't do until done with other steps; otherwise, API calls will be rate-limited as I test
-  - Could load using JQuery now that I am using it for Qtip
+    - FIXED: Express API will cache Twitter data
+  - DONE. Could load using JQuery now that I am using it for Qtip
 - Performance?
-  - Rewrite using the JQuery method of waiting on DOM instead of DOMContentLoaded event
+  - NOT FIXING. Rewrite using the JQuery method of waiting on DOM instead of DOMContentLoaded event
+- Style
+  - Add a loading spinner to screen, similar to Wine and Cheese demo?
 
 
 NOTES
