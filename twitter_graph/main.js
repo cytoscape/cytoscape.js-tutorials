@@ -136,18 +136,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .sort(followerCompare);
 
     var topFollowerPromises = function(sortedFollowers) {
-      var topFollowerPosition = sortedFollowers.length - 1;
-      var promiseArr = [];
-      for (var i = 0; i < options.usersPerLevel; i++) {
-        if (sortedFollowers[topFollowerPosition - i]) {
-          // remember that sortedFollowers is an array of cytoscape elements
-          // NOT an array of usernames (hence accessing username with .data())
-          var user = sortedFollowers[topFollowerPosition - i].data('username');
-          var individualPromise = Promise.all(getDataPromises(user));
-          promiseArr.push(individualPromise);
-        }
-      }
-      return promiseArr;
+      return sortedFollowers.slice(-options.usersPerLevel)
+        .map(function(follower) {
+          // remember that follower is a Cy element so need to access username
+          var followerName = follower.data('username');
+          return getTwitterPromise(followerName);
+        });
     };
 
     var quit = false;
