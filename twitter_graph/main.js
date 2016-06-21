@@ -32,10 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     animate: false
   });
 
-  function addToGraph(then, level) {
-    var targetUser = then[0];
-    var followers = then[1];
-
+  function addToGraph(targetUser, followers, level) {
     // target user
     if (cy.getElementById(targetUser.id_str).empty()) {
       // getElementById is faster here than a selector
@@ -86,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // add first user to graph
-    Promise.all(getDataPromises(mainUser)).then(function(then) {
-      addToGraph(then, 0);
+    getTwitterPromise(mainUser).then(function(then) {
+      addToGraph(then.user, then.followers, 0);
 
       // add followers
       try {
@@ -158,24 +155,25 @@ document.addEventListener('DOMContentLoaded', function() {
     if (level < options.maxLevel && !quit) {
       var followerPromises = topFollowerPromises(topFollowers);
       Promise.all(followerPromises)
-        .then(function(then) {
+        .then(function(userAndFollowerData) {
           // all data returned successfully!
-          for (var i = 0; i < then.length; i++) {
-            if (then[i][0].error || then[i][1].error) {
+          for (var i = 0; i < userAndFollowerData.length; i++) {
+            var twitterData = userAndFollowerData[i];
+            if (twitterData.user.error || twitterData.followers.error) {
               // error occured, such as rate limiting
-              var error = then[i][0].error ? then[i][0] : then[i][1];
+              var error = twitterData.user.error ? twitterData.user : twitterData.followers;
               console.log('Error occured. Code: ' + error.status + ' Text: ' + error.statusText);
               if (error.status === 429) {
                 // rate limited, so stop sending requests
                 quit = true;
               }
             } else {
-              options.addToGraphFunc(then[i], level);
+              addToGraph(twitterData.user, twitterData.followers, level);
             }
           }
           addFollowersByLevel(level + 1, options);
         }).catch(function(err) {
-          console.log('Could not get data. Error: ' + err);
+          console.log('Could not get data. Error message: ' + err);
         });
     } else {
       // reached the final level, now let's lay things out
@@ -194,19 +192,26 @@ function qtipText(node) {
   return image + twitterLink + '<br>' + location + '<br>' + following + '<p><br>' + description + '</p>';
 }
 
-function getDataPromises(user) {
+function getTwitterPromise(targetUser) {
   // var userPromise = $.ajax({
-  //   url: 'http://localhost:8080/cache/' + user + '-user.json',
+  //   url: 'http://localhost:8080/cache/' + targetUser + '-user.json',
   //   type: 'GET',
   //   dataType: 'json'
   // });
 
   // var followersPromise = $.ajax({
-  //   url: 'http://localhost:8080/cache/' + user + '-followers.json',
+  //   url: 'http://localhost:8080/cache/' + targetUser + '-followers.json',
   //   type: 'GET',
   //   dataType: 'json'
   // });
-  // return [userPromise, followersPromise];
+
+  // return Promise.all(userPromise, followersPromise)
+  //   .then(function(then) {
+  //     return {
+  //       user: then[0],
+  //       followers: then[1]
+  //     };
+  //   });
 
   // Express API
   // Will use cached data if available
@@ -219,7 +224,7 @@ function getDataPromises(user) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      username: user
+      username: targetUser
     }
   });
 
@@ -232,10 +237,16 @@ function getDataPromises(user) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      username: user
+      username: targetUser
     }
   });
-  return [expressUserPromise, expressFollowersPromise];
+  return Promise.all([expressUserPromise, expressFollowersPromise])
+    .then(function(then) {
+      return {
+        user: then[0],
+        followers: then[1]
+      };
+    });
 }
 
 function twitterUserObjToCyEle(user, level) {
