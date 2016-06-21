@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // target user
     if (cy.nodes('#' + targetUser.id_str).length === 0) {
       // does not yet contain user
-      cy.add(parseData(targetUser, level));
+      cy.add(twitterUserObjToCyEle(targetUser, level));
     }
 
     // that user's followers
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cy.nodes('#' + ele.id_str).length === 0) {
           // does not yet contain follower
           // level + 1 since followers are 1 degree out from the main user
-          cy.add(parseData(ele, level + 1));
+          cy.add(twitterUserObjToCyEle(twitterFollower, level + 1));
           cy.add({
             data: {
               id: 'follower-' + ele.id_str,
@@ -237,7 +237,7 @@ function getDataPromises(user) {
   return [expressUserPromise, expressFollowersPromise];
 }
 
-function parseData(user, level) {
+function twitterUserObjToCyEle(user, level) {
   return {
     data: {
       id: user.id_str,
