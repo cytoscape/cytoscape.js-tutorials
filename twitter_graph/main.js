@@ -76,11 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
   submitButton.addEventListener('click', function() {
     cy.elements().remove();
     var userInput = document.getElementById('twitterHandle').value;
-    if (userInput === 'Enter Twitter username') {
+    if (userInput) {
       // Default value
-      mainUser = 'cytoscape';
-    } else {
       mainUser = userInput;
+    } else {
+      // default value
+      mainUser = 'cytoscape';
     }
 
     // add first user to graph
