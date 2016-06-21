@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var followers = then[1];
 
     // target user
-    if (cy.nodes('#' + targetUser.id_str).length === 0) {
+    if (cy.getElementById(targetUser.id_str).empty()) {
+      // getElementById is faster here than a selector
       // does not yet contain user
       cy.add(twitterUserObjToCyEle(targetUser, level));
     }
@@ -45,15 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // that user's followers
     var targetId = targetUser.id_str; // saves calls while adding edges
     cy.batch(function() {
-      followers.forEach(function(ele) {
-        if (cy.nodes('#' + ele.id_str).length === 0) {
+      followers.forEach(function(twitterFollower) {
+        if (cy.getElementById(twitterFollower.id_str).empty()) {
           // does not yet contain follower
           // level + 1 since followers are 1 degree out from the main user
           cy.add(twitterUserObjToCyEle(twitterFollower, level + 1));
           cy.add({
             data: {
-              id: 'follower-' + ele.id_str,
-              source: ele.id_str,
+              id: 'follower-' + twitterFollower.id_str,
+              source: twitterFollower.id_str,
               target: targetId
             }
           });
