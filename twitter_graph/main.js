@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var options = {
           maxLevel: 4,
           usersPerLevel: 3,
-          addToGraphFunc: addToGraph,
           layout: concentricLayout
         };
         addFollowersByLevel(1, options);
