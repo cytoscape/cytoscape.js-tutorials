@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   var mainUser;
-  var cy = cytoscape({
+  var cy = window.cy = cytoscape({
     container: document.getElementById('cy'),
     style: [
       {
@@ -186,60 +186,61 @@ function qtipText(node) {
 }
 
 function getTwitterPromise(targetUser) {
-  // var userPromise = $.ajax({
-  //   url: 'http://localhost:8080/cache/' + targetUser + '-user.json',
-  //   type: 'GET',
-  //   dataType: 'json'
-  // });
-
-  // var followersPromise = $.ajax({
-  //   url: 'http://localhost:8080/cache/' + targetUser + '-followers.json',
-  //   type: 'GET',
-  //   dataType: 'json'
-  // });
-
-  // return Promise.all(userPromise, followersPromise)
-  //   .then(function(then) {
-  //     return {
-  //       user: then[0],
-  //       followers: then[1]
-  //     };
-  //   });
-
-  // Express API
-  // Will use cached data if available
-  var expressUserPromise = $.ajax({
-    async: true,
-    crossDomain: true,
-    url: 'http://localhost:3000/twitter/user',
-    method: 'POST',
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    data: {
-      username: targetUser
-    }
+  // Use cached data
+  var userPromise = $.ajax({
+    url: 'http://localhost:8080/cache/' + targetUser + '-user.json',
+    type: 'GET',
+    dataType: 'json'
   });
 
-  var expressFollowersPromise = $.ajax({
-    async: true,
-    crossDomain: true,
-    url: 'http://localhost:3000/twitter/followers',
-    method: "POST",
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    data: {
-      username: targetUser
-    }
+  var followersPromise = $.ajax({
+    url: 'http://localhost:8080/cache/' + targetUser + '-followers.json',
+    type: 'GET',
+    dataType: 'json'
   });
-  return Promise.all([expressUserPromise, expressFollowersPromise])
+
+  return Promise.all([userPromise, followersPromise])
     .then(function(then) {
       return {
         user: then[0],
         followers: then[1]
       };
     });
+
+  // Express API
+  // Will download data from Twitter
+  // var expressUserPromise = $.ajax({
+  //   async: true,
+  //   crossDomain: true,
+  //   url: 'http://localhost:3000/twitter/user',
+  //   method: 'POST',
+  //   headers: {
+  //     'content-type': 'application/x-www-form-urlencoded'
+  //   },
+  //   data: {
+  //     username: targetUser
+  //   }
+  // });
+
+  // var expressFollowersPromise = $.ajax({
+  //   async: true,
+  //   crossDomain: true,
+  //   url: 'http://localhost:3000/twitter/followers',
+  //   method: "POST",
+  //   headers: {
+  //     'content-type': 'application/x-www-form-urlencoded'
+  //   },
+  //   data: {
+  //     username: targetUser
+  //   }
+  // });
+  // return Promise.all([expressUserPromise, expressFollowersPromise])
+  //   .then(function(then) {
+  //     return {
+  //       user: then[0],
+  //       followers: then[1]
+  //     };
+  //   });
 }
 
 function twitterUserObjToCyEle(user, level) {
