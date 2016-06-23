@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
     cy.elements().remove();
     var userInput = document.getElementById('twitterHandle').value;
     if (userInput) {
-      // Default value
       mainUser = userInput;
     } else {
       // default value
@@ -186,15 +185,15 @@ function qtipText(node) {
 }
 
 function getTwitterPromise(targetUser) {
-  // Use cached data
+  // use Cytoscape user data hosted on gh-pages
   var userPromise = $.ajax({
-    url: 'http://localhost:8080/cache/' + targetUser + '-user.json',
+    url: '(http://blog.js.cytoscape.org/public/demos/twitter-graph/cache' + targetUser + '-user.json',
     type: 'GET',
     dataType: 'json'
   });
 
   var followersPromise = $.ajax({
-    url: 'http://localhost:8080/cache/' + targetUser + '-followers.json',
+    url: 'http://blog.js.cytoscape.org/public/demos/twitter-graph/cache/' + targetUser + '-followers.json',
     type: 'GET',
     dataType: 'json'
   });
@@ -206,6 +205,27 @@ function getTwitterPromise(targetUser) {
         followers: then[1]
       };
     });
+
+  // Use local cached data
+  // var userPromise = $.ajax({
+  //   url: 'http://localhost:8080/cache/' + targetUser + '-user.json',
+  //   type: 'GET',
+  //   dataType: 'json'
+  // });
+
+  // var followersPromise = $.ajax({
+  //   url: 'http://localhost:8080/cache/' + targetUser + '-followers.json',
+  //   type: 'GET',
+  //   dataType: 'json'
+  // });
+
+  // return Promise.all([userPromise, followersPromise])
+  //   .then(function(then) {
+  //     return {
+  //       user: then[0],
+  //       followers: then[1]
+  //     };
+  //   });
 
   // Express API
   // Will download data from Twitter
