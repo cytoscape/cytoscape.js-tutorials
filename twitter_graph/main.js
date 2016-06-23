@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
       cy.add(twitterUserObjToCyEle(targetUser, level));
     }
 
-    // that user's followers
+    // targetUser's followers
     var targetId = targetUser.id_str; // saves calls while adding edges
     cy.batch(function() {
       followers.forEach(function(twitterFollower) {
@@ -82,21 +82,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // add first user to graph
-    getTwitterPromise(mainUser).then(function(then) {
-      addToGraph(then.user, then.followers, 0);
+    getTwitterPromise(mainUser)
+      .then(function(then) {
+        addToGraph(then.user, then.followers, 0);
 
-      // add followers
-      try {
-        var options = {
-          maxLevel: 4,
-          usersPerLevel: 3,
-          layout: concentricLayout
-        };
-        addFollowersByLevel(1, options);
-      } catch (error) {
-        console.log(error);
-      }
-    });
+        // add followers
+        try {
+          var options = {
+            maxLevel: 4,
+            usersPerLevel: 3,
+            layout: concentricLayout
+          };
+          addFollowersByLevel(1, options);
+        } catch (error) {
+          console.log(error);
+        }
+      })
+      .catch(function(err) {
+        console.log('Could not get data. Error message: ' + err);
+      });
   });
 
   cy.on('select', 'node', function(event) {
@@ -126,25 +130,24 @@ document.addEventListener('DOMContentLoaded', function() {
    * @param {function} options.graphFunc Function passed to add JSON data to graph after Promise completes
    */
   function addFollowersByLevel(level, options) {
-    var followerCompare = function(a, b) {
+    function followerCompare(a, b) {
       return a.data('followerCount') - b.data('followerCount');
-    };
+    }
 
-    var topFollowers = cy.nodes()
-        .filter('[level = ' + level + ']')
-        .sort(followerCompare);
-
-    var topFollowerPromises = function(sortedFollowers) {
+    function topFollowerPromises(sortedFollowers) {
       return sortedFollowers.slice(-options.usersPerLevel)
         .map(function(follower) {
           // remember that follower is a Cy element so need to access username
           var followerName = follower.data('username');
           return getTwitterPromise(followerName);
         });
-    };
+    }
 
     var quit = false;
     if (level < options.maxLevel && !quit) {
+      var topFollowers = cy.nodes()
+          .filter('[level = ' + level + ']')
+          .sort(followerCompare);
       var followerPromises = topFollowerPromises(topFollowers);
       Promise.all(followerPromises)
         .then(function(userAndFollowerData) {
@@ -185,15 +188,15 @@ function qtipText(node) {
 }
 
 function getTwitterPromise(targetUser) {
-  // use Cytoscape user data hosted on gh-pages
+  // use cached data
   var userPromise = $.ajax({
-    url: '(http://blog.js.cytoscape.org/public/demos/twitter-graph/cache' + targetUser + '-user.json',
+    url: 'cache/' + targetUser + '-user.json',
     type: 'GET',
     dataType: 'json'
   });
 
   var followersPromise = $.ajax({
-    url: 'http://blog.js.cytoscape.org/public/demos/twitter-graph/cache/' + targetUser + '-followers.json',
+    url: 'cache/' + targetUser + '-followers.json',
     type: 'GET',
     dataType: 'json'
   });
@@ -205,27 +208,6 @@ function getTwitterPromise(targetUser) {
         followers: then[1]
       };
     });
-
-  // Use local cached data
-  // var userPromise = $.ajax({
-  //   url: 'http://localhost:8080/cache/' + targetUser + '-user.json',
-  //   type: 'GET',
-  //   dataType: 'json'
-  // });
-
-  // var followersPromise = $.ajax({
-  //   url: 'http://localhost:8080/cache/' + targetUser + '-followers.json',
-  //   type: 'GET',
-  //   dataType: 'json'
-  // });
-
-  // return Promise.all([userPromise, followersPromise])
-  //   .then(function(then) {
-  //     return {
-  //       user: then[0],
-  //       followers: then[1]
-  //     };
-  //   });
 
   // Express API
   // Will download data from Twitter

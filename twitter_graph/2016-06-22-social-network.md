@@ -114,7 +114,7 @@ First, we'll add an input field and submit button to `index.html` to get the nam
 
 Here we've made changes to the CSS and added a new `<div>` element.
 It should look like this: 
-![input buttons]({{site.baseurl}}/public/demos/twitter-graph/screenshots/input_button.PNG)
+![input buttons]({{site.baseurl}}/public/demos/twitter-graph/screenshots/input_button.png)
 
 Now to get this button to do something when clicked, we'll turn back to `main.js`
 
@@ -144,9 +144,10 @@ Before we can go further here, we need to write a few functions to use.
 A few functions come to mind: 
 
 - Getting data about `mainUser` and the followers of `mainUser`
+  - Converting this data from a Twitter user object to an object Cytoscape.js can use
 - Adding `mainUser` to the graph
-- Adding the followers of `mainUser` to the graph
-- Connecting `mainUser` and his or her followers
+  - Adding the followers of `mainUser` to the graph
+  - Connecting `mainUser` and his or her followers
 - Go out a level and repeat, this time with the top three followers of `mainUser`
 
 A pattern emerges here; getting data about a user and her or his followers is done several times so we'll make that into a method.
@@ -160,10 +161,17 @@ With this in mind, we can define interfaces for our new functions:
 
 - `getTwitterPromise(targetUser)` takes one argument and will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) (to be covered in detail soon!)
   - `targetUser`: the user (as an ID string) whose followers will be requested from Twitter 
-- `addToGraph(targetUser, followers, level)` takes three arguments
-  - `targetUser`: like before, the user whose followers are being added
+- `addToGraph(targetUser, followers, level)` takes three arguments and will modify `cy`
+  - `targetUser`: this time, the user object provided by Twitter
   - `followers`: an array of follower objects to be added to the graph
   - `level`: an integer; refers to the degrees out from the initially specified user and helps to prevent the same users from coming up during follower ranking
+  - Here we'll also define `twitterUserObjToCyEle()` to convert Twitter user objects to Cytoscape.js nodes
+- `addFollowersByLevel(level, options)`: takes two arguments and will repeatedly run until the graph is built
+  - `level`: same as `addToGraph`; integer refering to degrees out from original user
+  - `options`: an object with options for `addFollowersByLevel`
+    - `maxLevel`: integer; number of degrees to fill before ending
+    - `usersPerLevel`: integer; refers to number of users to get followers for at each level
+    - `layout`: the layout to run after all elements have been added
 
 ## getTwitterPromise(targetUser)
 
@@ -173,7 +181,7 @@ Since this function does not rely on the `cy` object at all, it will be located 
 function getTwitterPromise(targetUser) {
   // Use cached data
   var userPromise = $.ajax({
-    url: '(http://blog.js.cytoscape.org/public/demos/twitter-graph/cache' + targetUser + '-user.json',
+    url: '(http://blog.js.cytoscape.org/public/demos/twitter-graph/cache/' + targetUser + '-user.json',
     type: 'GET',
     dataType: 'json'
   });
@@ -213,8 +221,347 @@ Confused yet? Hopefully this will make more sense when you see it in action back
 
 ## addToGraph(targetUser, followers, level)
 
+Recall that `targetUser` is a user object and followers is an array that user's followers.
+Because of this, we'll need to convert from the object received from Twitter (or, for the purposes of this tutorial, the object created from cached data) to an object conforming to the [Cytoscape.js specification](http://js.cytoscape.org/#notation/elements-json).
+Before we can add the user (either `targetUser` or one of `followers`), it's necessary to check whether the element already exists—this could happen if Person C follows Person A and Person B; in this case, Person C may be added while adding Person A's followers and would not need to be added again for Person B.
+Cytoscape.js provides [`empty()`](http://js.cytoscape.org/#eles.empty) which, when combined with [`getElementById()`](http://js.cytoscape.org/#cy.getElementById), will efficiently check whether an element already exists.
+
+Adding elements to the graph will occur in three steps:
+
+1. Add `targetUser` at the `level` specified
+2. For every user in `followers`:
+  - Add that user at `level + 1`
+  - Add a line between the newly added user and `targetUser`
+
+Now that an outline of `addToGraph()` has been defined, the code naturally falls into place.
+Because this function requires an initialized `cy` element, we'll place with within the `DOMContentLoaded` function, before our `submitButton` listener and after `var cy = cytoscape{ ... }`.
+
+```javascript
+  function addToGraph(targetUser, followers, level) {
+    // targetUser
+    if (cy.getElementById(targetUser.id_str).empty()) {
+      cy.add(twitterUserObjToCyEle(targetUser, level));
+    }
+    // targetUser's followers
+    var targetId = targetUser.id_str; // saves calls while adding edges
+    cy.batch(function() {
+      followers.forEach(function(twitterFollower) {
+        if (cy.getElementById(twitterFollower.id_str).empty()) {
+          // level + 1 since followers are 1 degree out from the main user
+          cy.add(twitterUserObjToCyEle(twitterFollower, level + 1));
+          cy.add({
+            data: {
+              id: 'follower-' + twitterFollower.id_str,
+              source: twitterFollower.id_str,
+              target: targetId
+            }
+          });
+        }
+      });
+    });
+  }
+```
+
+Because `targetUser` and `followers` are Twitter objects rather than Cytoscape.js objects, `getElementById()` is using `id_str`.
+`id_str` is one of the several dozen names in the Twitter object and corresponds to the `id` name of nodes in the Cytoscape.js graph.
+[`getElementById()`](http://js.cytoscape.org/#cy.getElementById) will return a [collection](http://js.cytoscape.org/#collection) of all elements matching that ID (of which there will only be 0 or 1, since elements must have unique IDs).
+In the case that the collection has 0 elements, [`empty()`](http://js.cytoscape.org/#eles.empty) will return true and the element will be added.
+
+Adding `targetUser` is straightforward, requiring only a call to `twitterUserObjToCyEle()` and [`cy.add()`](http://js.cytoscape.org/#cy.add).
+`twitterUserObjToCyEle()` is necessary for converting the Twitter user object to a Cytoscape.js object and will be covered in the next section.
+It combines several values from the Twitter object with `level` to return a Cytoscape.js object to be added. 
+
+Adding users from `followers` is similar to adding `targetUser` but has slightly more complexity because of the array.
+First, `targetId` is defined as the `id_str` (which is also the `id` of the Cytoscape.js node) for efficiency because it is used repeatedly through the `forEach()` loop.
+Next, [`cy.batch()`](http://js.cytoscape.org/#cy.batch) is called and the remaining code is wrapped within the function passed to `cy.batch()`.
+`cy.batch()` has a huge benefit to performance, since instead of modifying the appearance of the graph after each user is added, it will allow all calls to `cy.add()` to finish and then update the graph's appearance a single time.
+The `followers` array is stepped through with [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) to get individual followers.
+Within the function passed to `forEach()`, we perform the same `.empty()` check as before to make sure we're only adding unique nodes.
+Also like before, `cy.add()` is called on the result of `twitterUserObjToCyEle()`.
+Helpfully, the same `twitterUserObjToCyEle()` works for both `targetUser` and users from `followers` because the objects returned from Twitter are very similar.
+This time, `twitterUserObjToCyEle()` is given `level + 1` because followers should be placed one level out from `targetUser`.
+Finally, an edge between this newly added follower and `targetUser` is added.
+To keep the IDs unique, I'm prepending `'follower-'` to each follower's `id_str`. 
+
+## twitterUserObjToCyEle()
+
+This function serves a single purpose: converting Twitter user objects to Cytoscape.js nodes.
+There's very little to explain; we just take the Twitter user object and a `level` and return a Cytoscape.js object.
+As the code does not rely on `cy`, we're free to place it after the `DOMContentLoaded` listener.
+
+```javascript
+function twitterUserObjToCyEle(user, level) {
+  return {
+    data: {
+      id: user.id_str,
+      username: user.screen_name,
+      followerCount: user.followers_count,
+      tweetCount: user.statuses_count,
+      // following data for qTip
+      fullName: user.name,
+      followingCount: user.friends_count,
+      location: user.location,
+      description: user.description,
+      profilePic: user.profile_image_url,
+      level: level
+    }
+  };
+}
+```
+
+Right now `twitterUserObjToCyEle` creates Cytoscape.js nodes with far more information than is necessary; we'll use it later on for modifying appearance and extending the graph.
+
+## addFollowersByLevel(level, options)
+
+This function ties together `getTwitterPromise()` and `addToGraph()` to find top users (users with the highest followers) at a given level, query Twitter for a top user's followers, and add the resulting followers to the graph.
+
+Place the following at the very end the `DOMContentLoaded` listener. 
+
+```javascript
+function addFollowersByLevel(level, options) {
+    function followerCompare(a, b) {
+      return a.data('followerCount') - b.data('followerCount');
+    }
+
+    function topFollowerPromises(sortedFollowers) {
+      return sortedFollowers.slice(-options.usersPerLevel)
+        .map(function(follower) {
+          // remember that follower is a Cy element so need to access username
+          var followerName = follower.data('username');
+          return getTwitterPromise(followerName);
+        });
+    }
+
+    var quit = false;
+    if (level < options.maxLevel && !quit) {
+      var topFollowers = cy.nodes()
+          .filter('[level = ' + level + ']')
+          .sort(followerCompare);
+      var followerPromises = topFollowerPromises(topFollowers);
+      Promise.all(followerPromises)
+        .then(function(userAndFollowerData) {
+          // all data returned successfully!
+          for (var i = 0; i < userAndFollowerData.length; i++) {
+            var twitterData = userAndFollowerData[i];
+            if (twitterData.user.error || twitterData.followers.error) {
+              // error occured, such as rate limiting
+              var error = twitterData.user.error ? twitterData.user : twitterData.followers;
+              console.log('Error occured. Code: ' + error.status + ' Text: ' + error.statusText);
+              if (error.status === 429) {
+                // rate limited, so stop sending requests
+                quit = true;
+              }
+            } else {
+              addToGraph(twitterData.user, twitterData.followers, level);
+            }
+          }
+          addFollowersByLevel(level + 1, options);
+        }).catch(function(err) {
+          console.log('Could not get data. Error message: ' + err);
+        });
+    } else {
+      // reached the final level, now let's lay things out
+      options.layout.run();
+    }
+  }
+```
+
+This function relies on two smaller functions and a sorted array which I'll introduce now.
+
+### followerCompare(a, b)
+Cytoscape.js allows for [sorting](http://js.cytoscape.org/#eles.sort) based on a user-defined function.
+We'll be sorting based on follower counts so we need to write a function to compare followers.
+
+```javascript
+    function followerCompare(a, b) {
+      return a.data('followerCount') - b.data('followerCount');
+    }
+```
+
+This function takes two arguments (objects passed by [`.sort()`](http://js.cytoscape.org/#eles.sort)) and will return a positive integer if `a`'s count is larger and a negative integer if `b`'s is larger.
+Follower counts were added to the objects by `twitterUserObjToCyEle()` so they are easily accessed with [`.data()`](http://js.cytoscape.org/#eles.data).
+
+
+### topFollowers
+
+```javascript
+      var topFollowers = cy.nodes()
+          .filter('[level = ' + level + ']')
+          .sort(followerCompare);
+```
+
+This function uses `cy.nodes()` to get a [collection](http://js.cytoscape.org/#collection) and then filters it with [`.filter()`](http://js.cytoscape.org/#eles.filter).
+The `level` parameter passed to `addFollowersByLevel()` and referenced throghout this tutorial is finally put to use to ensure that only one level of users is selected (avoiding repeatedly getting high-follower-count users in lower levels).
+It's inside the large `if` block because sorting is only necessary if we'll be issueing requests for JSON data (when `level < options.maxLevel`).
+Lastly, this collection is sorted with the previously defined `followerCompare`, which will sort the list in ascending order by follower count.
+
+### topFollowerPromises(sortedFollowers)
+
+Promises have returned!
+
+```javascript
+    function topFollowerPromises(sortedFollowers) {
+      return sortedFollowers.slice(-options.usersPerLevel)
+        .map(function(follower) {
+          // remember that follower is a Cy element so need to access username
+          var followerName = follower.data('username');
+          return getTwitterPromise(followerName);
+        });
+    }
+```
+
+This function takes a collection of Cytoscape.js nodes, sorted by followers, as an argument and will return an array of Promises which resolve to an object containing follower data for the most-followed users in each level.
+
+First, [`sortedFollowers.slice(-options.usersPerLevel)`](http://js.cytoscape.org/#eles.slice) is called so that this function only operates on the most popular users in a given level. Since `sortedFollowers` is in ascending order, a negative bound is used. 
+Then, [.map()](http://js.cytoscape.org/#eles.map) is used to run a function on each of these users.
+`.map()` provides the object as an argument to its function; in this case, we'll call the object `follower`.
+Becase `getTwitterPromise()` expects a username rather than a Cytoscape.js node, we first get `follower`'s username, then return a Promise for that user.
+
+### The rest of addFollowersByLevel()
+
+```javascript
+    var quit = false;
+    if (level < options.maxLevel && !quit) {
+      var topFollowers = cy.nodes()
+          .filter('[level = ' + level + ']')
+          .sort(followerCompare);
+      var followerPromises = topFollowerPromises(topFollowers);
+      Promise.all(followerPromises)
+        .then(function(userAndFollowerData) {
+          // all data returned successfully!
+          for (var i = 0; i < userAndFollowerData.length; i++) {
+            var twitterData = userAndFollowerData[i];
+            if (twitterData.user.error || twitterData.followers.error) {
+              // error occured, such as rate limiting
+              var error = twitterData.user.error ? twitterData.user : twitterData.followers;
+              console.log('Error occured. Code: ' + error.status + ' Text: ' + error.statusText);
+              if (error.status === 429) {
+                // rate limited, so stop sending requests
+                quit = true;
+              }
+            } else {
+              addToGraph(twitterData.user, twitterData.followers, level);
+            }
+          }
+          addFollowersByLevel(level + 1, options);
+        }).catch(function(err) {
+          console.log('Could not get data. Error message: ' + err);
+        });
+    } else {
+      // reached the final level, now let's lay things out
+      options.layout.run();
+    }
+```
+
+We'll declare `quit` to ensure that errors stop the graph.
+This isn't much of a concern using cached data, but when getting data from Twitter, it's possible to run into rate limiting—no point in continuing after being rate limited.
+
+Next, we start a large `if` block (checking `quit` and `level` to make sure we don't run more iterations than requested).
+`var followerPromises = topFollowerPromises(topFollowers);` will assign an array of Promises to `followerPromises`, which is immediately resolved in the next line with `Promise.all(followerPromises).then( ... )`. If an error arises, it's handled by the `.catch()` statement later on, which prints the error and allows the program to move on.
+
+If the `.then()` statement is run, all Promises in `followerPromises` must have resolved successfully so we now have user and follower data to process.
+By using a loop, `twitterData` is assigned to the value returned by an individual Promise within `followerPromises` (recall that the value returned is an object; this was defined in `getTwitterPromise()`.
+Despite `followerPromises` being fulfilled successfully, there's still a possibility that an error occured (such as trying to get data for a private user) so we'll need to check whether the `error` key exists in `twitterData` (I chose to use this field in by Node.js server so that other Promises wouldn't be abandoned even if one didn't fill successfully due to a private user).
+
+If an error did occur, `error` is assigned to whichever part of the object had the error (`user` or `followers`) and information is logged.
+Additionally, if it was a rate-limiting error, graphing of additional levels is stopped.
+
+Hopefully no error occured, and we can go ahead with adding the returned `twitterData` to the graph with `addToGraph()`.
+Because `twitterData` is an object with both `user` and `follower` properties, we need to separate them for `addToGraph()`.
+
+Finally, `level` is incremented and `addFollowersByLevel()` is called again with the same `option` object (because options do not change). If this is the last run of `addFollowersByLevel` (when `level = options.maxLevel`), we'll skip adding elements to the graph and instead run a layout to organize all the newly added elements. Defining the `layout` property of `options` will by covered in the Style and Layout section.
+
+## A brief return to submitButton
+
+All methods necessary for adding elements to the graph have been defined, so we can finish writing a function for `submitButton`.
+
+```javascript
+submitButton.addEventListener('click', function() {
+    cy.elements().remove();
+    var userInput = document.getElementById('twitterHandle').value;
+    if (userInput) {
+      mainUser = userInput;
+    } else {
+      // default value
+      mainUser = 'cytoscape';
+    }
+
+    // add first user to graph
+    getTwitterPromise(mainUser)
+      .then(function(then) {
+        addToGraph(then.user, then.followers, 0);
+
+        // add followers
+        try {
+          var options = {
+            maxLevel: 4,
+            usersPerLevel: 3,
+            layout: concentricLayout
+          };
+          addFollowersByLevel(1, options);
+        } catch (error) {
+          console.log(error);
+        }
+      })
+      .catch(function(err) {
+        console.log('Could not get data. Error message: ' + err);
+      });
+  });
+```
+
+This function is much the same as in `addFollowersByLevel()`, minus sorting top followers.
+We're only getting data for one user (the username in the input box) so there's no need to loop through the Promises either.
+
+We get a Promise for `mainUser` and on its fulfillment, add it to the graph.
+
+# Intermission
+
+JSON data is available [on GitHub](https://github.com/cytoscape/cytoscape.js-blog/tree/gh-pages/public/demos/twitter-graph/cache).
+Make sure your folder layout looks like this:
+
+```
+twitter-graph/
+    +-- assets/
+        +-- cytoscape.js
+        +-- jquery-2.2.4.js
+    +-- cache/
+        +-- BenjaminEnfield-followers.json
+        +-- BenjaminEnfield-user.json
+        +-- charlesherring-followers.json
+        +-- charlesherring-user.json
+        +-- cytoscape-followers.json
+        +-- cytoscape-user.json
+        +-- ElsevierConnect-followers.json
+        +-- ElsevierConnect-user.json
+        +-- iamfountainhead-followers.json
+        +-- iamfountainhead-user.json
+        +-- JeffreyHayzlett-followers.json
+        +-- JeffreyHayzlett-user.json
+        +-- kahaba-followers.json
+        +-- kahaba-user.json
+        +-- KanhemaPhoto-followers.json
+        +-- KanhemaPhoto-user.json
+        +-- officialbskip-followers.json
+        +-- officialbskip-user.json
+        +-- SimplyAfterDark-followers.json
+        +-- SimplyAfterDark-user.json
+    +-- main.js
+    +-- index.html
+```
+
+If you're interested in running the graph to see what it looks like, comment out the call to `options.layout.run()` in `addFollowersByLevel()` since this is not yet defined.
+Then, you'll have enough of the graph done to reload, run via the submit button, and see a graph that you can drag around!
+
+![intermission]({{site.baseurl}}/public/demos/twitter-graph/screenshots/intermission.png)
+
+If you don't see anything, make sure you've a web server running (`npm install -g http-server` is a good start) in the `twitter-graph` directory. Unlike before, opening a file in the web browser (as in Ctrl-O => `index.html) will not work because many browsers block loading of files (such as JSON data) from other domains.
+
+The graph is quite boring though, so next we'll add some style and give the user layout choices.
+
+# Style and Layout
+
+
 # TODO
-- Write addToGraph section
 - Return to submitButton to tie this all together
 - Add style to the graph (cover mapData)
 - Layout buttons
