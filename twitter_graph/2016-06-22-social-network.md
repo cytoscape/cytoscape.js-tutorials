@@ -168,7 +168,7 @@ With this in mind, we can define interfaces for our new functions:
   - Here we'll also define `twitterUserObjToCyEle()` to convert Twitter user objects to Cytoscape.js nodes
 - `addFollowersByLevel(level, options)`: takes two arguments and will repeatedly run until the graph is built
   - `level`: same as `addToGraph`; integer refering to degrees out from original user
-  - `options`: an object with options for `addFollowersByLevel`
+  - `options`: an object with several parameters for `addFollowersByLevel`
     - `maxLevel`: integer; number of degrees to fill before ending
     - `usersPerLevel`: integer; refers to number of users to get followers for at each level
     - `layout`: the layout to run after all elements have been added
@@ -509,10 +509,16 @@ submitButton.addEventListener('click', function() {
   });
 ```
 
-This function is much the same as in `addFollowersByLevel()`, minus sorting top followers.
+This function is structured similarly to `addFollowersByLevel()`, minus sorting top followers.
 We're only getting data for one user (the username in the input box) so there's no need to loop through the Promises either.
 
-We get a Promise for `mainUser` and on its fulfillment, add it to the graph.
+We get a Promise for `mainUser` and on its fulfillment, add the returned data to the graph at level 0 (recall that `addToGraph()` takes care of converting the Twitter user object to a Cytoscape.js node).
+After adding the main user and that user's followers, we can expand outwards with `addFollowersByLevel()`, starting from level 1 (the followers of the main user).
+The `options` object, containing properties that are constant between calls of `addFollowersByLevel()`, is specified here. I've used these values (`maxLevel: 4, usersPerLevel: 3`) when downloading data for the cache so if you want to change these, [running your own API](https://github.com/cytoscape/cytoscape.js-tutorials/tree/master/twitterAPI_express) is necessary.
+
+In case there's an error, we don't want to abort the graphing (it's better to display the graph in its current state than to throw an error and erase everything).
+To accomplish this, `addFollowersByLevel()` is wrapped in a [`try...catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block.
+Additionally, the entire Promise.then() function has a [`.catch()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch) statement at the end to collect and print any error produced by a Promise that was rejected.
 
 # Intermission
 
@@ -549,7 +555,7 @@ twitter-graph/
     +-- index.html
 ```
 
-If you're interested in running the graph to see what it looks like, comment out the call to `options.layout.run()` in `addFollowersByLevel()` since this is not yet defined.
+If you're interested in running the graph to see what it looks like, comment out the call to `options.layout.run()` in `addFollowersByLevel()` and the `layout` property of `options` in the `submitButton` listener function since a layout function is not yet defined.
 Then, you'll have enough of the graph done to reload, run via the submit button, and see a graph that you can drag around!
 
 ![intermission]({{site.baseurl}}/public/demos/twitter-graph/screenshots/intermission.png)
@@ -562,7 +568,6 @@ The graph is quite boring though, so next we'll add some style and give the user
 
 
 # TODO
-- Return to submitButton to tie this all together
 - Add style to the graph (cover mapData)
 - Layout buttons
 - Layout functions
