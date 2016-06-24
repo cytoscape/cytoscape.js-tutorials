@@ -8,8 +8,8 @@ tags:
 
 # Introduction
 
-This tutorial is the third part in a series of tutorials about [Cytoscape.js](http://js.cytoscape.org) written by [Joseph Stahl[(http://josephstahl.com/) for Google Summer of Code 2016.
-For readers new to Cytoscape.js, [part 1]({% post_url 2016-05-24-getting-started %}) and [part 2]({% post_url 2016-05-30-glycolysis %}) are recommended reading.
+This tutorial is the third part in a series of tutorials about [Cytoscape.js](http://js.cytoscape.org) written by [Joseph Stahl](http://josephstahl.com/) for Google Summer of Code 2016.
+For readers new to Cytoscape.js, [part 1]({% post_url 2016-05-24-getting-started %}) and [part 2]({% post_url 2016-06-08-glycolysis %}) are recommended reading.
 
 Due to the [Twitter API](https://dev.twitter.com/rest/public) being rate-limited, this tutorial will use existing data.
 **This means that when running the graph, you *must* specify cytoscape as the Twitter username on the webpage**.
@@ -566,11 +566,213 @@ The graph is quite boring though, so next we'll add some style and give the user
 
 # Style and Layout
 
+Because style and layout options were already covered in [part 1]({% post_url 2016-05-24-getting-started %}) and [part 2]({% post_url 2016-06-08-glycolysis %}), I won't go into as much detail here.
+
+## Defining layouts
+
+Unlike previous tutorials, we'll give users a choice between two layout options: concentric and force-directed. We'll default to `concentricLayout` (this option is set in the `options` object in the `submitButton` listener. To allow for switching between them, we'll create [layout objects](http://js.cytoscape.org/#layouts) with [`makeLayout()`](http://js.cytoscape.org/#cy.makeLayout).
+
+### Concentric layout
+
+Within the `DOMContentLoaded` listener, add the following code: 
+
+```javascript
+  var concentricLayout = cy.makeLayout({
+    name: 'concentric',
+    concentric: function(node) {
+      return 10 - node.data('level');
+    },
+    levelWidth: function() {
+      return 1;
+    },
+    animate: false
+  });
+```
+
+This creates a [concentric layout](http://js.cytoscape.org/#layouts/concentric) without actually running the layout (since elements are not added to the graph until the user clicks the submit button, there's no reason to run a layout beforehand).
+In a concentric layout, the higher the value returned to `concentric`, the closer the node will be to the center of the graph. Because we have been using `level = 0` for the center of the graph, we'll subtract `level` from 10 to get a high value for central nodes and a low value for leaf nodes.
+`levelWidth` expects a function which will be used for determining how wide a range of `concentric` values will be mapped to a single concentric circle of the graph. In this case, we've made each level separated by a value of 1 so this function will return 1 every time (so that `level=0` gets its own circle, `level=1` has its own circle, `level=2` has its own circle, etc.).
+
+### Force directed layout
+
+Next to `concentricLayout`, add the following code:
+
+```javascript
+  var forceLayout = cy.makeLayout({
+    name: 'cose',
+    animate: false
+  });
+```
+
+[`cose`](http://js.cytoscape.org/#layouts/cose) is a force-directed layout which is good for seeing clique-esque sections of the graph—clusters of users who all follow each other. The low rate limit for the Twitter API limits its usefulness here (we can't get complete lists of followers for all users) but there are still some interesting results from this layout.
+
+## Layout buttons
+
+Before we can run these layouts manually, we'll need to add buttons to the webpage.
+Return to `index.html` and insert the following:
+
+```html
+<style>
+    <!-- other style blocks omitted for brevity -->
+    #layoutButtons {
+        position: absolute;
+        top: 5%;
+        right: 2%;
+    }
+</style>
+<body>
+    <div id='cy'></div>
+    <div id='userSelection'>
+        <input type='text' id='twitterHandle' placeholder="Twitter username">
+        <input type='button' id='submitButton' value='Start graph'>
+    </div>
+    <div id='layoutButtons'>
+        <input type='button' id='concentricButton' value='Concentric'>
+        <input type='button' id='forceButton' value='Force-directed'>
+    </div>
+</body>
+```
+
+Now that we've added the buttons, it's time to give them a function, much like `submitButton`.
+
+## Layout button functions
+
+Back in `main.js`, add the following to the `DOMContentLoaded` listener: 
+
+```javascript
+  var concentricButton = document.getElementById('concentricButton');
+  concentricButton.addEventListener('click', function() {
+    concentricLayout.run();
+  });
+
+  var forceButton = document.getElementById('forceButton');
+  forceButton.addEventListener('click', function() {
+    forceLayout.run();
+  });
+```
+
+After the complexities of Promises, isn't it nice to have something straightforward?
+[`layout.run()`](http://js.cytoscape.org/#layout.run) will run our previously-defined layout (either concentric or force-directed) when the corresponding button is clicked. Pretty simple!
+
+Now that layouts have been defined, you'll be able to uncomment the layout commands I talked about during Intermission (`options.layout.run()` and the `layout` property of `options`)—you have layouts to run!
+
+## Style
+
+Adding a style to the graph will help convey information to users.
+In this graph, I've chosen to map node opacity to tweet count and node size to follower count.
+Back in `var cy = ...`, we'll finally specify a `style` property!
+
+```javascript
+  var cy = window.cy = cytoscape({
+    container: document.getElementById('cy'),
+    style: [
+      {
+        selector: 'node',
+        style: {
+          'label': 'data(username)',
+          'width': 'mapData(followerCount, 0, 400, 50, 150)',
+          'height': 'mapData(followerCount, 0, 400, 50, 150)',
+          'background-color': '#02779E',
+          'background-opacity': 'mapData(tweetCount, 0, 2000, 0.1, 1)'
+        }
+      }
+    ]
+  });
+```
+
+Cytoscape.js provides [several other node properties](http://js.cytoscape.org/#style) that can be styled if you don't like these options.
+I'm using a special Cytoscape.js option, [`mapData()`](http://js.cytoscape.org/#style/mappers) for the values of `width`, `height`, and `background-opacity` which will change the style of individual nodes depending on their properties.
+These defaults give the nodes a light blue color (fitting, since we're dealing with Twitter) and provide minimums for size (50px) and opacity (0.1) so that nodes won't be invisible for low-tweet or low-follower users.
+
+**The "core" of the graph is now complete. We've been able to download data asynchronously, add it to the graph, adjust the appearance of the graph, and switch between layouts. Congratulations!**
+
+# Extensions
+
+With the core of the graph done, it's time to add some more features.
+Remember all those extra properties we added with `twitterUserObjToCyEle`?
+It's time to make use of them, using an extension called [qTip](https://github.com/cytoscape/cytoscape.js-qtip). 
+qTip will allow use to see Twitter user information whenever we select a node.
+
+## qTip
+
+First, we'll need to [download qTip](http://qtip2.com/download).
+In case you run into issues, try using version 3.0.3 (the most recent version when I made this tutorial). Place `jquery.qtip.min.css`, `jquery.qtip.min.js`, and `jquery.qtip.min.map` in the `assets/` folder. Additionally, we need the Cytoscape.js extension that connects qTip to Cytoscape.js. [Get `cytoscape-qtip.js` here](https://github.com/cytoscape/cytoscape.js-qtip) and move it to `assets/` (I'm using version 2.4.0).
+
+With the files downloaded, it's time to load the qTip extension into our graph. First, we'll need to load the files in `index.html`:
+
+```html
+<head>
+    <meta charset='utf-8'></meta>
+    <title>Tutorial 3: Twitter</title>
+    <link type="text/css" rel="stylesheet" href="assets/jquery.qtip.min.css" />
+    <script src='assets/jquery-2.2.4.js'></script>
+    <script src='assets/jquery.qtip.min.js'></script>
+    <script src='assets/cytoscape.js'></script>
+    <script src='assets/cytoscape-qtip.js'></script>
+    <script src='main.js'></script>
+</head>
+```
+
+Note that in addition to the `.js` files added, I also added the qTip stylesheet so that the tooltip appearance can be modified.
+
+Back in `main.js`, we'll need to add a function which displays a qTip box whenever a node is selected.
+Because the tooltip will be displayed in response to an event (a click), we'll use Cytoscape.js's [events](http://js.cytoscape.org/#core/events) functionality.
+
+In the `DOMContentLoaded` listener, add the following statement:
+
+```javascript
+  cy.on('select', 'node', function(event) {
+    var target = event.cyTarget;
+    target.qtip({
+      content: {
+        text: qtipText(target),
+        title: target.data('fullName')
+      },
+      style: {
+        classes: 'qtip-bootstrap'
+      }
+    });
+  });
+```
+
+This uses the [`cy.on()`](http://js.cytoscape.org/#cy.on) listener to bind to node selection. [Part 2]({% post_url 2016-06-08-glycolysis %}) has a discussion of events for those interested. I'll be focusing on the `.qtip()` part for this tutorial.
+
+The qTip extension was loaded in `index.html`, so we're free to use `.qtip()` here.
+The object passed to the Cytoscape.js qTip extension is identical to [normal qTip](http://qtip2.com/guides#content) in terms of `content` and `style` but some of the values are different. For `text`, we'll be using a function `qtipText()` that builds an HTML string from the data of a Cytoscape.js node. For `title`, we can easily extract the name of a user from a selected node with `data('fullName')`. The `style` property is there to make things look nice.
+
+## qtipText(node)
+
+Because the graph element is passed to `qtipText()` and `qtipText()` otherwise makes no calls to `cy`, we'll place `qtipText()` outside the `DOMContentLoaded` listener.
+
+```javascript
+function qtipText(node) {
+  var twitterLink = '<a href="http://twitter.com/' + node.data('username') + '">' + node.data('username') + '</a>';
+  var following = 'Following ' + node.data('followingCount') + ' other users';
+  var location = 'Location: ' + node.data('location');
+  var image = '<img src="' + node.data('profilePic') + '" style="float:left;width:48px;height:48px;">';
+  var description = '<i>' + node.data('description') + '</i>';
+
+  return image + twitterLink + '<br>' + location + '<br>' + following + '<p><br>' + description + '</p>';
+}
+```
+
+This function is here to build up an HTML string for qTip to display within the tooltip box. Each variable accesses one of the properties of the Cytoscape.js we saved in `twitterUserObjToCyEle` and surrounds it with some HTML tags to get a properly-formatted string to return.
+
+With this function complete, integration with qTip is complete! 
+
+# Conclusion
+
+The finished graph should look something like this after running: 
+
+![finished]({{site.baseurl}}/public/demos/twitter-graph/screenshots/finished.png)
+
+With a qTip box open: 
+
+![finished]({{site.baseurl}}/public/demos/twitter-graph/screenshots/qtip.png)
+
+Congratulations on finishing Tutorial 3!
+
+
 
 # TODO
-- Add style to the graph (cover mapData)
-- Layout buttons
-- Layout functions
-  - Running the layout function when button is clicked
-- Extensions (qTip)
 - Try other force-directed layout options
