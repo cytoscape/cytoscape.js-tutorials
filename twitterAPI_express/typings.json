@@ -1,0 +1,10 @@
+{
+  "name": "twitterAPI_express",
+  "dependencies": {},
+  "globalDependencies": {
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160617060422",
+    "node": "registry:dt/node#6.0.0+20160621231320",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+  }
+}
