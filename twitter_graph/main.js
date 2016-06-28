@@ -110,14 +110,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   cy.on('select', 'node', function(event) {
     var target = event.cyTarget;
-    target.qtip({
-      content: {
-        text: qtipText(target),
-        title: target.data('fullName')
-      },
-      style: {
-        classes: 'qtip-bootstrap'
-      }
+    target.style({
+      'border-width': 10,
+      'border-style': 'solid',
+      'border-color': 'black'
+    });
+  });
+
+  cy.on('unselect', 'node', function(event) {
+    var target = event.cyTarget;
+    target.style({
+      'border-width': 0
     });
   });
 
@@ -178,6 +181,18 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       // reached the final level, now let's lay things out
       options.layout.run();
+      // and add qtip boxes
+      cy.nodes().forEach(function(ele) {
+        ele.qtip({
+          content: {
+            text: qtipText(ele),
+            title: ele.data('fullname')
+          },
+          style: {
+            classes: 'qtip-bootstrap'
+          }
+        });
+      });
     }
   }
 });
