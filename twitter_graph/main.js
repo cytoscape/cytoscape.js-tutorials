@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
           'height': 'mapData(followerCount, 0, 400, 50, 150)',
           'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
         }
+      },
+      {
+        selector: 'edge',
+        style: {
+          events: 'no'
+        }
       }
     ]
   });
@@ -57,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
               id: 'follower-' + twitterFollower.id_str,
               source: twitterFollower.id_str,
               target: targetId
-            }
+            },
+            selectable: false
           });
         }
       });
