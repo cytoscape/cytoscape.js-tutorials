@@ -67,38 +67,60 @@ document.addEventListener('DOMContentLoaded', function() {
     concentricLayout.run();
   });
 
-  var submitButton = document.getElementById('submitButton');
-  submitButton.addEventListener('click', function() {
-    cy.elements().remove();
-    var userInput = document.getElementById('twitterHandle').value;
-    if (userInput) {
-      mainUser = userInput;
-    } else {
-      // default value
-      mainUser = 'cytoscape';
-    }
+  // var submitButton = document.getElementById('submitButton');
+  // submitButton.addEventListener('click', function() {
+  //   cy.elements().remove();
+  //   var userInput = document.getElementById('twitterHandle').value;
+  //   if (userInput) {
+  //     mainUser = userInput;
+  //   } else {
+  //     // default value
+  //     mainUser = 'cytoscape';
+  //   }
 
-    // add first user to graph
-    getTwitterPromise(mainUser)
-      .then(function(then) {
-        addToGraph(then.user, then.followers, 0);
+  //   // add first user to graph
+  //   getTwitterPromise(mainUser)
+  //     .then(function(then) {
+  //       addToGraph(then.user, then.followers, 0);
 
-        // add followers
-        try {
-          var options = {
-            maxLevel: 4,
-            usersPerLevel: 3,
-            layout: concentricLayout
-          };
-          addFollowersByLevel(1, options);
-        } catch (error) {
-          console.log(error);
-        }
-      })
-      .catch(function(err) {
-        console.log('Could not get data. Error message: ' + err);
-      });
-  });
+  //       // add followers
+  //       try {
+  //         var options = {
+  //           maxLevel: 4,
+  //           usersPerLevel: 3,
+  //           layout: concentricLayout
+  //         };
+  //         addFollowersByLevel(1, options);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     })
+  //     .catch(function(err) {
+  //       console.log('Could not get data. Error message: ' + err);
+  //     });
+  // });
+
+  // with no submit button, add user=cytoscape by default on page load
+  mainUser = 'cytoscape';
+  getTwitterPromise(mainUser)
+    .then(function(then) {
+      addToGraph(then.user, then.followers, 0);
+
+      // add followers
+      try {
+        var options = {
+          maxLevel: 4,
+          usersPerLevel: 3,
+          layout: concentricLayout
+        };
+        addFollowersByLevel(1, options);
+      } catch (error) {
+        console.log(error);
+      }
+    })
+    .catch(function(err) {
+      console.log('Could not get data. Error message: ' + err);
+    });
 
   cy.on('select', 'node', function(event) {
     var target = event.cyTarget;
