@@ -278,6 +278,11 @@ function twitterUserObjToCyEle(user, level) {
       description: user.description,
       profilePic: user.profile_image_url,
       level: level
+    },
+    position: {
+      // render offscreen
+      x: -1000000,
+      y: -1000000
     }
   };
 }
