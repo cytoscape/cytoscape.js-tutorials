@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
           'label': 'data(username)',
           'width': 'mapData(followerCount, 0, 400, 50, 150)',
           'height': 'mapData(followerCount, 0, 400, 50, 150)',
-          'background-color': '#02779E',
-          'background-opacity': 'mapData(tweetCount, 0, 2000, 0.1, 1)'
+          'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
         }
       }
     ]
