@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       // reached the final level, now let's lay things out
       options.layout.run();
-      // and add qtip boxes
+      // add qtip boxes
       cy.nodes().forEach(function(ele) {
         ele.qtip({
           content: {
@@ -192,6 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       });
+      // and finally, clear the loading animation
+      var loading = document.getElementById('loading');
+      loading.classList.add('loaded');
     }
   }
 });
