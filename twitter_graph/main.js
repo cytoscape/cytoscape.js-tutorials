@@ -185,10 +185,15 @@ document.addEventListener('DOMContentLoaded', function() {
         ele.qtip({
           content: {
             text: qtipText(ele),
-            title: ele.data('fullname')
+            title: ele.data('fullName')
           },
           style: {
             classes: 'qtip-bootstrap'
+          },
+          position: {
+            my: 'bottom center',
+            at: 'top center',
+            target: ele
           }
         });
       });
