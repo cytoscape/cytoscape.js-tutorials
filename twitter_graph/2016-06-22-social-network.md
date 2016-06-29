@@ -585,13 +585,12 @@ twitter-graph/
 ```
 
 If you're interested in running the graph to see what it looks like, comment out the call to `options.layout.run()` in `addFollowersByLevel()` and the `layout` property of `options` in the `submitButton` listener function since a layout function is not yet defined.
-Then, you'll have enough of the graph done to reload, run via the submit button, and see a graph that you can drag around!
+Then, you'll have enough of the graph done to reload and see a graph that you can drag around!
 
-![intermission]({{site.baseurl}}/public/demos/twitter-graph/screenshots/intermission.png)
+If you don't see anything, make sure you've a web server running (`npm install -g http-server` is a good start) in the `twitter-graph` directory.
+Unlike before, opening a file in the web browser (as in Ctrl-O => `index.html`) will not work because many browsers block loading of files (such as JSON data) from other domains.
 
-If you don't see anything, make sure you've a web server running (`npm install -g http-server` is a good start) in the `twitter-graph` directory. Unlike before, opening a file in the web browser (as in Ctrl-O => `index.html`) will not work because many browsers block loading of files (such as JSON data) from other domains.
-
-The graph is quite boring though, so next we'll add some style and give the user layout choices.
+The graph is quite boring though, so next we'll add some style options and run a layout.
 
 # Style and Layout
 
@@ -685,8 +684,7 @@ Back in `var cy = ...`, we'll finally specify a `style` property!
           'label': 'data(username)',
           'width': 'mapData(followerCount, 0, 400, 50, 150)',
           'height': 'mapData(followerCount, 0, 400, 50, 150)',
-          'background-color': '#02779E',
-          'background-opacity': 'mapData(tweetCount, 0, 2000, 0.1, 1)'
+          'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
         }
       }
     ]
@@ -694,13 +692,12 @@ Back in `var cy = ...`, we'll finally specify a `style` property!
 ```
 
 Cytoscape.js provides [several other node properties](http://js.cytoscape.org/#style) that can be styled if you don't like these options.
-I'm using a special Cytoscape.js option, [`mapData()`](http://js.cytoscape.org/#style/mappers) for the values of `width`, `height`, and `background-opacity` which will change the style of individual nodes depending on their properties.
-These defaults give the nodes a light blue color (fitting, since we're dealing with Twitter) and provide minimums for size (50px) and opacity (0.1) so that nodes won't be invisible for low-tweet or low-follower users.
+I'm using a special Cytoscape.js option, [`mapData()`](http://js.cytoscape.org/#style/mappers) for the values of `width`, `height`, and `background-color` which will change the style of individual nodes depending on their properties.
+These defaults give the nodes a light blue color (fitting, since we're dealing with Twitter) and provide minimums for `width` and `height` (50px) so that nodes won't be invisible for low-tweet users.
 
 Now that we've styled nodes, let's style edges too.
 They're much less complicated, since we don't want edges to do anything.
-This is accomplished by setting the [`events`] property to `no`.
-Add another selector to the style object to accomplish this: 
+This is accomplished by adding another selector and setting the [`events`] property to `no`
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
