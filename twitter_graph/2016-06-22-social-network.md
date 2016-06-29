@@ -258,7 +258,8 @@ Because this function requires an initialized `cy` element, we'll place it withi
               id: 'follower-' + twitterFollower.id_str,
               source: twitterFollower.id_str,
               target: targetId
-            }
+            },
+            selectable: false
           });
         }
       });
@@ -285,7 +286,8 @@ Also like before, `cy.add()` is called on the result of `twitterUserObjToCyEle()
 Helpfully, the same `twitterUserObjToCyEle()` works for both `targetUser` and users from `followers` because the objects returned from Twitter are very similar.
 This time, `twitterUserObjToCyEle()` is given `level + 1` because followers should be placed one level out from `targetUser`.
 Finally, an edge between this newly added follower and `targetUser` is added.
-To keep the IDs unique, I'm prepending `'follower-'` to each follower's `id_str`. 
+To keep the IDs unique, I'm prepending `'follower-'` to each follower's `id_str`.
+The `selectable` property is set to false because in this graph, only nodes are of interest (edges have no function besides representing follower connections).
 
 ## twitterUserObjToCyEle()
 
