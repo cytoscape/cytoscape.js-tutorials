@@ -1,9 +1,5 @@
 # TODO
-- Style
-  - Add a loading spinner to screen, similar to Wine and Cheese demo?
-- Try spread layout (0 expand iterations)
-- Does 'quit' actually do anything in addFollowersByLevel? Or is error handling already done via the Promises?
-
+- Bring up to date with recent changes to `main.js`.
 
 # NOTES
 - Or look at using Heroku for using API with JS. But start with static data and write program for downloading data later.
