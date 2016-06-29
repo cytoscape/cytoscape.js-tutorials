@@ -696,6 +696,78 @@ Cytoscape.js provides [several other node properties](http://js.cytoscape.org/#s
 I'm using a special Cytoscape.js option, [`mapData()`](http://js.cytoscape.org/#style/mappers) for the values of `width`, `height`, and `background-opacity` which will change the style of individual nodes depending on their properties.
 These defaults give the nodes a light blue color (fitting, since we're dealing with Twitter) and provide minimums for size (50px) and opacity (0.1) so that nodes won't be invisible for low-tweet or low-follower users.
 
+Now that we've styled nodes, let's style edges too.
+They're much less complicated, since we don't want edges to do anything.
+This is accomplished by setting the [`events`] property to `no`.
+Add another selector to the style object to accomplish this: 
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  var mainUser;
+  var cy = window.cy = cytoscape({
+    container: document.getElementById('cy'),
+    style: [
+      {
+        selector: 'node',
+        style: {
+          'label': 'data(username)',
+          'width': 'mapData(followerCount, 0, 400, 50, 150)',
+          'height': 'mapData(followerCount, 0, 400, 50, 150)',
+          'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          events: 'no'
+        }
+      }
+    ]
+  });
+```
+
+Additionally, it'd be nice to make it clear which node is selected. We can accomplish this by adding a black border around the selected node.
+Like in CSS, it's possible for an element to match several style rules.
+With this in mind, we can add a style rule that specifies a border for a selected node while leaving all other properties the same as ordinary nodes.
+Cytoscape.js provides a [`:selected`](http://js.cytoscape.org/#selectors/state) state that will limit the style to selected nodes only.
+Again, in the `style` object:
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  var mainUser;
+  var cy = window.cy = cytoscape({
+    container: document.getElementById('cy'),
+    style: [
+      {
+        selector: 'node',
+        style: {
+          'label': 'data(username)',
+          'width': 'mapData(followerCount, 0, 400, 50, 150)',
+          'height': 'mapData(followerCount, 0, 400, 50, 150)',
+          'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          events: 'no'
+        }
+      },
+      {
+        selector: ':selected',
+        style: {
+          'border-width': 10,
+          'border-style': 'solid',
+          'border-color': 'black'
+        }
+      }
+    ]
+  });
+``` 
+
+On a select, we want to add a 10px black border to the selected node.
+The border is automatically removed when the node is no longer selected, since it will no longer have a `:selected` attribute.
+
 **The "core" of the graph is now complete. We've been able to download data asynchronously, add it to the graph, adjust the appearance of the graph, and switch between layouts. Congratulations!**
 
 # Extensions
@@ -728,29 +800,36 @@ With the files downloaded, it's time to load the qTip extension into our graph. 
 Note that in addition to the `.js` files added, I also added the qTip stylesheet so that the tooltip appearance can be modified.
 
 Back in `main.js`, we'll need to add a function which displays a qTip box whenever a node is selected.
-Because the tooltip will be displayed in response to an event (a click), we'll use Cytoscape.js's [events](http://js.cytoscape.org/#core/events) functionality.
+The qTip extension will display a tooltip whenever a node is selected, so the only step necessary to set up qTip is calling `.qtip()` on each node as we add it.
+Because we want to modify all nodes with the qTip extension, we'll need to make sure that all nodes have been added to the graph before calling `.qtip()` on each one.
+With this in mind, we'll place the `.qtip()` call immediately after `options.layout.run()` in `addFollowersByLevel()`.
 
-In the `DOMContentLoaded` listener, add the following statement:
+In the `addFollowersByLevel`, add the following statement:
 
 ```javascript
-  cy.on('select', 'node', function(event) {
-    var target = event.cyTarget;
-    target.qtip({
-      content: {
-        text: qtipText(target),
-        title: target.data('fullName')
-      },
-      style: {
-        classes: 'qtip-bootstrap'
-      }
-    });
-  });
+      cy.nodes().forEach(function(ele) {
+        ele.qtip({
+          content: {
+            text: qtipText(ele),
+            title: ele.data('fullName')
+          },
+          style: {
+            classes: 'qtip-bootstrap'
+          },
+          position: {
+            my: 'bottom center',
+            at: 'top center',
+            target: ele
+          }
+        });
+      });
 ```
 
-This uses the [`cy.on()`](http://js.cytoscape.org/#cy.on) listener to bind to node selection. [Part 2]({% post_url 2016-06-08-glycolysis %}) has a discussion of events for those interested. I'll be focusing on the `.qtip()` part for this tutorial.
+This uses [`forEach()`](http://js.cytoscape.org/#collection/iteration/eles.forEach) to call `qtip()` on each node of the graph.
 
 The qTip extension was loaded in `index.html`, so we're free to use `.qtip()` here.
-The object passed to the Cytoscape.js qTip extension is identical to [normal qTip](http://qtip2.com/guides#content) in terms of `content` and `style` but some of the values are different. For `text`, we'll be using a function `qtipText()` that builds an HTML string from the data of a Cytoscape.js node. For `title`, we can easily extract the name of a user from a selected node with `data('fullName')`. The `style` property is there to make things look nice.
+The object passed to the Cytoscape.js qTip extension is identical to [normal qTip](http://qtip2.com/guides#content) in terms of `content` and `style` but some of the values are different. For `text`, we'll be using a function `qtipText()` that builds an HTML string from the data of a Cytoscape.js node. For `title`, we can easily extract the name of a user from a selected node with `data('fullName')`.
+The `style` and `position` properties are there to make things look nice.
 
 ## qtipText(node)
 
