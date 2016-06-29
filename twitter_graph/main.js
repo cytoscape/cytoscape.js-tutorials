@@ -198,7 +198,7 @@ function qtipText(node) {
   var image = '<img src="' + node.data('profilePic') + '" style="float:left;width:48px;height:48px;">';
   var description = '<i>' + node.data('description') + '</i>';
 
-  return image + twitterLink + '<br>' + location + '<br>' + following + '<p><br>' + description + '</p>';
+  return image + '&nbsp' + twitterLink + '<br> &nbsp' + location + '<br> &nbsp' + following + '<p><br>' + description + '</p>';
 }
 
 function getTwitterPromise(targetUser) {

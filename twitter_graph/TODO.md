@@ -1,6 +1,4 @@
 # TODO
-- Bring up to date with recent changes to `main.js`.
-- Update screenshots
 
 # NOTES
 - Or look at using Heroku for using API with JS. But start with static data and write program for downloading data later.
