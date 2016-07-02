@@ -1,6 +1,14 @@
 {
   "version": "0.2.0",
   "configurations": [
+        {
+        "name": "Debug electron",
+        "type": "chrome",
+        "request": "launch",
+        "runtimeExecutable": "${workspaceRoot}/learning-electron/node_modules/electron-prebuilt/dist/electron.exe",
+        "port": 5858,
+        "runtimeArgs": ["${workspaceRoot}/learning-electron/main.js"]
+    },
     {
       "name": "Launch Twitter API (Express)",
       "type": "node",
