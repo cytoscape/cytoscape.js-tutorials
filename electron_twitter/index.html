@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tutorial 4</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script>
+      require('./renderer.js');
+    </script>
+  </head>
+
+  <body>
+    <div id='cy'></div>
+    <div id='userSelection'>
+      <!--These buttons are hidden by default (display: none) since user input is not handled-->
+      <input type='text' id='twitterHandle' placeholder="Twitter username">
+      <input type='button' id='submitButton' value='Start graph'>
+    </div>
+    <div id='layoutButtons'>
+      <input type='button' id='concentricButton' value='Redo layout'>
+    </div>
+  </body>
+
+</html>
+

@@ -1,0 +1,2 @@
+- Figure out best location to store cached data. User's temp folder?
+- Deal with Promises (remove them?) in renderer.js

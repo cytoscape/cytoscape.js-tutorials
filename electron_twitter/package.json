@@ -1,0 +1,12 @@
+{
+  "name": "twitter-electron",
+  "version": "1.0.0",
+  "main": "main.js",
+  "dependencies": {
+    "twit": "^2.2.4"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.5",
+    "mkdirp": "^0.5.1"
+  }
+}
