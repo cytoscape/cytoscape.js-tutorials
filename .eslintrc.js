@@ -6,11 +6,13 @@ module.exports = {
 		'object-curly-spacing': [2, 'always']
     },
     env: {
-        'browser': true
+        'browser': true,
+        'node': true,
+        'shared-node-browser': true,
+        'jquery': true
     },
     globals: {
         'cytoscape': false,
-        'GlyElements': false,
-        '$': false
+        'GlyElements': false
     }
 };
