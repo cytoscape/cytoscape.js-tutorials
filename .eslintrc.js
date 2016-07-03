@@ -8,7 +8,6 @@ module.exports = {
     env: {
         'browser': true,
         'node': true,
-        'shared-node-browser': true,
         'jquery': true
     },
     globals: {

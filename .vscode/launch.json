@@ -1,14 +1,6 @@
 {
   "version": "0.2.0",
   "configurations": [
-        {
-        "name": "Attach electron",
-        "type": "chrome",
-        "request": "attach",
-        "port": 5858,
-        "diagnosticLogging": true,
-        "webRoot": "${workspaceRoot}/electron_twitter"
-    },
     {
       "name": "Launch Twitter API (Express)",
       "type": "node",

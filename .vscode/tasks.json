@@ -2,14 +2,24 @@
   // See https://go.microsoft.com/fwlink/?LinkId=733558
   // for the documentation about the tasks.json format
   "version": "0.1.0",
-  "command": "electron_twitter/node_modules/electron-prebuilt/dist/electron.exe",
+  "command": "electron_gitgraph/node_modules/electron-prebuilt/dist/electron.exe",
   "isShellCommand": false,
-  "args": ["--debug=5858", "electron_twitter/main.js"],
+  "args": ["--debug=5858"],
   "showOutput": "never",
   "tasks": [
     {
-      "taskName": "electron",
-      "isBuildCommand": true
+      "taskName": "electron_twitter",
+      "isBuildCommand": false,
+      "args": [
+        "electron_twitter/main.js"
+      ]
+    },
+    {
+      "taskName": "electron_gitgraph",
+      "isBuildCommand": true,
+      "args": [
+        "electron_gitgraph/main.js"
+      ]
     }
   ]
 }

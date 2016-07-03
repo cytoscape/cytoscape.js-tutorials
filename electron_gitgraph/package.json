@@ -1,0 +1,18 @@
+{
+  "name": "git-electron",
+  "displayName": "Tutorial 4: Git graphs with Cytoscape.js",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": {
+    "name": "Joseph Stahl"
+  },
+  "engines": {
+    "electron": "1.2.5"
+  },
+  "dependencies": {
+    "nodegit": "^0.14.1"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.5"
+  }
+}
