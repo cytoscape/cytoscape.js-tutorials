@@ -6,6 +6,8 @@
   "author": {
     "name": "Joseph Stahl"
   },
+  "scripts": {
+  },
   "engines": {
     "electron": "1.2.5"
   },

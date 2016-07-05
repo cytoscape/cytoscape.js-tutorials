@@ -1,5 +1,6 @@
 var twitter = require('./twitter_api.js');
 var cytoscape = require('./cytoscape.min.js');
+var Promise = require('bluebird');
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   var concentricLayout = cy.makeLayout({
     name: 'concentric',
+    fit: true,
     concentric: function(node) {
       return 10 - node.data('level');
     },
@@ -42,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     animate: false
   });
+
   function addToGraph(targetUser, followers, level) {
     // target user
     if (cy.getElementById(targetUser.id_str).empty()) {
@@ -85,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
       mainUser = 'cytoscape';
     }
 
+
     // add first user to graph
     getTwitterPromise(mainUser)
       .then(function(then) {
@@ -101,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
           console.log(error);
         }
-      // })
-      // .catch(function(err) {
-      //   console.log('Could not get data. Error message: ' + err);
+      })
+      .catch(function(err) {
+        console.log('Could not get data. Error message: ' + err);
       });
   });
   // with the submit button hidden, we'll run the graph automatically
@@ -147,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // all data returned successfully!
           for (var i = 0; i < userAndFollowerData.length; i++) {
             var twitterData = userAndFollowerData[i];
-            if (twitterData.user.error || twitterData.followers.error) {
+            if (twitterData && twitterData.user.error || twitterData.followers.error) {
               // error occured, such as rate limiting
               var error = twitterData.user.error ? twitterData.user : twitterData.followers;
               console.log('Error occured. Code: ' + error.status + ' Text: ' + error.statusText);
@@ -165,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
       // reached the final level, now let's lay things out
+      console.log('layout on ' + cy.nodes().length + ' elements.');
       options.layout.run();
       // add qtip boxes
       // cy.nodes().forEach(function(ele) {

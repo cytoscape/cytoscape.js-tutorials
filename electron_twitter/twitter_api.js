@@ -2,6 +2,7 @@ var Twit = require('twit');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 var path = require('path');
+var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
 var cacheLocation = path.join(__dirname, 'cache');
@@ -17,7 +18,13 @@ var TwitterAPI = function() {};
 TwitterAPI.prototype.getUser = function(username) {
   var filePath = path.join(cacheLocation, username, 'user.json');
   try {
-    return getCachedData(filePath);
+    var cachedJSON = getCachedData(filePath);
+    return new Promise(function(resolve, reject) {
+      if (cachedJSON) {
+        resolve(cachedJSON);
+      }
+      reject(Error("something went wrong reading the cached data"));
+    });
   } catch (error) {
     return T.get('users/show', { screen_name: username })
       .catch(function(err) {
@@ -32,20 +39,45 @@ TwitterAPI.prototype.getUser = function(username) {
 };
 
 TwitterAPI.prototype.getFollowers = function(username) {
-  var filePath = path.join(cacheLocation, username, 'followers.json');
-  try {
-    return getCachedData(filePath);
-  } catch (error) {
-    T.get('followers/list', { screen_name: username, count: userCount, skip_status: true })
-      .catch(function(err) {
-        return makeErrorMessage(err);
-      })
-      .then(function(result) {
-        // Log all API calls so tutorial can use cached data
-        logDataToFile(result.data.users, filePath);
-        return result.data.users;
-      });
-  }
+  return new Promise(function(resolve, reject) {
+    var filePath = path.join(cacheLocation, username, 'followers.json');
+    try {
+      var cachedJSON = getCachedData(filePath);
+      if (cachedJSON) {
+        resolve(cachedJSON);
+      }
+    } catch (error) {
+      T.get('followers/list', { screen_name: username, count: userCount, skip_status: true })
+        .catch(function(err) {
+          reject(makeErrorMessage(err));
+        })
+        .then(function(result) {
+          logDataToFile(result.data.users, filePath);
+          resolve(result.data.users);
+        });
+    }
+  });
+  // OLD
+  // var filePath = path.join(cacheLocation, username, 'followers.json');
+  // try {
+  //   var cachedJSON = getCachedData(filePath);
+  //   return new Promise(function(resolve, reject) {
+  //     if (cachedJSON) {
+  //       resolve(cachedJSON);
+  //     }
+  //     reject(Error("something went wrong reading the cached data"));
+  //   });
+  // } catch (error) {
+  //   T.get('followers/list', { screen_name: username, count: userCount, skip_status: true })
+  //     .catch(function(err) {
+  //       return makeErrorMessage(err);
+  //     })
+  //     .then(function(result) {
+  //       // Log all API calls so tutorial can use cached data
+  //       logDataToFile(result.data.users, filePath);
+  //       return result.data.users;
+  //     });
+  // }
 };
 
 function makeErrorMessage(err) {
@@ -82,14 +114,12 @@ function logDataToFile(data, filePath) {
 }
 
 function getCachedData(dataPath) {
-  var cachedFileStat = fs.statSync(dataPath);
-  if (cachedFileStat.isFile) {
-    var cachedJSON = fs.readFileSync(dataPath);
-    return new Promise(function(resolve, reject) {
-      resolve(JSON.parse(cachedJSON));
-    });
+  var cachedJSONStat = fs.statSync(dataPath);
+  if (cachedJSONStat.isFile) {
+    var cachedData = fs.readFileSync(dataPath);
+    return JSON.parse(cachedData);
   }
-  // made it here => cachedFile must not be a file
+  // made it here => cachedJSON must not be a file
   throw new Error("not a file");
 }
 

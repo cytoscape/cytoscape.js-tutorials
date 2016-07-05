@@ -22,12 +22,16 @@
       "outDir": null
     },
     {
-        "name": "Launch localhost, Twitter graph",
+        "name": "Launch Electron",
         "type": "chrome",
         "request": "launch",
-        "url": "http://localhost:8080/index.html",
-        "webRoot": "${workspaceRoot}/twitter_graph",
-        "sourceMaps": true
+        "runtimeExecutable": "${workspaceRoot}/electron_twitter/node_modules/.bin/electron.cmd",
+        "runtimeArgs": [
+            "${workspaceRoot}/electron_twitter",
+            "--enable-logging",
+            "--remote-debugging-port=9222"
+        ],
+        "sourceMaps": false
     },
     {
       "name": "Attach",
