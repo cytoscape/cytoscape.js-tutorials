@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ]
   });
-  var concentricLayout = cy.makeLayout({
+  var concentricLayout = window.concentric = cy.makeLayout({
     name: 'concentric',
     fit: true,
     concentric: function(node) {
@@ -169,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
       // reached the final level, now let's lay things out
-      console.log('layout on ' + cy.nodes().length + ' elements.');
       options.layout.run();
+      // options.layout.run();
       // add qtip boxes
       // cy.nodes().forEach(function(ele) {
       //   ele.qtip({

@@ -16,26 +16,44 @@ var T = new Twit({
 var TwitterAPI = function() {};
 
 TwitterAPI.prototype.getUser = function(username) {
-  var filePath = path.join(cacheLocation, username, 'user.json');
-  try {
-    var cachedJSON = getCachedData(filePath);
-    return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
+    var filePath = path.join(cacheLocation, username, 'user.json');
+    try {
+      var cachedJSON = getCachedData(filePath);
       if (cachedJSON) {
         resolve(cachedJSON);
       }
-      reject(Error("something went wrong reading the cached data"));
-    });
-  } catch (error) {
-    return T.get('users/show', { screen_name: username })
-      .catch(function(err) {
-        return makeErrorMessage(err);
-      })
-      .then(function(result) {
-      // Log all API calls so tutorial can use cached data
-        logDataToFile(result.data, filePath);
-        return result.data;
+    } catch (error) {
+      T.get('users/show', { screen_name: username }, function(err, data) {
+        if (err) {
+          reject(makeErrorMessage(err));
+        }
+        logDataToFile(data, filePath);
+        resolve(data);
       });
-  }
+    }
+  });
+  // OLD
+  // var filePath = path.join(cacheLocation, username, 'user.json');
+  // try {
+  //   var cachedJSON = getCachedData(filePath);
+  //   return new Promise(function(resolve, reject) {
+  //     if (cachedJSON) {
+  //       resolve(cachedJSON);
+  //     }
+  //     reject(Error("something went wrong reading the cached data"));
+  //   });
+  // } catch (error) {
+  //   return T.get('users/show', { screen_name: username })
+  //     .catch(function(err) {
+  //       return makeErrorMessage(err);
+  //     })
+  //     .then(function(result) {
+  //     // Log all API calls so tutorial can use cached data
+  //       logDataToFile(result.data, filePath);
+  //       return result.data;
+  //     });
+  // }
 };
 
 TwitterAPI.prototype.getFollowers = function(username) {
@@ -47,14 +65,13 @@ TwitterAPI.prototype.getFollowers = function(username) {
         resolve(cachedJSON);
       }
     } catch (error) {
-      T.get('followers/list', { screen_name: username, count: userCount, skip_status: true })
-        .catch(function(err) {
+      T.get('followers/list', { screen_name: username, count: userCount, skip_status: true }, function(err, data) {
+        if (err) {
           reject(makeErrorMessage(err));
-        })
-        .then(function(result) {
-          logDataToFile(result.data.users, filePath);
-          resolve(result.data.users);
-        });
+        }
+        logDataToFile(data.users, filePath);
+        resolve(data.users);
+      });
     }
   });
   // OLD
