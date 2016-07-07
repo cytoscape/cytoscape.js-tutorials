@@ -1,2 +1,3 @@
 - Figure out best location to store cached data. User's temp folder?
 - Deal with Promises (remove them?) in renderer.js
+- Replace environment variable with a API key input box. 

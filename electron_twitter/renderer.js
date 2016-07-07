@@ -169,7 +169,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
       // reached the final level, now let's lay things out
-      options.layout.run();
+      cy.layout({
+        name: 'concentric',
+        fit: true,
+        concentric: function(node) {
+          return 10 - node.data('level');
+        },
+        levelWidth: function() {
+          return 1;
+        },
+        animate: false
+      });
       // options.layout.run();
       // add qtip boxes
       // cy.nodes().forEach(function(ele) {
