@@ -1,6 +1,11 @@
-var twitter = require('./twitter_api.js');
-var cytoscape = require('./cytoscape.min.js');
+var twitter = require('./javascripts/twitter_api.js');
+var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
+var jquery = jQuery = require('jquery');
+var cyqtip = require('cytoscape-qtip');
+
+jquery.qtip = require('qtip2');
+cyqtip(cytoscape, jquery); // register extension
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -33,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ]
   });
-  var concentricLayout = window.concentric = cy.makeLayout({
+  var concentricLayoutOptions = {
     name: 'concentric',
     fit: true,
     concentric: function(node) {
@@ -43,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return 1;
     },
     animate: false
-  });
+  };
 
   function addToGraph(targetUser, followers, level) {
     // target user
@@ -75,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   var concentricButton = document.getElementById('concentricButton');
   concentricButton.addEventListener('click', function() {
-    concentricLayout.run();
+    cy.layout(concentricLayoutOptions);
   });
   var submitButton = document.getElementById('submitButton');
   submitButton.addEventListener('click', function() {
@@ -99,15 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
           var options = {
             maxLevel: 4,
             usersPerLevel: 3,
-            layout: concentricLayout
+            layout: concentricLayoutOptions
           };
           addFollowersByLevel(1, options);
         } catch (error) {
           console.log(error);
         }
-      })
-      .catch(function(err) {
-        console.log('Could not get data. Error message: ' + err);
       });
   });
   // with the submit button hidden, we'll run the graph automatically
@@ -164,40 +166,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
           addFollowersByLevel(level + 1, options);
-        }).catch(function(err) {
-          console.log('Could not get data. Error message: ' + err);
+        // })
+        // .catch(function(err) {
+        //   console.log('Could not get data. Error message: ' + err);
         });
     } else {
       // reached the final level, now let's lay things out
-      cy.layout({
-        name: 'concentric',
-        fit: true,
-        concentric: function(node) {
-          return 10 - node.data('level');
-        },
-        levelWidth: function() {
-          return 1;
-        },
-        animate: false
-      });
-      // options.layout.run();
+      cy.layout(options.layout);
       // add qtip boxes
-      // cy.nodes().forEach(function(ele) {
-      //   ele.qtip({
-      //     content: {
-      //       text: qtipText(ele),
-      //       title: ele.data('fullName')
-      //     },
-      //     style: {
-      //       classes: 'qtip-bootstrap'
-      //     },
-      //     position: {
-      //       my: 'bottom center',
-      //       at: 'top center',
-      //       target: ele
-      //     }
-      //   });
-      // });
+      cy.nodes().forEach(function(ele) {
+        ele.qtip({
+          content: {
+            text: qtipText(ele),
+            title: ele.data('fullName')
+          },
+          style: {
+            classes: 'qtip-bootstrap'
+          },
+          position: {
+            my: 'bottom center',
+            at: 'top center',
+            target: ele
+          }
+        });
+      });
       // and finally, clear the loading animation
       // var loading = document.getElementById('loading');
       // loading.classList.add('loaded');
@@ -236,4 +228,14 @@ function twitterUserObjToCyEle(user, level) {
       y: -1000000
     }
   };
+}
+
+function qtipText(node) {
+  var twitterLink = '<a href="http://twitter.com/' + node.data('username') + '">' + node.data('username') + '</a>';
+  var following = 'Following ' + node.data('followingCount') + ' other users';
+  var location = 'Location: ' + node.data('location');
+  var image = '<img src="' + node.data('profilePic') + '" style="float:left;width:48px;height:48px;">';
+  var description = '<i>' + node.data('description') + '</i>';
+
+  return image + '&nbsp' + twitterLink + '<br> &nbsp' + location + '<br> &nbsp' + following + '<p><br>' + description + '</p>';
 }

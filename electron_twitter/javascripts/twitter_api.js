@@ -5,7 +5,7 @@ var path = require('path');
 var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
-var cacheLocation = path.join(__dirname, 'cache');
+var cacheLocation = path.join(__dirname, '../cache');
 var T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,

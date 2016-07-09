@@ -3,22 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <title>Tutorial 4</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="css/skeleton.css" rel="stylesheet" type="text/css" />
+    <link href="css/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script>
-      require('./renderer.js');
+      require("./renderer.js");
     </script>
   </head>
 
   <body>
     <h1>Tutorial 4</h1>
-    <div id='cy'></div>
-    <div id='userSelection'>
+    <div id="cy"></div>
+    <div id="userSelection">
       <!--These buttons are hidden by default (display: none) since user input is not handled-->
-      <input type='text' id='twitterHandle' placeholder="Twitter username">
-      <input type='button' id='submitButton' value='Start graph'>
+      <input type="text" id="twitterHandle" placeholder="Twitter username">
+      <input type="button" id="submitButton" value="Start graph">
     </div>
-    <div id='layoutButtons'>
-      <input type='button' id='concentricButton' value='Redo layout'>
+    <div id="layoutButtons">
+      <input type="button" class = "button-primary" id="concentricButton" value="Redo layout">
     </div>
   </body>
 
