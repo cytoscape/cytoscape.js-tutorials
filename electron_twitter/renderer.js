@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-  var concentricButton = document.getElementById('concentricButton');
-  concentricButton.addEventListener('click', function() {
+  var layoutButton = document.getElementById('layoutButton');
+  layoutButton.addEventListener('click', function() {
     cy.layout(concentricLayoutOptions);
   });
   var submitButton = document.getElementById('submitButton');
@@ -100,20 +100,17 @@ document.addEventListener('DOMContentLoaded', function() {
         addToGraph(then.user, then.followers, 0);
 
         // add followers
-        try {
-          var options = {
-            maxLevel: 4,
-            usersPerLevel: 3,
-            layout: concentricLayoutOptions
-          };
-          addFollowersByLevel(1, options);
-        } catch (error) {
-          console.log(error);
-        }
+        var options = {
+          maxLevel: 4,
+          usersPerLevel: 3,
+          layout: concentricLayoutOptions
+        };
+        addFollowersByLevel(1, options);
+      })
+      .catch(function(error) {
+        console.log(error);
       });
   });
-  // with the submit button hidden, we'll run the graph automatically
-  submitButton.click();
 
   /**
    * Get followers for the top three users (ranked by followers) at each level.
