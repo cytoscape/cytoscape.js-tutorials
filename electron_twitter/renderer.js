@@ -187,9 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       });
-      // and finally, clear the loading animation
-      // var loading = document.getElementById('loading');
-      // loading.classList.add('loaded');
     }
   }
 });

@@ -1,0 +1,32 @@
+#full {
+    display: flex;
+    flex-direction: column;
+    height: 100vmin;
+}
+#cy {
+    height: 100%;
+    flex-grow: 1;
+}
+#twitterHandle {
+    width: 100%;
+}
+h1 {
+    text-align: center;
+}
+input[type="button"] {
+    width: 100%;
+}
+#loading {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -0.5em;
+    font-size: 2em;
+    color: #000;
+}
+#loading.loaded {
+    display: none;
+}
