@@ -3,6 +3,7 @@ var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
 var jquery = jQuery = require('jquery');
 var cyqtip = require('cytoscape-qtip');
+const shell = require('electron').shell;
 
 jquery.qtip = require('qtip2');
 cyqtip(cytoscape, jquery); // register extension
@@ -163,9 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
           addFollowersByLevel(level + 1, options);
-        // })
-        // .catch(function(err) {
-        //   console.log('Could not get data. Error message: ' + err);
         });
     } else {
       // reached the final level, now let's lay things out
@@ -233,3 +231,9 @@ function qtipText(node) {
 
   return image + '&nbsp' + twitterLink + '<br> &nbsp' + location + '<br> &nbsp' + following + '<p><br>' + description + '</p>';
 }
+
+// make sure that links open in external browser
+jquery(document).on('click', 'a[href^="http"]', function(event) {
+  event.preventDefault();
+  shell.openExternal(this.href);
+});
