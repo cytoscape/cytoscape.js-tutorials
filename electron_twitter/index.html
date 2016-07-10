@@ -6,22 +6,33 @@
     <link href="css/normalize.css" rel="stylesheet" type="text/css" />
     <link href="css/skeleton.css" rel="stylesheet" type="text/css" />
     <link href="css/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/graph_style.css" rel="stylesheet" type="text/css" />
     <script>
       require("./renderer.js");
     </script>
   </head>
 
   <body>
-    <h1>Tutorial 4</h1>
-    <div id="cy"></div>
-    <div id="userSelection">
-      <!--These buttons are hidden by default (display: none) since user input is not handled-->
-      <input type="text" id="twitterHandle" placeholder="Twitter username">
-      <input type="button" id="submitButton" value="Start graph">
-    </div>
-    <div id="layoutButtons">
-      <input type="button" class = "button-primary" id="concentricButton" value="Redo layout">
+    <div id="full">
+      <div class="container">
+        <div class="row">
+          <h1>Tutorial 4</h1>
+        </div>
+        <div class="row">
+            <input type="text" id="twitterHandle" placeholder="Twitter username">
+        </div>
+        <div class="row">
+          <div class="six columns">
+            <input type="button" class="button-primary" id="submitButton" value="Start graph" type="submit">
+          </div>
+          <div class="six columns">
+            <input type="button" class="button" id="layoutButton" value="Redo layout">
+          </div>
+        </div>
+      </div>
+
+      <div id="cy"></div>
     </div>
   </body>
 
