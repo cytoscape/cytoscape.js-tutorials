@@ -1,43 +1,38 @@
 var twitter = require('./javascripts/twitter_api.js');
 var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
-var jquery = jQuery = require('jquery');
+var jQuery = require('jquery');
 var cyqtip = require('cytoscape-qtip');
 const shell = require('electron').shell;
 
-jquery.qtip = require('qtip2');
-cyqtip(cytoscape, jquery); // register extension
-
+jQuery.qtip = require('qtip2');
+cyqtip(cytoscape, jQuery); // register extension
 
 document.addEventListener('DOMContentLoaded', function() {
   var mainUser;
   var cy = window.cy = cytoscape({
     container: document.getElementById('cy'),
-    style: [
-      {
-        selector: 'node',
-        style: {
-          'label': 'data(username)',
-          'width': 'mapData(followerCount, 0, 400, 50, 150)',
-          'height': 'mapData(followerCount, 0, 400, 50, 150)',
-          'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
-        }
-      },
-      {
-        selector: 'edge',
-        style: {
-          events: 'no'
-        }
-      },
-      {
-        selector: ':selected',
-        style: {
-          'border-width': 10,
-          'border-style': 'solid',
-          'border-color': 'black'
-        }
+    style: [{
+      selector: 'node',
+      style: {
+        'label': 'data(username)',
+        'width': 'mapData(followerCount, 0, 400, 50, 150)',
+        'height': 'mapData(followerCount, 0, 400, 50, 150)',
+        'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
       }
-    ]
+    }, {
+      selector: 'edge',
+      style: {
+        events: 'no'
+      }
+    }, {
+      selector: ':selected',
+      style: {
+        'border-width': 10,
+        'border-style': 'solid',
+        'border-color': 'black'
+      }
+    }]
   });
   var concentricLayoutOptions = {
     name: 'concentric',
@@ -94,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
       mainUser = 'cytoscape';
     }
 
-
     // add first user to graph
     getTwitterPromise(mainUser)
       .then(function(then) {
@@ -143,8 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var quit = false;
     if (level < options.maxLevel && !quit) {
       var topFollowers = cy.nodes()
-          .filter('[level = ' + level + ']')
-          .sort(followerCompare);
+        .filter('[level = ' + level + ']')
+        .sort(followerCompare);
       var followerPromises = topFollowerPromises(topFollowers);
       Promise.all(followerPromises)
         .then(function(userAndFollowerData) {
@@ -233,7 +227,7 @@ function qtipText(node) {
 }
 
 // make sure that links open in external browser
-jquery(document).on('click', 'a[href^="http"]', function(event) {
+jQuery(document).on('click', 'a[href^="http"]', function(event) {
   event.preventDefault();
   shell.openExternal(this.href);
 });
