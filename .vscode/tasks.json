@@ -9,6 +9,6 @@
   "isShellCommand": true,
   "showOutput": "never",
   "args": [
-    "electron_twitter/main.js"
+    "electron_twitter"
   ]
 }
