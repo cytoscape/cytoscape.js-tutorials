@@ -1,7 +1,7 @@
 var twitter = require('./javascripts/twitter_api.js');
 var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
-var jQuery = require('jquery');
+var jQuery = global.jQuery = require('jquery');
 var cyqtip = require('cytoscape-qtip');
 const shell = require('electron').shell;
 
