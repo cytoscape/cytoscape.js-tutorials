@@ -2,38 +2,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Twitter API (Express)",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceRoot}/twitterAPI_express/bin/www",
-      "stopOnEntry": false,
-      "args": [],
-      "cwd": "${workspaceRoot}/twitterAPI_express",
-      "preLaunchTask": null,
-      "runtimeExecutable": null,
-      "runtimeArgs": [
-        "--nolazy"
-      ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "externalConsole": false,
-      "sourceMaps": false,
-      "outDir": null
-    },
-    {
-        "name": "Launch Electron",
-        "type": "chrome",
-        "request": "launch",
-        "runtimeExecutable": "${workspaceRoot}/electron_twitter/node_modules/.bin/electron.cmd",
-        "runtimeArgs": [
-            "${workspaceRoot}/electron_twitter",
-            "--enable-logging",
-            "--remote-debugging-port=9222"
-        ],
-        "sourceMaps": false
-    },
-    {
       "name": "Attach",
       "type": "node",
       "request": "attach",

@@ -40,18 +40,10 @@ jspm_packages
 .node_repl_history
 
 
-# Created by https://www.gitignore.io/api/typings
-
 ### Typings ###
 ## Ignore downloaded typings
 typings
 
 
-# Created by https://www.gitignore.io/api/bower
-
-### Bower ###
-bower_components
-.bower-cache
-.bower-registry
-.bower-tmp
-
+### User defined ###
+.env
