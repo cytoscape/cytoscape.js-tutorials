@@ -2,10 +2,11 @@ var Twit = require('twit');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 var path = require('path');
+var temp = require('temp'); // use require('temp').track() if cleanup desired
 var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
-var cacheLocation = path.join(__dirname, '../cache');
+var preDownloaded = path.join(__dirname, '../predownload');
 var T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -17,7 +18,8 @@ var TwitterAPI = function() {};
 
 TwitterAPI.prototype.getUser = function(username) {
   return new Promise(function(resolve, reject) {
-    var filePath = path.join(cacheLocation, username, 'user.json');
+    // pre-downloaded data
+    var filePath = path.join(preDownloaded, username, 'user.json');
     try {
       var cachedJSON = getCachedData(filePath);
       if (cachedJSON) {
@@ -28,7 +30,7 @@ TwitterAPI.prototype.getUser = function(username) {
         if (err) {
           reject(makeErrorMessage(err));
         }
-        logDataToFile(data, filePath);
+        logDataToTemp(data, username);
         resolve(data);
       });
     }
@@ -58,8 +60,9 @@ TwitterAPI.prototype.getUser = function(username) {
 
 TwitterAPI.prototype.getFollowers = function(username) {
   return new Promise(function(resolve, reject) {
-    var filePath = path.join(cacheLocation, username, 'followers.json');
+    var filePath = path.join(preDownloaded, username, 'followers.json');
     try {
+      // pre-downloaded data
       var cachedJSON = getCachedData(filePath);
       if (cachedJSON) {
         resolve(cachedJSON);
@@ -69,7 +72,7 @@ TwitterAPI.prototype.getFollowers = function(username) {
         if (err) {
           reject(makeErrorMessage(err));
         }
-        logDataToFile(data.users, filePath);
+        logDataToTemp(data.users, username);
         resolve(data.users);
       });
     }
@@ -121,10 +124,8 @@ function makeErrorMessage(err) {
   };
 }
 
-function logDataToFile(data, filePath) {
-  var dirPath = path.dirname(filePath);
-  // mkdirp does nothing if dirPath already has folders
-  mkdirp.sync(dirPath);
+function logDataToTemp(data, username) {
+  // TODO: finish writing with temp.mkdirSync()
 
   // async write to file (it's OK for the rest of the program to continue while write happens)
   fs.writeFile(filePath, JSON.stringify(data, null, 4));
