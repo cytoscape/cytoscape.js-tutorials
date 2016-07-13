@@ -26,145 +26,63 @@
         }
     },
     "protected": false,
-    "followers_count": 29646,
+    "followers_count": 29717,
     "friends_count": 1622,
-    "listed_count": 662,
+    "listed_count": 663,
     "created_at": "Thu May 17 22:49:30 +0000 2012",
     "favourites_count": 132,
     "utc_offset": -14400,
     "time_zone": "Eastern Time (US & Canada)",
     "geo_enabled": true,
     "verified": false,
-    "statuses_count": 3242,
+    "statuses_count": 3249,
     "lang": "en",
     "status": {
-        "created_at": "Fri Jul 08 13:26:42 +0000 2016",
-        "id": 751407162593779700,
-        "id_str": "751407162593779712",
-        "text": "Top story this week &gt; #AI springs into action in surprising places: https://t.co/w0bLs5U5xP #MachineLearning https://t.co/w1MPiOa0BA",
+        "created_at": "Wed Jul 13 13:52:22 +0000 2016",
+        "id": 753225559333822500,
+        "id_str": "753225559333822464",
+        "text": "@tluijf That's not good. You should contact Customer Support: https://t.co/Nt9OWtjJJk",
         "truncated": false,
         "entities": {
-            "hashtags": [
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
                 {
-                    "text": "AI",
+                    "screen_name": "tluijf",
+                    "name": "T. Luijf",
+                    "id": 182558218,
+                    "id_str": "182558218",
                     "indices": [
-                        25,
-                        28
-                    ]
-                },
-                {
-                    "text": "MachineLearning",
-                    "indices": [
-                        95,
-                        111
+                        0,
+                        7
                     ]
                 }
             ],
-            "symbols": [],
-            "user_mentions": [],
             "urls": [
                 {
-                    "url": "https://t.co/w0bLs5U5xP",
-                    "expanded_url": "http://bit.ly/29mmLvM",
-                    "display_url": "bit.ly/29mmLvM",
+                    "url": "https://t.co/Nt9OWtjJJk",
+                    "expanded_url": "http://service.elsevier.com/app/overview/elsevier/",
+                    "display_url": "service.elsevier.com/app/overview/e…",
                     "indices": [
-                        71,
-                        94
+                        62,
+                        85
                     ]
                 }
-            ],
-            "media": [
-                {
-                    "id": 751407159276081200,
-                    "id_str": "751407159276081156",
-                    "indices": [
-                        112,
-                        135
-                    ],
-                    "media_url": "http://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
-                    "media_url_https": "https://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
-                    "url": "https://t.co/w1MPiOa0BA",
-                    "display_url": "pic.twitter.com/w1MPiOa0BA",
-                    "expanded_url": "http://twitter.com/ElsevierConnect/status/751407162593779712/photo/1",
-                    "type": "photo",
-                    "sizes": {
-                        "large": {
-                            "w": 1094,
-                            "h": 570,
-                            "resize": "fit"
-                        },
-                        "small": {
-                            "w": 680,
-                            "h": 354,
-                            "resize": "fit"
-                        },
-                        "thumb": {
-                            "w": 150,
-                            "h": 150,
-                            "resize": "crop"
-                        },
-                        "medium": {
-                            "w": 1094,
-                            "h": 570,
-                            "resize": "fit"
-                        }
-                    }
-                }
             ]
         },
-        "extended_entities": {
-            "media": [
-                {
-                    "id": 751407159276081200,
-                    "id_str": "751407159276081156",
-                    "indices": [
-                        112,
-                        135
-                    ],
-                    "media_url": "http://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
-                    "media_url_https": "https://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
-                    "url": "https://t.co/w1MPiOa0BA",
-                    "display_url": "pic.twitter.com/w1MPiOa0BA",
-                    "expanded_url": "http://twitter.com/ElsevierConnect/status/751407162593779712/photo/1",
-                    "type": "photo",
-                    "sizes": {
-                        "large": {
-                            "w": 1094,
-                            "h": 570,
-                            "resize": "fit"
-                        },
-                        "small": {
-                            "w": 680,
-                            "h": 354,
-                            "resize": "fit"
-                        },
-                        "thumb": {
-                            "w": 150,
-                            "h": 150,
-                            "resize": "crop"
-                        },
-                        "medium": {
-                            "w": 1094,
-                            "h": 570,
-                            "resize": "fit"
-                        }
-                    }
-                }
-            ]
-        },
-        "source": "<a href=\"http://www.spredfast.com\" rel=\"nofollow\">Spredfast app</a>",
-        "in_reply_to_status_id": null,
-        "in_reply_to_status_id_str": null,
-        "in_reply_to_user_id": null,
-        "in_reply_to_user_id_str": null,
-        "in_reply_to_screen_name": null,
+        "source": "<a href=\"http://www.hootsuite.com\" rel=\"nofollow\">Hootsuite</a>",
+        "in_reply_to_status_id": 753223083343872000,
+        "in_reply_to_status_id_str": "753223083343872000",
+        "in_reply_to_user_id": 182558218,
+        "in_reply_to_user_id_str": "182558218",
+        "in_reply_to_screen_name": "tluijf",
         "geo": null,
         "coordinates": null,
         "place": null,
         "contributors": null,
         "is_quote_status": false,
         "retweet_count": 0,
-        "favorite_count": 2,
+        "favorite_count": 0,
         "favorited": false,
         "retweeted": false,
         "possibly_sensitive": false,

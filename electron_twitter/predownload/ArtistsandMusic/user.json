@@ -1,0 +1,143 @@
+{
+    "id": 31327090,
+    "id_str": "31327090",
+    "name": "Music Lovers Fans♫",
+    "screen_name": "ArtistsandMusic",
+    "location": "United States",
+    "profile_location": {
+        "id": "96683cc9126741d1",
+        "url": "https://api.twitter.com/1.1/geo/id/96683cc9126741d1.json",
+        "place_type": "unknown",
+        "name": "United States",
+        "full_name": "United States",
+        "country_code": "",
+        "country": "",
+        "contained_within": [],
+        "bounding_box": null,
+        "attributes": {}
+    },
+    "description": "700K #MusicLovers Network #Musicians. ♫♫ Connecting #Music talented #Artists with #Producers and Fans. #MusicIsLife #indiemusic #entertainment #musicbiz",
+    "url": "https://t.co/nkA0gn5XiB",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/nkA0gn5XiB",
+                    "expanded_url": "https://soundcloud.com/artistsandmusic",
+                    "display_url": "soundcloud.com/artistsandmusic",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 711705,
+    "friends_count": 235931,
+    "listed_count": 613,
+    "created_at": "Wed Apr 15 03:31:29 +0000 2009",
+    "favourites_count": 13190,
+    "utc_offset": -25200,
+    "time_zone": "Pacific Time (US & Canada)",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 23967,
+    "lang": "en",
+    "status": {
+        "created_at": "Wed Jul 13 16:30:22 +0000 2016",
+        "id": 753265320366895100,
+        "id_str": "753265320366895104",
+        "text": "NEW MUSIC from @RioTheyNeedahit \"Beautiful Day\" EDM/Dance prod by @vibe3pro &amp; @iamk_clarke you gotta love this one!https://t.co/2YXZxqVvB1",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "riotheyneedahit",
+                    "name": "Rio TheyNeedaHit",
+                    "id": 24226109,
+                    "id_str": "24226109",
+                    "indices": [
+                        15,
+                        31
+                    ]
+                },
+                {
+                    "screen_name": "vibe3pro",
+                    "name": "Vibe 3 Productions",
+                    "id": 22927567,
+                    "id_str": "22927567",
+                    "indices": [
+                        66,
+                        75
+                    ]
+                },
+                {
+                    "screen_name": "iamk_clarke",
+                    "name": "k.clarke",
+                    "id": 30158692,
+                    "id_str": "30158692",
+                    "indices": [
+                        82,
+                        94
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "https://t.co/2YXZxqVvB1",
+                    "expanded_url": "https://soundcloud.com/riotheyneedahit/beautiful-day-riotheyneedahit",
+                    "display_url": "soundcloud.com/riotheyneedahi…",
+                    "indices": [
+                        119,
+                        142
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"https://www.socialjukebox.com\" rel=\"nofollow\">The Social Jukebox</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 24,
+        "favorite_count": 7,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/609600598577672192/DayvNUWD.jpg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/609600598577672192/DayvNUWD.jpg",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/639878411918405632/wkQatrEL_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/639878411918405632/wkQatrEL_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/31327090/1441327661",
+    "profile_link_color": "DD2E44",
+    "profile_sidebar_border_color": "C0DEED",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": false,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

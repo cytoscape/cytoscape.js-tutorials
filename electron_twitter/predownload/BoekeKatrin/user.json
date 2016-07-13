@@ -26,22 +26,22 @@
         }
     },
     "protected": false,
-    "followers_count": 37178,
-    "friends_count": 21924,
+    "followers_count": 37281,
+    "friends_count": 22760,
     "listed_count": 42,
     "created_at": "Mon May 21 22:44:12 +0000 2012",
-    "favourites_count": 7644,
+    "favourites_count": 7718,
     "utc_offset": -25200,
     "time_zone": "Pacific Time (US & Canada)",
     "geo_enabled": false,
     "verified": false,
-    "statuses_count": 6678,
+    "statuses_count": 6723,
     "lang": "en",
     "status": {
-        "created_at": "Sun Jul 10 17:47:13 +0000 2016",
-        "id": 752197498106765300,
-        "id_str": "752197498106765313",
-        "text": "Adinkra https://t.co/ENtN6WHPna",
+        "created_at": "Wed Jul 13 17:19:33 +0000 2016",
+        "id": 753277699003670500,
+        "id_str": "753277699003670528",
+        "text": "Art Humanities Connection https://t.co/dPrwaR0tQs",
         "truncated": false,
         "entities": {
             "hashtags": [],
@@ -49,12 +49,12 @@
             "user_mentions": [],
             "urls": [
                 {
-                    "url": "https://t.co/ENtN6WHPna",
-                    "expanded_url": "https://twitter.com/KISUAonline/status/751316927562276864",
-                    "display_url": "twitter.com/KISUAonline/st…",
+                    "url": "https://t.co/dPrwaR0tQs",
+                    "expanded_url": "https://twitter.com/TLRHub/status/753276737216245761",
+                    "display_url": "twitter.com/TLRHub/status/…",
                     "indices": [
-                        8,
-                        31
+                        26,
+                        49
                     ]
                 }
             ]
@@ -70,14 +70,14 @@
         "place": null,
         "contributors": null,
         "is_quote_status": true,
-        "quoted_status_id": 751316927562276900,
-        "quoted_status_id_str": "751316927562276864",
+        "quoted_status_id": 753276737216245800,
+        "quoted_status_id_str": "753276737216245761",
         "retweet_count": 0,
-        "favorite_count": 1,
+        "favorite_count": 0,
         "favorited": false,
         "retweeted": false,
         "possibly_sensitive": false,
-        "lang": "lt"
+        "lang": "en"
     },
     "contributors_enabled": false,
     "is_translator": false,

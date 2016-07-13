@@ -1,0 +1,116 @@
+{
+    "id": 84051650,
+    "id_str": "84051650",
+    "name": "IAmFountainhead 1",
+    "screen_name": "iamfountainhead",
+    "location": "donfrazier.org - worldwide",
+    "profile_location": null,
+    "description": "Information Is A Source Of Learning, But Unless It Is Organized And Available In A Format For Decision Making It Is A Burden, Not A Benefit.",
+    "url": "https://t.co/HbOumsnbIN",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "https://t.co/HbOumsnbIN",
+                    "expanded_url": "http://theincomeeffect.com/main.htm",
+                    "display_url": "theincomeeffect.com/main.htm",
+                    "indices": [
+                        0,
+                        23
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 323182,
+    "friends_count": 31881,
+    "listed_count": 251,
+    "created_at": "Wed Oct 21 10:44:52 +0000 2009",
+    "favourites_count": 120,
+    "utc_offset": -14400,
+    "time_zone": "Eastern Time (US & Canada)",
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 8196,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jul 08 15:55:04 +0000 2016",
+        "id": 751444499159773200,
+        "id_str": "751444499159773185",
+        "text": "A #Cybersecurity Guide For #FinancialInstitution Customers\nhttps://t.co/s0XgrFAOhp",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "Cybersecurity",
+                    "indices": [
+                        2,
+                        16
+                    ]
+                },
+                {
+                    "text": "FinancialInstitution",
+                    "indices": [
+                        27,
+                        48
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "https://t.co/s0XgrFAOhp",
+                    "expanded_url": "http://lnk.al/169A",
+                    "display_url": "lnk.al/169A",
+                    "indices": [
+                        59,
+                        82
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://kuku.io\" rel=\"nofollow\">Link account with KUKU.io</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "FF4500",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/726444890171666432/Ie_XXiR1.jpg",
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/726444890171666432/Ie_XXiR1.jpg",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/746740658728108032/JQFgajcm_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/746740658728108032/JQFgajcm_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/84051650/1466871760",
+    "profile_link_color": "E81C4F",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "F6FFD1",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}
