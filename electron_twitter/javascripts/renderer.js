@@ -1,4 +1,4 @@
-var twitter = require('./javascripts/twitter_api.js');
+var twitter = require('./twitter_api.js');
 var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
 var jQuery = global.jQuery = require('jquery');

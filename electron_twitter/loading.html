@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>Tutorial 4</title>
+  <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+  <link href="css/skeleton.css" rel="stylesheet" type="text/css" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <link href="css/graph_style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-  <div id="loading">
+  <div id="loading" class="hidden">
     <span class="fa fa-refresh fa-spin"></span>
   </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="six columns">
+        <label for="consumer-key">Twitter consumer key</label>
+        <input class="u-full-width" placeholder="abc123" id="consumer-key" type="text">
+      </div>
+      <div class="six columns">
+        <label for="consumer-secret">Twitter consumer secret</label>
+        <input class="u-full-width" placeholder="xyz890" id="consumer-secret" type="text">
+      </div>
+      <input class="button-primary" value="Submit" id="api_submit" type="button">
+      <input class="button" value="Use example data" id="example_submit" type="button">
+    </div>
 </body>
+
+<script>
+  require('./javascripts/loading.js');
+
+</script>
+
 </html>

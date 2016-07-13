@@ -27,6 +27,6 @@ input[type="button"] {
     font-size: 2em;
     color: #000;
 }
-#loading.loaded {
+#loading.hidden {
     display: none;
 }

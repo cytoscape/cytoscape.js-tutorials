@@ -10,7 +10,6 @@
     "jquery": "^2.2.4",
     "mkdirp": "^0.5.1",
     "qtip2": "^2.2.0",
-    "temp": "^0.8.3",
     "twit": "^2.2.4"
   },
   "devDependencies": {

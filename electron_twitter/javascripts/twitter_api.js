@@ -3,7 +3,6 @@ var fs = require('fs');
 var os = require('os');
 var mkdirp = require('mkdirp');
 var path = require('path');
-// var temp = require('temp'); // use require('temp').track() if cleanup desired
 var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
