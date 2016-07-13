@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function getTwitterPromise(targetUser) {
-  return Promise.all([twitter.getUser(targetUser), twitter.getFollowers(targetUser)])
+  return Promise.all([twitter.getUser2(targetUser), twitter.getFollowers(targetUser)])
     .then(function(then) {
       return {
         user: then[0],

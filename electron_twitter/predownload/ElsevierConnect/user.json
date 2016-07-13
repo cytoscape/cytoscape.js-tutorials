@@ -1,0 +1,194 @@
+{
+    "id": 583233410,
+    "id_str": "583233410",
+    "name": "Elsevier",
+    "screen_name": "ElsevierConnect",
+    "location": "New York, Amsterdam, London",
+    "profile_location": null,
+    "description": "Elsevier's official Twitter channel. Connecting communities and sharing stories in science, technology and health.",
+    "url": "http://t.co/6vsDZPi4fV",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "http://t.co/6vsDZPi4fV",
+                    "expanded_url": "http://www.elsevierconnect.com",
+                    "display_url": "elsevierconnect.com",
+                    "indices": [
+                        0,
+                        22
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 29646,
+    "friends_count": 1622,
+    "listed_count": 662,
+    "created_at": "Thu May 17 22:49:30 +0000 2012",
+    "favourites_count": 132,
+    "utc_offset": -14400,
+    "time_zone": "Eastern Time (US & Canada)",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 3242,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jul 08 13:26:42 +0000 2016",
+        "id": 751407162593779700,
+        "id_str": "751407162593779712",
+        "text": "Top story this week &gt; #AI springs into action in surprising places: https://t.co/w0bLs5U5xP #MachineLearning https://t.co/w1MPiOa0BA",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "AI",
+                    "indices": [
+                        25,
+                        28
+                    ]
+                },
+                {
+                    "text": "MachineLearning",
+                    "indices": [
+                        95,
+                        111
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "https://t.co/w0bLs5U5xP",
+                    "expanded_url": "http://bit.ly/29mmLvM",
+                    "display_url": "bit.ly/29mmLvM",
+                    "indices": [
+                        71,
+                        94
+                    ]
+                }
+            ],
+            "media": [
+                {
+                    "id": 751407159276081200,
+                    "id_str": "751407159276081156",
+                    "indices": [
+                        112,
+                        135
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
+                    "url": "https://t.co/w1MPiOa0BA",
+                    "display_url": "pic.twitter.com/w1MPiOa0BA",
+                    "expanded_url": "http://twitter.com/ElsevierConnect/status/751407162593779712/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "large": {
+                            "w": 1094,
+                            "h": 570,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 354,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 1094,
+                            "h": 570,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "id": 751407159276081200,
+                    "id_str": "751407159276081156",
+                    "indices": [
+                        112,
+                        135
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/Cm2I1IpWEAQSfiE.jpg",
+                    "url": "https://t.co/w1MPiOa0BA",
+                    "display_url": "pic.twitter.com/w1MPiOa0BA",
+                    "expanded_url": "http://twitter.com/ElsevierConnect/status/751407162593779712/photo/1",
+                    "type": "photo",
+                    "sizes": {
+                        "large": {
+                            "w": 1094,
+                            "h": 570,
+                            "resize": "fit"
+                        },
+                        "small": {
+                            "w": 680,
+                            "h": 354,
+                            "resize": "fit"
+                        },
+                        "thumb": {
+                            "w": 150,
+                            "h": 150,
+                            "resize": "crop"
+                        },
+                        "medium": {
+                            "w": 1094,
+                            "h": 570,
+                            "resize": "fit"
+                        }
+                    }
+                }
+            ]
+        },
+        "source": "<a href=\"http://www.spredfast.com\" rel=\"nofollow\">Spredfast app</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 2,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "FFFFFF",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/378800000609568559/be3575995f2bacd6f9d692fb1acccef1_normal.jpeg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/378800000609568559/be3575995f2bacd6f9d692fb1acccef1_normal.jpeg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/583233410/1402523410",
+    "profile_link_color": "00759B",
+    "profile_sidebar_border_color": "C0DEED",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": false,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": null,
+    "follow_request_sent": null,
+    "notifications": null
+}

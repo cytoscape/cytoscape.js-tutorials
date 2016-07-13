@@ -4,6 +4,7 @@
     "node": "registry:dt/node#6.0.0+20160621231320"
   },
   "globalDependencies": {
+    "bluebird": "registry:dt/bluebird#2.0.0+20160701023356",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "node": "registry:dt/node#6.0.0+20160709114037",
     "temp": "registry:dt/temp#0.8.3+20160105142454"
