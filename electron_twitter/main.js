@@ -1,7 +1,3 @@
-// env vars
-var path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-
 const electron = require('electron');
 // Module to control application life.
 const { app } = electron;

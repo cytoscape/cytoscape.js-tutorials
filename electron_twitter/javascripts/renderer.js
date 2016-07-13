@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
   submitButton.addEventListener('click', function() {
     cy.elements().remove();
     var userInput = document.getElementById('twitterHandle').value;
-    if (userInput) {
+    if (userInput && twitter.getAuth()) {
       mainUser = userInput;
     } else {
       // default value

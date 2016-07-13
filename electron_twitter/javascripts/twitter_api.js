@@ -1,19 +1,27 @@
-var Twit = require('twit');
 var fs = require('fs');
 var os = require('os');
-var mkdirp = require('mkdirp');
 var path = require('path');
+var Twit = require('twit');
+var mkdirp = require('mkdirp');
+require('dotenv').config({ path: path.join(__dirname, '../', '.env') }); // make sure .env is loaded for Twit
 var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
 var preDownloadedDir = path.join(__dirname, '../predownload');
 var programTempDir = 'cytoscape-electron';
-var T = new Twit({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  app_only_auth: true,
-  timeout_ms: 60 * 1000
-});
+var T;
+
+try {
+  T = new Twit({
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    app_only_auth: true,
+    timeout_ms: 60 * 1000
+  });
+} catch (error) {
+  console.log('could not initialize Twit');
+  console.log(error);
+}
 
 var TwitterAPI = function() {};
 
@@ -41,6 +49,14 @@ function readFile(username, fileName) {
   });
   return Promise.any([predownloadPromise, cachedPromise]);
 }
+
+TwitterAPI.prototype.getAuth = function() {
+  return (T && T.getAuth());
+};
+
+TwitterAPI.prototype.clearAuth = function() {
+  fs.unlinkSync(path.join(__dirname, '../', '.env'));
+};
 
 TwitterAPI.prototype.getUser = function(username) {
   return readFile(username, 'user.json') // checks predownloaded data and cache

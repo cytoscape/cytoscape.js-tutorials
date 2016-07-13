@@ -14,12 +14,17 @@ apiButton.addEventListener('click', function() {
       console.log(err);
     });
   }
-  // show loading spinner and tell Electron we're ready to disappear when Cy is loaded
-  ipcRenderer.send('loading-screen', 'done getting API keys');
 });
 
-var exampleButton = document.getElementById('example_submit');
-exampleButton.addEventListener('click', function() {
-  // show loading spinner and tell Electron we're ready to disappear when Cy is loaded
-  ipcRenderer.send('loading-screen', 'user is skipping API key input');
+var submissionButtons = document.getElementById('submission_buttons');
+submissionButtons.addEventListener('click', function(event) {
+  // events will bubble up from either button click
+  if (event.target === document.getElementById('api_submit')) {
+    ipcRenderer.send('loading-screen', 'done getting API keys');
+  } else if (event.target === document.getElementById('example_submit')) {
+    ipcRenderer.send('loading-screen', 'user is skipping API key input');
+  }
+  document.getElementById('loading').className = ""; // unhide loading spinner
+
+  event.stopPropagation();
 });
