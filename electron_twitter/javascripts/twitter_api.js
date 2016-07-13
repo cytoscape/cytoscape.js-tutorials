@@ -1,14 +1,14 @@
 var Twit = require('twit');
 var fs = require('fs');
 var os = require('os');
-// var mkdirp = require('mkdirp');
+var mkdirp = require('mkdirp');
 var path = require('path');
-var temp = require('temp'); // use require('temp').track() if cleanup desired
+// var temp = require('temp'); // use require('temp').track() if cleanup desired
 var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
 var preDownloadedDir = path.join(__dirname, '../predownload');
-var tempDir = 'cytoscape-electron';
+var programTempDir = 'cytoscape-electron';
 var T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -18,77 +18,61 @@ var T = new Twit({
 
 var TwitterAPI = function() {};
 
-TwitterAPI.prototype.getUser = function(username) {
-  return new Promise(function(resolve, reject) {
-    var filePath = path.join(preDownloadedDir, username, 'user.json');
-    try {
-      var cachedJSON = loadFromDownload(filePath);
-      if (cachedJSON) {
-        resolve(cachedJSON);
-      }
-    } catch (error) {
-      T.get('users/show', { screen_name: username }, function(err, data) {
-        if (err) {
-          reject(makeErrorMessage(err));
-        }
-        logDataToTemp(data, username, 'user.json');
-        resolve(data);
-      });
-    }
-  });
-};
-
 function readFile(username, fileName) {
   var predownloadPromise = new Promise(function(resolve, reject) {
     var predownloadFileName = path.join(preDownloadedDir, username, fileName);
     fs.readFile(predownloadFileName, function(err, data) {
       if (err) {
         reject(err);
+      } else {
+        resolve(JSON.parse(data));
       }
-      resolve(JSON.parse(data));
     });
   });
   var cachedPromise = new Promise(function(resolve, reject) {
-    var cacheDir = temp.open({ dir: path.join(os.tmpdir(), tempDir) });
-    var cachedFileName = path.join(cacheDir, username, fileName);
+    var cacheDir = path.join(os.tmpdir(), programTempDir, username);
+    var cachedFileName = path.join(cacheDir, fileName);
     fs.readFile(cachedFileName, function(err, data) {
       if (err) {
         reject(err);
+      } else {
+        resolve(JSON.parse(data));
       }
-      resolve(JSON.parse(data));
     });
   });
   return Promise.any([predownloadPromise, cachedPromise]);
 }
 
-TwitterAPI.prototype.getUser2 = function(username) {
+TwitterAPI.prototype.getUser = function(username) {
   return readFile(username, 'user.json') // checks predownloaded data and cache
-    .catch(() => {
-      var downloadedData = T.get('users/show', { screen_name: username });
-      logDataToTemp(downloadedData, username, 'user.json');
-      return Promise.resolve(downloadedData);
+    .catch(function() {
+      // need to download data from Twitter
+      return T.get('users/show', { screen_name: username })
+        .then(function(result) {
+          // success; record and return data
+          var data = result.data;
+          logDataToTemp(data, username, 'user.json');
+          return Promise.resolve(data);
+        }, function(err) {
+          // error. probably rate limited or private user
+          return Promise.reject(makeErrorMessage(err));
+        });
     });
 };
 
-
 TwitterAPI.prototype.getFollowers = function(username) {
-  return new Promise(function(resolve, reject) {
-    var filePath = path.join(preDownloadedDir, username, 'followers.json');
-    try {
-      var cachedJSON = loadFromDownload(filePath);
-      if (cachedJSON) {
-        resolve(cachedJSON);
-      }
-    } catch (error) {
-      T.get('followers/list', { screen_name: username, count: userCount, skip_status: true }, function(err, data) {
-        if (err) {
-          reject(makeErrorMessage(err));
-        }
-        logDataToTemp(data.users, username, 'followers.json');
-        resolve(data.users);
-      });
-    }
-  });
+  return readFile(username, 'followers.json')
+    .catch(function() {
+      return T.get('followers/list', { screen_name: username, count: userCount, skip_status: true })
+        .then(function(result) {
+          var data = result.data.users;
+          logDataToTemp(data, username, 'followers.json');
+          return Promise.resolve(data);
+        }, function(err) {
+          // error. probably rate limited or private user
+          return Promise.reject(makeErrorMessage(err));
+        });
+    });
 };
 
 function makeErrorMessage(err) {
@@ -116,18 +100,15 @@ function makeErrorMessage(err) {
 }
 
 function logDataToTemp(data, username, fileName) {
-  temp.open({ dir: path.join(os.tmpdir(), tempDir, username) }, function(err, info) {
-    if (err) {
-      console.log('error while recording data');
-      console.log(err);
-    } else {
-      fs.write(info.fd, JSON.stringify(data, null, 4));
-      fs.close(info.fd, function(err) {
-        console.log('error closing file');
-        console.log(err);
-      });
-    }
-  });
+  var tempPath = path.join(os.tmpdir(), programTempDir, username);
+  var filePath = path.join(tempPath, fileName);
+  try {
+    mkdirp.sync(tempPath);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
+  } catch (error) {
+    console.log('could not write data');
+    console.log(error);
+  }
 }
 
 function loadFromDownload(dataPath) {
