@@ -1,2 +1,2 @@
-- Replace environment variable with a API key input box.
 - Loading spinner while elements are being added to graph
+- Hide API input boxes if .env already exists
