@@ -4,7 +4,7 @@ const { app } = electron;
 // Module to create native browser window.
 const { BrowserWindow } = electron;
 // ipc for talking to loading window
-const { ipcMain } = require('electron');
+const { ipcMain } = electron;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,29 +18,28 @@ function createWindow() {
   // and load the loading screen
   loadingWin.loadURL(`file://${__dirname}/loading.html`);
 
-
-  ipcMain.once('loading-screen', (event, arg) => {
-    console.log(arg);
-    // can't create window until user has clicked submit button because Twit needs API key from .env
-    win = new BrowserWindow({ width: 800, height: 600, show: false });
-    win.loadURL(`file://${__dirname}/index.html`);
-    win.once('ready-to-show', () => {
-      win.show();
-      loadingWin.close();
-    });
-    // Emitted when the window is closed.
-    win.on('closed', () => {
-      // Dereference the window object, usually you would store windows
-      // in an array if your app supports multi windows, this is the time
-      // when you should delete the corresponding element.
-      win = null;
-    });
-  });
-
   loadingWin.on('closed', () => {
     loadingWin = null;
   });
 }
+
+ipcMain.once('loading-screen', (event, arg) => {
+  console.log(arg);
+  // can't create window until user has clicked submit button because Twit needs API key from .env
+  win = new BrowserWindow({ width: 800, height: 600, show: false });
+  win.loadURL(`file://${__dirname}/index.html`);
+  win.once('ready-to-show', () => {
+    win.show();
+    loadingWin.close();
+  });
+  // Emitted when the window is closed.
+  win.on('closed', () => {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    win = null;
+  });
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
