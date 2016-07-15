@@ -23,8 +23,7 @@ function createWindow() {
   });
 }
 
-ipcMain.once('loading-screen', (event, arg) => {
-  console.log(arg);
+ipcMain.once('loading-screen', () => {
   // can't create window until user has clicked submit button because Twit needs API key from .env
   win = new BrowserWindow({ width: 800, height: 600, show: false });
   win.loadURL(`file://${__dirname}/index.html`);
