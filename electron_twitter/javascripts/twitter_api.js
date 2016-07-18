@@ -3,12 +3,22 @@ var os = require('os');
 var path = require('path');
 var Twit = require('twit');
 var mkdirp = require('mkdirp');
-require('dotenv').config({ path: path.join(os.tmpdir(), 'cytoscape-electron/.env') }); // make sure .env is loaded for Twit
 var Promise = require('bluebird');
+var programTempDir = 'cytoscape-electron';
+
+try {
+  var dotenvConfig = {
+    path: path.join(os.tmpdir(), programTempDir, '.env'),
+    silent: true
+  };
+  require('dotenv').config(dotenvConfig); // make sure .env is loaded for Twit
+} catch (error) {
+  console.log('.env not found');
+  console.log(error);
+}
 
 var userCount = 100; // number of followers to return per call
 var preDownloadedDir = path.join(__dirname, '../predownload');
-var programTempDir = 'cytoscape-electron';
 var T;
 
 try {
@@ -19,6 +29,7 @@ try {
     timeout_ms: 60 * 1000
   });
 } catch (error) {
+  T = undefined;
   console.log('could not initialize Twit');
   console.log(error);
 }
