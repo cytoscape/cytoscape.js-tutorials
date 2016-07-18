@@ -84,10 +84,7 @@ Once the file is done and in the root of `electron_twitter/`, run `npm install` 
 
 Now that the environment is set up, we can get to work! 
 First, we'll need a file for Electron to load at startup.
-In `package.json`, we indicated that `main.js` is the main file of our application.
-
-![tautology club](http://imgs.xkcd.com/comics/honor_societies.png)
-[0]
+In `package.json`, we indicated that `main.js` is the [main file](https://xkcd.com/703/) of our application.
 
 Create a `main.js` file for Electron to use.
 
@@ -188,14 +185,158 @@ Here, we'll passing `createWindow()` as the function to run when the app is done
 
 MacOS handles application lifecycles differently than Windows or Linux; applications will stay "loaded" until the application has been quit, even if all windows are closed.
 With that in mind, we only want the following code code to execute on non-MacOS systems.
-Node.js provides ['process.platform'](https://nodejs.org/api/process.html#process_process_platform) for checking the platform the code is running on.
-If it's macOS (i.e. darwin), we'll do nothing; otherwise, closing all application windows [`window-all-closed`](http://electron.atom.io/docs/all/#event-window-all-closed) means it's time to close the application with [`app.quit()`](http://electron.atom.io/docs/all/#appquit).
+Node.js provides [`process.platform`](https://nodejs.org/api/process.html#process_process_platform) for checking the platform the code is running on.
+If it's macOS (i.e. `darwin`), we'll do nothing; otherwise, closing all application windows [`window-all-closed`](http://electron.atom.io/docs/all/#event-window-all-closed) means it's time to close the application with [`app.quit()`](http://electron.atom.io/docs/all/#appquit).
 
-The [`activate`](http://electron.atom.io/docs/all/#event-activate-macos) is another MacOS-specific behavior; it indicates that the app has been activated (i.e. the application is open but a window may not be open).
+[`activate`](http://electron.atom.io/docs/all/#event-activate-macos) is another MacOS-specific behavior; it indicates that the app has been activated (i.e. the application is open but a window may not be open).
 We're checking for the presence of `win` here despite `createWindow()` creating `loadingWin` because `loadingWin` is short-lived, being destroyed after the user moves on to the graph window.
+
+# Loading screen
+
+`main.js` needs a page to load; we'll write that now.
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tutorial 4</title>
+  <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+  <link href="css/skeleton.css" rel="stylesheet" type="text/css" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/graph_style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="loading" class="hidden">
+    <span class="fa fa-refresh fa-spin"></span>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="six columns">
+        <label for="consumer-key">Twitter consumer key</label>
+        <input class="u-full-width" placeholder="abc123" id="consumer-key" type="text">
+      </div>
+      <div class="six columns">
+        <label for="consumer-secret">Twitter consumer secret</label>
+        <input class="u-full-width" placeholder="xyz890" id="consumer-secret" type="text">
+      </div>
+      <div id="submission_buttons">
+        <input class="button-primary" value="Submit" id="api_submit" type="button">
+        <input class="button" value="Use example data" id="example_submit" type="button">
+      </div>
+    </div>
+</body>
+
+<script>
+  require('./javascripts/loading.js');
+
+</script>
+
+</html>
+```
+
+## <head>
+
+Readers who have looked at the [Glycolysis]({% post_url 2016-06-08-glycolysis %}) tutorial may recognzie two of the stylesheets mentioned, [skeleton](http://getskeleton.com/) and [normalize](https://necolas.github.io/normalize.css/).
+[Download the .zip from getskeleton.com](http://getskeleton.com/) and unzip to `/css`.
+Next, we'll borrow the loading spinner [tutorial 3]({% post_url 2016-07-04-social-network %}), which means bringing in [Font Awesome](http://fontawesome.io/) again.
+[Download from Font Awesome](http://fontawesome.io/) and extract the `/font` folder to the project root and `font-awesome.min.css` to `/css`.
+If all this downloading is getting tedious, feel free to copy from [this project on GitHub](https://github.com/cytoscape/cytoscape.js-tutorials/tree/master/electron_twitter).
+Finally, there's our own style sheet, also in the `/css/` folder; I'll go over its contents later on but I encourage you to skip down and take a look at the parts used in `loading.html`.
+
+## <body>
+
+We start out with a `<div>` element for our loading spinner with the corresponding `<span>` element.
+Unlike in Tutorial 3, the loading spinner starts out hidden (while the API key is being entered) and is unhidden when the graph starts loading and before the loading window is closed.
+
+Next, we'll add `<div class="container">`, indicating that we've started to use Skeleton.
+Skeleton provides a 12-column grid, so by setting boxes to 6 columns with `<div class="six columns"> we can ensure that input boxes are equally sized.
+The inclusion of `<div class="row">` will keep the input boxes normally on the same line, although will stack them if the window becomes too narrow.
+Each input field, one for `consumer-key` and one for `consumer-secret`, are made the full width (i.e. six columns) with `u-full-width`.
+
+With the input buttons done, we can close the `class="row"` div element and make a new container for the submission buttons.
+The new element is given its own ID, `"submission_buttons"`, which will be useful for selecting both buttons when handling click events.
+There are two submission buttons, one of which will use the information entered in the API input boxes and one of which will discard the input.
+This allows users without a Twitter API key to still use the application with pre-downloaded data while users with an API key can analyze unique users.
+
+## That final <script> tag
+
+Back in `main.js`, we created a listener that would load the graph when an event was received from the loading screen.
+If the API button is clicked, the consumer key and consumer secret entered will be saved to disk.
+These events are dispatched when a user clicks the API submission buttons (either providing a key or going ahead with sample data).
+In both cases, the next step to take is to dispath an event so that Electron can proceed with loading the graph window.
+
+```javascript
+var fs = require('fs');
+var path = require('path');
+var os = require('os');
+const { ipcRenderer } = require('electron');
+
+var apiButton = document.getElementById('api_submit');
+apiButton.addEventListener('click', function() {
+  var consumerKey = document.getElementById('consumer-key').value;
+  var consumerSecret = document.getElementById('consumer-secret').value;
+  if (consumerKey && consumerSecret) {
+    var data = 'TWITTER_CONSUMER_KEY=' + consumerKey +
+        '\nTWITTER_CONSUMER_SECRET=' + consumerSecret;
+    try {
+      var tmpDir = path.join(os.tmpdir(), 'cytoscape-electron');
+      fs.mkdirSync(tmpDir);
+      fs.writeFileSync(path.join(tmpDir, '.env'), data);
+    } catch (error) {
+      console.log('error writing api keys');
+      console.log(error);
+    }
+  }
+});
+
+var submissionButtons = document.getElementById('submission_buttons');
+submissionButtons.addEventListener('click', function(event) {
+  // events will bubble up from either button click
+  if (event.target === document.getElementById('api_submit')) {
+    ipcRenderer.send('loading-screen', 'done getting API keys');
+  } else if (event.target === document.getElementById('example_submit')) {
+    ipcRenderer.send('loading-screen', 'user is skipping API key input');
+  }
+  document.getElementById('loading').className = ""; // unhide loading spinner
+
+  event.stopPropagation();
+});
+```
+
+Three Node.js modules are necessary, plus `ipcRenderer` from Electron for dispatching events.
+Because of the special behavior required of `apiButton` (saving data to disk), it requires its own event listener.
+We'll take the values of `consumer-key` and `consumer-secret` and concatenate them into a single string, provided that both have been provided.
+Writing to disk is done with Node.js's [fs.writeFileSync()](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_writefilesync_file_data_options)—necessary because we don't want the graph to start loading until we've recorded our API keys!
+Additionally, we'll create a directory in the operating system's temporary directory to hold our files.
+
+Putting both buttons within the same `<div>` element will save us some time now.
+Because the action following recording the API key to disk is the same for both buttons—telling Electron we're done—we can use the same event handler for both.
+In JavaScript, events "bubble up" meaning that an element's event will be handled not only by that element's event handler (if one exists) but by each of its parents in the DOM hierarchy.
+In our case, a `'click'` event on either button will bubble up `submissionButtons`'s event listener, even though it may have already gone through `apiButton`'s event listener.
+
+While bubbling up, events keep their `target` property constant, which allows determine which button was clicked and the message content changed depending on event source.
+This doesn't matter because `main.js` doesn't care what message was received, only that event *was* received.
+
+To finish the listener, we'll unhide the loading spinner.
+Although this can be done with jQuery, removing a single class from an element is easy enough by setting that element's class name to an empty string.
+
+I added a final line, [`event.stopPropagation()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) which will prevent any other event handlers from "seeing" the button click.
+This doesn't change any behavior because there are no other event listeners but fits nicely with the discussion of event bubbling.
+
+
+# index.html
+
+Once `loading.js` dispatches an event, `main.js` will take care of creating a new window containing `index.html` and unhiding it when loading is finished—so it's a great time to discuss `index.html`!
+
+
+
 
 
 
 # Thanks
-- [0] Randall Munroe
+
 

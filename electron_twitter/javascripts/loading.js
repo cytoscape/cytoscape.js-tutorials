@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var os = require('os');
 const { ipcRenderer } = require('electron');
 
 var apiButton = document.getElementById('api_submit');
@@ -9,10 +10,14 @@ apiButton.addEventListener('click', function() {
   if (consumerKey && consumerSecret) {
     var data = 'TWITTER_CONSUMER_KEY=' + consumerKey +
         '\nTWITTER_CONSUMER_SECRET=' + consumerSecret;
-    fs.writeFile(path.join(__dirname, '../.env'), data, function(err) {
+    try {
+      var tmpDir = path.join(os.tmpdir(), 'cytoscape-electron');
+      fs.mkdirSync(tmpDir);
+      fs.writeFileSync(path.join(tmpDir, '.env'), data);
+    } catch (error) {
       console.log('error writing api keys');
-      console.log(err);
-    });
+      console.log(error);
+    }
   }
 });
 

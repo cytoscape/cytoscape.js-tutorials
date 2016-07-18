@@ -3,7 +3,7 @@ var os = require('os');
 var path = require('path');
 var Twit = require('twit');
 var mkdirp = require('mkdirp');
-require('dotenv').config({ path: path.join(__dirname, '../', '.env') }); // make sure .env is loaded for Twit
+require('dotenv').config({ path: path.join(os.tmpdir(), 'cytoscape-electron/.env') }); // make sure .env is loaded for Twit
 var Promise = require('bluebird');
 
 var userCount = 100; // number of followers to return per call
@@ -124,16 +124,6 @@ function logDataToTemp(data, username, fileName) {
     console.log('could not write data');
     console.log(error);
   }
-}
-
-function loadFromDownload(dataPath) {
-  var cachedJSONStat = fs.statSync(dataPath);
-  if (cachedJSONStat.isFile) {
-    var cachedData = fs.readFileSync(dataPath);
-    return JSON.parse(cachedData);
-  }
-  // made it here => cachedJSON must not be a file
-  throw new Error("not a file");
 }
 
 module.exports = new TwitterAPI();
