@@ -23,12 +23,14 @@ var preDownloadedDir = path.join(__dirname, '../predownload');
 var T;
 
 try {
-  T = new Twit({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    app_only_auth: true,
-    timeout_ms: 60 * 1000
-  });
+  if (process.env.TWITTER_CONSUMER_KEY) {
+    T = new Twit({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      app_only_auth: true,
+      timeout_ms: 60 * 1000
+    });
+  }
 } catch (error) {
   T = undefined;
   console.log('could not initialize Twit');

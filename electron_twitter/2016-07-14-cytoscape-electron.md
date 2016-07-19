@@ -437,7 +437,110 @@ We'll be using:
 
 Next, we set up a few variables: 
 
-- `programTempDir = 'cytoscape-electron'`:   
+- `programTempDir = 'cytoscape-electron'`: this is the directory where we'll save data downloaded from Twitter for Cytoscape.js to use. It will also hold our API authentication information
+- `userCount = 100`: we'll get 100 followers on each call to Twitter. This value may be increased up to 200
+- `preDownloadedDir = path.join(__dirname, '../predownload')`: if an API key isn't entered, we'll use pre-downloaded data that is distributed with the program in the `predownload` folder.
+- `T`: we'll later make this a Twit object if we're able to load the API key that Twit requires
+
+There's also the `try ... catch` block where we load `dotenv` with `require('dotenv')`.
+It's okay for loading `dotenv` to fail because a `.env` file will not exist if this is the first time running the program or if no key was entered on the loading screen.
+
+```javascript
+try {
+  if (process.env.TWITTER_CONSUMER_KEY) {
+    T = new Twit({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      app_only_auth: true,
+      timeout_ms: 60 * 1000
+    });
+  }
+} catch (error) {
+  T = undefined;
+  console.log('could not initialize Twit');
+  console.log(error);
+}
+
+var TwitterAPI = function() {};
+```
+
+Here's another `try ... catch` block, this time for initializing `T` if `TWITTER_CONSUMER_KEY` was successfully loaded from `.env`.
+Below the block, we create a `TwitterAPI` variable but it's nothing more than an empty object right now.
+We'll add functions to `TwitterAPI.prototype` as we proceed, but first we need some helper functions.
+
+## Reading saved files: readFile()
+
+If used the Twitter API each time we needed data, we would quickly run out of Twitter API requests.
+To work around this, we'll read cached data if it exists.
+
+```javascript
+function readFile(username, fileName) {
+  var predownloadPromise = new Promise(function(resolve, reject) {
+    var predownloadFileName = path.join(preDownloadedDir, username, fileName);
+    fs.readFile(predownloadFileName, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(JSON.parse(data));
+      }
+    });
+  });
+  var cachedPromise = new Promise(function(resolve, reject) {
+    var cacheDir = path.join(os.tmpdir(), programTempDir, username);
+    var cachedFileName = path.join(cacheDir, fileName);
+    fs.readFile(cachedFileName, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(JSON.parse(data));
+      }
+    });
+  });
+  return Promise.any([predownloadPromise, cachedPromise]);
+}
+```
+
+This function accepts two arguments: `username` and `fileName`.
+Our directory structure will create directories based on `username` with two files: either `user.json` or `followers.json`.
+
+- `username`: the directory to look in
+- `filename`: either `user.json` or `followers.json`, depending on the request
+
+Data can be stored in two locations: the cache (in the OS's temporary directory) or distributed with the program, in the previously mentioned `preDownloadedDir`.
+Neither comes with an API request to use, so accessing both simultaneously is okay (whereas we don't want to issue an API request unless all other possibilities have been exhausted).
+Both data sources, cache and pre-downloaded, use very similar functions except for their paths, so I'll discuss them as a pair.
+
+First of all, we'll be using [Promises](http://bluebirdjs.com/docs/getting-started.html) again, this time with the Bluebird Promise API.
+[`new Promise(function(resolve, reject)) { ... }`](http://bluebirdjs.com/docs/api/new-promise.html) creates a new Promise, which expects a function (with `resolve` and `reject` as arguments) to run after the Promise returns.
+A successful resolution of the Promise will call the function given as [`resolve()`](http://bluebirdjs.com/docs/api/promise.resolve.html), while an unsuccessful resolution (such as trying to access a file that doesn't exist on disk) will call [`reject()`](http://bluebirdjs.com/docs/api/promise.reject.html).
+Resolution is determined by the result of [`fs.readFile()`](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_readfile_file_options_callback), which takes a filename and callback functions as arguments.
+Once the file has been read, the callback function will be executed, leading the program down two possible paths: reject if an error occured, or resolve with the JSON data read from disk.
+
+Now that we've defined both Promises and their resolve/ reject functions, we need to return something from the `readFile` function.
+As soon as one of the two Promises has resolved successfully, we can return the data and not worry about the other Promise.
+Bluebird allows this functionality through [`Promise.any()`](http://bluebirdjs.com/docs/api/promise.any.html), which takes an array of Promises as an argument and will resolve with the data provided by the first successful `resolve()` or reject if both Promises gave a `reject()`.
+This contrasts nicely with [`Promise.all()`](http://bluebirdjs.com/docs/api/promise.all.html) as used in the previous tutorial; whereas previously we needed all Promises to resolve successfully (and had to wait on all of them), now we can resolve as soon as *any* Promise is successful.
+
+## Checking authentication: TwitterAPI.prototype.getAuth()
+
+This is the first method we'll add to our `TwitterAPI` object.
+It's worth being able to check whether authentication was successful (i.e. a valid API key) so that we can use sample data if unsuccessful.
+Making this a function of `TwitterAPI` allows us to check authentication in any program that uses `TwitterAPI` (such as `renderer.js`), where we can change the request to `cytoscape` instead of the originally requested user if authentication failed.
+
+```javascript
+TwitterAPI.prototype.getAuth = function() {
+  return (T && T.getAuth());
+};
+```
+
+Of cource, we can only use [Twit's `getAuth()`](https://github.com/ttezel/twit#tgetauth) function if Twit was loaded successfully, which only happens if `.env` was loaded successfully.
+Returning `(T && T.getAuth())` allows us to short-circuit the check and immediately return `undefined` if T was never initialized with Twit (in which case authentication has obviously failed).
+
+
+
+
+
+
 
 # renderer.js
 

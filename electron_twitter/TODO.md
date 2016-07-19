@@ -1,3 +1,4 @@
 - Loading spinner while elements are being added to graph
 - Hide API input boxes if .env already exists
 - Package installers (?)
+- Use TwitterAPI.clearAuth() to give users a way to erase API key and cache
