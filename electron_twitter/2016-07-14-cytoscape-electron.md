@@ -268,6 +268,7 @@ Back in `main.js`, we created a listener that would load the graph when an event
 If the API button is clicked, the consumer key and consumer secret entered will be saved to disk.
 These events are dispatched when a user clicks the API submission buttons (either providing a key or going ahead with sample data).
 In both cases, the next step to take is to dispath an event so that Electron can proceed with loading the graph window.
+Because this script deals with the page (rather than Electron, like with `main.js`), we'll name it `javascripts/loading.js`.
 
 ```javascript
 var fs = require('fs');
@@ -332,7 +333,133 @@ This doesn't change any behavior because there are no other event listeners but 
 
 Once `loading.js` dispatches an event, `main.js` will take care of creating a new window containing `index.html` and unhiding it when loading is finished—so it's a great time to discuss `index.html`!
 
+```html
+<!DOCTYPE html>
+<html>
 
+<head>
+  <meta charset="UTF-8">
+  <title>Tutorial 4</title>
+  <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+  <link href="css/skeleton.css" rel="stylesheet" type="text/css" />
+  <link href="css/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/graph_style.css" rel="stylesheet" type="text/css" />
+  <script>
+    require("./javascripts/renderer.js");
+
+  </script>
+</head>
+
+<body>
+  <div id="full">
+    <div class="container">
+
+      <div class="row">
+        <h1>Tutorial 4</h1>
+      </div>
+
+      <div class="row">
+        <input type="text" id="twitterHandle" placeholder="Username (leave blank for cytoscape's Twitter profile)">
+      </div>
+
+      <div class="row">
+        <div class="six columns">
+          <input type="button" class="button-primary" id="submitButton" value="Start graph" type="submit">
+        </div>
+        <div class="six columns">
+          <input type="button" class="button" id="layoutButton" value="Redo layout">
+        </div>
+      </div>
+
+    </div>
+
+    <div id="cy"></div>
+  </div>
+</body>
+
+</html>
+```
+
+## <head>
+
+`<head>` is almost identical to the `<head>` of `loading.html`.
+The only change is the inclusion of qTip's stylesheet to help with styling qTip boxes.
+Unlike previous tutorials, none of the JavaScript files for Cytoscape.js or qTip need to be included because they can be loaded with `require()` 
+This time, we'll load `renderer.js` in `<head>` because all DOM-sensitive code within `renderer.js` is loaded within an event listener which waits for `DOMContentLoaded`, as in previous tutorials.
+
+## <body>
+
+All elements in `<body>` are wrapped within `<div id="full">`, which we'll use later for a [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) powered layout.
+Using flexible boxes allows us to give Cytoscape.js 100% of the remaining space after our Skeleton-related elements are laid out.
+The [Skeleton](http://getskeleton.com/) framework is used again here to help with layout and appearance, so we'll again use the classes provided, such as `six columns`, 'row', and `container`.
+The final element in our `full` flexbox is, as in every previous tutorial, the `cy` element which will hold our graph. 
+
+
+# twitter_api.js
+
+Before I cover the `renderer.js` file we just `require()`-ed, it's necessary to discuss `twitter_api.js`, which will be used heavily by `renderer.js` to retrieve data from Twitter.
+`twitter_api.js` is relatively complex so I'll cover it in sections.
+
+```javascript
+var fs = require('fs');
+var os = require('os');
+var path = require('path');
+var Twit = require('twit');
+var mkdirp = require('mkdirp');
+var Promise = require('bluebird');
+
+var programTempDir = 'cytoscape-electron';
+
+try {
+  var dotenvConfig = {
+    path: path.join(os.tmpdir(), programTempDir, '.env'),
+    silent: true
+  };
+  require('dotenv').config(dotenvConfig); // make sure .env is loaded for Twit
+} catch (error) {
+  console.log('.env not found');
+  console.log(error);
+}
+
+var userCount = 100; // number of followers to return per call
+var preDownloadedDir = path.join(__dirname, '../predownload');
+var T;
+```
+
+First, we load our modules with Node.js's [`require()`](https://nodejs.org/api/modules.html) function. 
+We'll be using:
+
+- [`fs`](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html), [`os`](https://nodejs.org/dist/latest-v6.x/docs/api/os.html), and [`path`](https://nodejs.org/dist/latest-v6.x/docs/api/path.html): all built-in Node.js modules
+- [`Twit`](https://github.com/ttezel/twit): the heart of `twitter_api.js`; handles interactions with Twitter's REST API.
+- [`mkdirp`](https://github.com/substack/node-mkdirp): a Node equivalent of `mkdir -p`; can create nested folders with a single call
+- [`bluebird`](http://bluebirdjs.com/docs/getting-started.html): implementation of JavaScript Promises, used for asynchronous interactions with Twitter's API
+
+Next, we set up a few variables: 
+
+- `programTempDir = 'cytoscape-electron'`:   
+
+# renderer.js
+
+`index.html` was fairly straightforward because almost all work in done in `renderer.js`, which is loaded with `require()` because of the Node.js environment.
+Similar to `loading.js`, `renderer.js` goes in `javascripts/` because it deals with an HTML page rather than Electron.
+
+`renderer.js` is far larger than previous JavaScript files, so I'll cover it in sections.  
+
+```javascript
+var twitter = require('./twitter_api.js');
+var cytoscape = require('cytoscape');
+var Promise = require('bluebird');
+var jQuery = global.jQuery = require('jquery');
+var cyqtip = require('cytoscape-qtip');
+const shell = require('electron').shell;
+
+jQuery.qtip = require('qtip2');
+cyqtip(cytoscape, jQuery); // register extension
+```
+
+Starting with the top of the document, we'll load a number of other JavaScript files.
+`twitter` is loaded from our own Twitter 
 
 
 

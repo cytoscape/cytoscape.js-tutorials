@@ -4,6 +4,7 @@ var path = require('path');
 var Twit = require('twit');
 var mkdirp = require('mkdirp');
 var Promise = require('bluebird');
+
 var programTempDir = 'cytoscape-electron';
 
 try {
