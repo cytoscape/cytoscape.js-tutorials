@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var os = require('os');
-const { ipcRenderer } = require('electron');
+var ipcRenderer = require('electron').ipcRenderer;
 
 var apiButton = document.getElementById('api_submit');
 apiButton.addEventListener('click', function() {

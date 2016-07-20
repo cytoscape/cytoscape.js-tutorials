@@ -3,7 +3,7 @@ var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
 var jQuery = global.jQuery = require('jquery');
 var cyqtip = require('cytoscape-qtip');
-const shell = require('electron').shell;
+var shell = require('electron').shell;
 
 jQuery.qtip = require('qtip2');
 cyqtip(cytoscape, jQuery); // register extension
