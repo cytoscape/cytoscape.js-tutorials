@@ -264,7 +264,7 @@ The new element is given its own ID, `"submission_buttons"`, which will be usefu
 There are two submission buttons, one of which will use the information entered in the API input boxes and one of which will discard the input.
 This allows users without a Twitter API key to still use the application with pre-downloaded data while users with an API key can analyze unique users.
 
-## That final <script> tag
+## That final `<script>` tag
 
 Back in `main.js`, we created a listener that would load the graph when an event was received from the loading screen.
 If the API button is clicked, the consumer key and consumer secret entered will be saved to disk.
@@ -709,10 +709,13 @@ With that, the Twitter API is finished and we can move onwards to using it in `r
 
 # renderer.js
 
+*Note: this file is pretty complex. I recommend having it [all available in one place](https://github.com/cytoscape/cytoscape.js-tutorials/blob/master/electron_twitter/javascripts/renderer.js) for reference during this part.*
+
 `index.html` was fairly straightforward because almost all work in done in `renderer.js`, which is loaded with `require()` because of the Node.js environment.
 Similar to `loading.js`, `renderer.js` goes in `javascripts/` because it deals with an HTML page rather than Electron.
 
-`renderer.js` is far larger than previous JavaScript files, so I'll cover it in sections.  
+`renderer.js` is far larger than previous JavaScript files, so I'll cover it in sections.
+Because `renderer.js` relates to `index.html` instead of being a part of Electron, we'll put it in `javascripts/`.
 
 ```javascript
 var twitter = require('./twitter_api.js');
@@ -735,10 +738,321 @@ Because it's an extension of jQuery, it's loaded as part of the jQuery object ra
 Next, we need to register `cyqtip` (the Cytoscape.js qTip) extension with the graph (`cytoscape`) and jQuery.
 This is done with `cyqtip(cytoscape, jQuery)` because of the Node environment instead of a browser, where using `<script>` tags was sufficient.
 
+## DOMContentLoaded
+
+With the beginning of `renderer.js` out of the way, we reencounter an old friend: `document.addEventListener('DOMContentLoaded', function() { ... })`.
+The contents are much the same as in [tutorial 3]({% post_url 2016-07-04-social-network %}) so I won't go into as much detail here.
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  var mainUser;
+  var cy = window.cy = cytoscape({
+    container: document.getElementById('cy'),
+    style: [{
+      selector: 'node',
+      style: {
+        'label': 'data(username)',
+        'width': 'mapData(followerCount, 0, 400, 50, 150)',
+        'height': 'mapData(followerCount, 0, 400, 50, 150)',
+        'background-color': 'mapData(tweetCount, 0, 2000, #aaa, #02779E)'
+      }
+    }, {
+      selector: 'edge',
+      style: {
+        events: 'no'
+      }
+    }, {
+      selector: ':selected',
+      style: {
+        'border-width': 10,
+        'border-style': 'solid',
+        'border-color': 'black'
+      }
+    }]
+  });
+  var concentricLayoutOptions = {
+    name: 'concentric',
+    fit: true,
+    concentric: function(node) {
+      return 10 - node.data('level');
+    },
+    levelWidth: function() {
+      return 1;
+    },
+    animate: false
+  };
+
+  function addToGraph(targetUser, followers, level) {
+    // target user
+    if (cy.getElementById(targetUser.id_str).empty()) {
+      // getElementById is faster here than a selector
+      // does not yet contain user
+      cy.add(twitterUserObjToCyEle(targetUser, level));
+    }
+
+    // targetUser's followers
+    var targetId = targetUser.id_str; // saves calls while adding edges
+    cy.batch(function() {
+      followers.forEach(function(twitterFollower) {
+        if (cy.getElementById(twitterFollower.id_str).empty()) {
+          // does not yet contain follower
+          // level + 1 since followers are 1 degree out from the main user
+          cy.add(twitterUserObjToCyEle(twitterFollower, level + 1));
+          cy.add({
+            data: {
+              id: 'follower-' + twitterFollower.id_str,
+              source: twitterFollower.id_str,
+              target: targetId
+            },
+            selectable: false
+          });
+        }
+      });
+    });
+  }
+  var layoutButton = document.getElementById('layoutButton');
+  layoutButton.addEventListener('click', function() {
+    cy.layout(concentricLayoutOptions);
+  });
+  var submitButton = document.getElementById('submitButton');
+  submitButton.addEventListener('click', function() {
+    cy.elements().remove();
+    var userInput = document.getElementById('twitterHandle').value;
+    if (userInput && twitter.getAuth()) {
+      mainUser = userInput;
+    } else {
+      // default value
+      mainUser = 'cytoscape';
+    }
+
+    // add first user to graph
+    getTwitterPromise(mainUser)
+      .then(function(then) {
+        addToGraph(then.user, then.followers, 0);
+
+        // add followers
+        var options = {
+          maxLevel: 4,
+          usersPerLevel: 3,
+          layout: concentricLayoutOptions
+        };
+        addFollowersByLevel(1, options);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  });
+
+  function addFollowersByLevel(level, options) {
+    function followerCompare(a, b) {
+      return a.data('followerCount') - b.data('followerCount');
+    }
+
+    function topFollowerPromises(sortedFollowers) {
+      return sortedFollowers.slice(-options.usersPerLevel)
+        .map(function(follower) {
+          // remember that follower is a Cy element so need to access username
+          var followerName = follower.data('username');
+          return getTwitterPromise(followerName);
+        });
+    }
+
+    var quit = false;
+    if (level < options.maxLevel && !quit) {
+      var topFollowers = cy.nodes()
+        .filter('[level = ' + level + ']')
+        .sort(followerCompare);
+      var followerPromises = topFollowerPromises(topFollowers);
+      Promise.all(followerPromises)
+        .then(function(userAndFollowerData) {
+          // all data returned successfully!
+          for (var i = 0; i < userAndFollowerData.length; i++) {
+            var twitterData = userAndFollowerData[i];
+            if (twitterData && twitterData.user.error || twitterData.followers.error) {
+              // error occured, such as rate limiting
+              var error = twitterData.user.error ? twitterData.user : twitterData.followers;
+              console.log('Error occured. Code: ' + error.status + ' Text: ' + error.statusText);
+              if (error.status === 429) {
+                // rate limited, so stop sending requests
+                quit = true;
+              }
+            } else {
+              addToGraph(twitterData.user, twitterData.followers, level);
+            }
+          }
+          addFollowersByLevel(level + 1, options);
+        });
+    } else {
+      // reached the final level, now let's lay things out
+      cy.layout(options.layout);
+      // add qtip boxes
+      cy.nodes().forEach(function(ele) {
+        ele.qtip({
+          content: {
+            text: qtipText(ele),
+            title: ele.data('fullName')
+          },
+          style: {
+            classes: 'qtip-bootstrap'
+          },
+          position: {
+            my: 'bottom center',
+            at: 'top center',
+            target: ele
+          }
+        });
+      });
+    }
+  }
+});
+```
+
+### Setup
+
+Like before, we'll start with `mainUser` and `cy`, variables for the user at the center of the graph and the Cytoscape.js graph, respectively.
+Style is the same, with area corresponding to follower count and color corresponding to number of tweets.
+
+### addToGraph()
+
+`addToGraph()` remains unchanged; we'll get a user and the user's followers, add them to the graph if they have not yet been added, and add edges between the new nodes.
+
+### A new way to do layout: concentricLayoutOptions
+Some data from Twitter can take a long time to arrive, so it's possible that if we specify a layout now, the layout won't affect all of the elements in the graph.
+Because of that, I've changed from using [`cy.makeLayout()`](http://js.cytoscape.org/#cy.makeLayout) to create a layout, to only creating the *object* that is later passed to [`cy.layout()`](http://js.cytoscape.org/#cy.layout) when all data has been downloaded and we're ready to do layout.
+`layoutButton` was renamed from `concentricButton` in the previous tutorial because it's possible to provide a different layout (such as `grid`) when the layout button is clicked.
+However, the element IDs (`layoutButton`, `submitButton`, and `twitterHandle`) all remain the same as in Tutorial 3.
+
+
+### submitButton.addEventListener()
+
+The function provided to `submitButton.addEventListener()` is changed slightly:
+
+- Now that we're interacting with Twitter, we need to make sure that there's user input **and** valid authentication before we send a request.
+If either fail, we fall back to using `user = 'cytoscape'` like we did before.
+- `getUser()` has been renamed to `getTwitterPromise()` because we are now using `twitter_api.js` to handle the work of getting user and follower information.
+This greatly reduces the work done by `renderer.js` because there's no longer a need to use AJAX to load Twitter data.
+To accompany this significant change, I renamed `getUser()` to `getTwitterPromise()` (also a more precise name).
+- The function is more Promise-centric now; instead of mixing `.then()` from Promises with a try/ catch block, everything uses the Promise syntax of `.then()` and `.catch()`.
+This is possible because chaining `.catch()` after `.then()` means that `.catch()` will catch errors from `getTwitterPromise(mainUser)` and from any errors within the `.then()` statement.
+The net effect is eliminating the `catch(error) { console.log(error) }` statement in Tutorial 3.
+- To accompany the change from layout being `cy.makeLayout()` to the options that are passed to `cy.layout()`, `options.layout` is now `concentricLayoutOptions`.
+
+With a functional Twitter API now, there's the possibility of a user inputting a name besides `cytoscape` so we no longer need to run `submitButton.click()`.
+The submit button is unhidden in this tutorial and fully functional!
+
+
+### addFollowersByLevel()
+
+A few small changes have also been made to `addFollowersByLevel()`.
+As mentioned previously, `getUser()` has been renamed to the more descriptive `getTwitterPromise()` in `topFollowerPromises()` but is still an object with `user` and `followers` keys.
+The rest of `topFollowerPromises()` remains unchanged: the list of followers are sorted and an array containing Promises (generated by `getTwitterPromise(followerName)`) is returned for the highest-follower-count followers in a level.
+
+`Promise.all(followerPromises).then()` has changed slightly; we're still using [`Promise.all`](http://bluebirdjs.com/docs/api/promise.all.html) but have eliminated the `.catch()` statement.
+Additionally, we'll make sure that `twitterData` exists before checking for `twitterData.user.error` or `twitterData.followers.error`.
+It's possible that `twitterData` could be undefined without an error occuring previously; for example, if a blank `user.json` or `followers.json` file was read.
+The `.catch()` statement can be eliminated because `addFollowersByLevel()` is only called within `getTwitterPromise(mainUser).then()`, which is chained to its own `.catch()` statement (recall that a `.catch()` will also catch any errors from preceding `.then()` statements).
+
+Changing `options.layout` to the object passed to `cy.layout()` means changing up the layout call in our `else { ... }` block slightly: we call `cy.layout(options.layout)` to run a layout.
+Everything related to qTip remains the same; by registering it as a Cytoscape.js extension at the beginning of `renderer.js` we can use qTip just like we did in Tutorial 3.
+
+With qTip done, we're finished with our event listener and can move on to the remaining functions.
+
+## getTwitterPromise()
+
+Now outside of `document.addEventListener()`, we get to `getTwitterPromise(targetUser)`, which replaces `getUser(targetUser)` from Tutorial 3.
+Whereas `getUser()` used jQuery and AJAX to load Twitter data from disk, we can leave all that work to `twitter_api.js`.
+All that we need to do is use the API we created, and when results arrive, put them into an object.
+
+```javascript
+function getTwitterPromise(targetUser) {
+  return Promise.all([twitter.getUser(targetUser), twitter.getFollowers(targetUser)])
+    .then(function(then) {
+      return {
+        user: then[0],
+        followers: then[1]
+      };
+    });
+}
+```
+
+Compare this to [the previous `getUser()`](https://github.com/cytoscape/cytoscape.js-tutorials/blob/master/twitter_graph/main.js#L204) and you can see why it's nice to have an API taking care of this for us.
+
+## twitterObjToCyEle()
+
+The descriptively named `twitterObjToCyEle(user, level)` remains unchanged from Tutorial 3 and to work tirelessly in its task of converting Twitter API information to Cytoscape.js elements.
+
+
+```javascript
+function twitterUserObjToCyEle(user, level) {
+  return {
+    data: {
+      id: user.id_str,
+      username: user.screen_name,
+      followerCount: user.followers_count,
+      tweetCount: user.statuses_count,
+      // following data for qTip
+      fullName: user.name,
+      followingCount: user.friends_count,
+      location: user.location,
+      description: user.description,
+      profilePic: user.profile_image_url,
+      level: level
+    },
+    position: {
+      // render offscreen
+      x: -1000000,
+      y: -1000000
+    }
+  };
+}
+```
+
+## qTipText()
+
+`qTipText(node)` also remains unchanged from Tutorial 3 and serves to take Cytoscape.js nodes and create qTips for them.
+
+```javascript
+function qtipText(node) {
+  var twitterLink = '<a href="http://twitter.com/' + node.data('username') + '">' + node.data('username') + '</a>';
+  var following = 'Following ' + node.data('followingCount') + ' other users';
+  var location = 'Location: ' + node.data('location');
+  var image = '<img src="' + node.data('profilePic') + '" style="float:left;width:48px;height:48px;">';
+  var description = '<i>' + node.data('description') + '</i>';
+
+  return image + '&nbsp' + twitterLink + '<br> &nbsp' + location + '<br> &nbsp' + following + '<p><br>' + description + '</p>';
+}
+```
+
+qTip displays HTML, so the function simply takes values of interest from the node and creates a string out of them, which qTip parses as HTML.
+
+## Opening links in a web browser
+
+Because Electron is a web browser, any links, such as Twitter profile URLs, will default to opening in Electron.
+For our graph, this isn't desired behavior—we'd rather use the system's default web browser for links and use Electron for the graph.
+To fix this, we'll override Electron's default behavior.
+
+```javascript
+jQuery(document).on('click', 'a[href^="http"]', function(event) {
+  event.preventDefault();
+  shell.openExternal(this.href);
+});
+```
+
+Now we finally use [`shell`](http://electron.atom.io/docs/api/shell/).
+This should be recognizable as an event listener, albeit one which uses jQuery and a selector to ensure that the event only handles clicks on link beginning with `http`.
+Two things happen: 
+
+- We prevent the default behavior of Electron opening the link with `event.preventDefault()`
+- We instead open the link with `shell.openExternal(this.href)`.
+
+# Conclusion
+
+By now, you've setup an environment with all the requried modules installed, `package.json`, `main.js`, `loading.js`, `renderer.js`, `twitter_api.js`, `index.html`, and `loading.html` all done.
+Before we can run the graph, we'll need some sample data (unless you have an API key to use) so unzip [`predownload.zip`](http://blog.js.cytoscape.org/public/demos/electron-twitter/predownload.zip) into your `electron_twitter` directory alongside `package.json` and `main.js`.
+With this completed, run `npm start` in the root of `electron_twitter/` and you should soon see the loading screen.
+
+Congratulations! 
 
 
 
-
-# Thanks
-
-
+![The finished graph](http://blog.js.cytoscape.org/public/demos/electron-twitter/screenshots/finished.png)
