@@ -21,6 +21,8 @@ What would have formerly required a static web page and an API process running o
 Because this tutorial reuses a lot of the code from Tutorial 3, the main focus will be on changes made to run Cytoscape.js with Electron.
 I wrote Tutorial 3 with the possibility of later downloading data in real time so very few changes will need to be made to run the graph with Twit.
 
+*Designed for Twitter REST API v1.1*
+
 # Setting up the environment
 
 The nature of this tutorial (being a desktop application instead of a web app) necessitates more [yak shaving](http://www.hanselman.com/blog/YakShavingDefinedIllGetThatDoneAsSoonAsIShaveThisYak.aspx) than previous tutorials.
@@ -410,10 +412,11 @@ var mkdirp = require('mkdirp');
 var Promise = require('bluebird');
 
 var programTempDir = 'cytoscape-electron';
+var dotEnvPath = path.join(os.tmpdir(), programTempDir, '.env');
 
 try {
   var dotenvConfig = {
-    path: path.join(os.tmpdir(), programTempDir, '.env'),
+    path: dotEnvPath,
     silent: true
   };
   require('dotenv').config(dotenvConfig); // make sure .env is loaded for Twit
@@ -438,6 +441,7 @@ We'll be using:
 Next, we set up a few variables: 
 
 - `programTempDir = 'cytoscape-electron'`: this is the directory where we'll save data downloaded from Twitter for Cytoscape.js to use. It will also hold our API authentication information
+- `dotEnvPath = path.join(os.tmpdir(), programTempDir, '.env')`: the location of `.env`, which stores our API authentication
 - `userCount = 100`: we'll get 100 followers on each call to Twitter. This value may be increased up to 200
 - `preDownloadedDir = path.join(__dirname, '../predownload')`: if an API key isn't entered, we'll use pre-downloaded data that is distributed with the program in the `predownload` folder.
 - `T`: we'll later make this a Twit object if we're able to load the API key that Twit requires
@@ -521,6 +525,71 @@ As soon as one of the two Promises has resolved successfully, we can return the 
 Bluebird allows this functionality through [`Promise.any()`](http://bluebirdjs.com/docs/api/promise.any.html), which takes an array of Promises as an argument and will resolve with the data provided by the first successful `resolve()` or reject if both Promises gave a `reject()`.
 This contrasts nicely with [`Promise.all()`](http://bluebirdjs.com/docs/api/promise.all.html) as used in the previous tutorial; whereas previously we needed all Promises to resolve successfully (and had to wait on all of them), now we can resolve as soon as *any* Promise is successful.
 
+## Writing files: logDataToTemp()
+
+Reading files is only half the work—we need to write to files too!
+
+```javascript
+function logDataToTemp(data, username, fileName) {
+  var tempPath = path.join(os.tmpdir(), programTempDir, username);
+  var filePath = path.join(tempPath, fileName);
+  try {
+    mkdirp.sync(tempPath);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
+  } catch (error) {
+    console.log('could not write data');
+    console.log(error);
+  }
+}
+```
+
+`logDataToTemp(data, username, fileName)` requires three arguments:
+
+- `data`: the data to write (provided by Twitter API)
+- `username`: used for determining which directory to write to
+- `fileName`: either `'user.json'` or `'followers.json'` depending on which function called `logDataToTemp()`.
+
+`tempPath` and `filePath` determine where temporary files are written; currently these go within the operating system's temporary files directory.
+Because file writing is not always successful, the rest of the function is within a try/ catch block.
+
+`mkdirp.sync(tempPath)` will create the folders necessary to hold the file to be created (because Node.js's `fs.writeFile` will only write within existing folders).
+Next, [`fs.writeFileSync()`](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_writefilesync_file_data_options) takes care of writing the data to disk.
+Writing raw JSON data makes the files difficult to inspect, so [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) converts the `data` JSON object into a string and adds some whitespace.
+
+In the event of an error, we'll log the error and move on.
+
+## Informative errors with makeErrorMessage()
+
+Because there are a [variety of errors that may occur (rate limiting, private users, missing data, etc.)](https://dev.twitter.com/overview/api/response-codes), we'll write a quick function that takes error codes from Twit and modifies them to better describe potential errors.
+
+```javascript
+function makeErrorMessage(err) {
+  if (err.statusCode === 401) {
+    // can't send error status because it breaks promise, so JSON instead
+    return {
+      error: true,
+      status: err.statusCode,
+      statusText: 'User\'s data is private'
+    };
+  } else if (err.statusCode === 429) {
+    // can't send error status because it breaks promise, so JSON instead
+    return {
+      error: true,
+      status: err.statusCode,
+      statusText: 'Rate limited'
+    };
+  }
+  // unknown error
+  return {
+    error: true,
+    status: err.statusCode,
+    statusText: "Other error"
+  };
+}
+```
+
+A `401` error indicates a private user, `429` is rate limiting, and other errors are rare enough that we'll treat them generically. 
+
 ## Checking authentication: TwitterAPI.prototype.getAuth()
 
 This is the first method we'll add to our `TwitterAPI` object.
@@ -534,12 +603,108 @@ TwitterAPI.prototype.getAuth = function() {
 ```
 
 Of cource, we can only use [Twit's `getAuth()`](https://github.com/ttezel/twit#tgetauth) function if Twit was loaded successfully, which only happens if `.env` was loaded successfully.
-Returning `(T && T.getAuth())` allows us to short-circuit the check and immediately return `undefined` if T was never initialized with Twit (in which case authentication has obviously failed).
+Returning `return (T && T.getAuth())` allows us to short-circuit the check and immediately return `undefined` if T was never initialized with Twit (in which case authentication has obviously failed).
 
+## Resetting authentication: TwitterAPI.prototype.clearAuth()
 
+If authentication has failed, we need a way to remove `.env` so that new information can be entered.
+We'll provide `clearAuth()` for removing the `.env` file from `dotEnvPath`.
 
+## User information: TwitterAPI.prototype.getUser()
 
+With the small functions out of the way, it's time to move on to the heart of our `TwitterAPI` object: the `getUser()` and `getFollowers()` functions.
+Due to the work done in `readFile()`, all `getUser()` needs to do is call `readFile()` and return the result if successful. If unsuccessful, we'll have to use Twit to make a call to Twitter.
+The Promise returned by `readFile()` is easily extended; because `readFile()` returns a Promise, we can chain it with [`.catch()`](http://bluebirdjs.com/docs/api/catch.html) and [`.then()`](http://bluebirdjs.com/docs/api/then.html) to modify the Promise returned.
+For example, if `readFile()` resolves successfully (data was found on disk), we can just return that.
+However, if `readFile()` rejects (because **both** `predownloadPromise` and `cachedPromise` rejected), we'll need to *catch* that rejection and instead get data from Twitter.
 
+**Important:** Because most Promise-related functions return Promises, the best way to interact with them is chaining calls.
+This will be done for `getUser()`—if you look carefully, the entire function is within a single `return` statement.
+
+```javascript
+TwitterAPI.prototype.getUser = function(username) {
+  return readFile(username, 'user.json') // checks predownloaded data and cache
+    .catch(function() {
+      // need to download data from Twitter
+      return T.get('users/show', { screen_name: username })
+        .then(function(result) {
+          // success; record and return data
+          var data = result.data;
+          logDataToTemp(data, username, 'user.json');
+          return Promise.resolve(data);
+        }, function(err) {
+          // error. probably rate limited or private user
+          return Promise.reject(makeErrorMessage(err));
+        });
+    });
+};
+```
+
+See how there's a `.catch()` statement but no `.then()` statement?
+This is done because we only have to handle rejections from `readFile()`—and rejections are handled by `.catch()`.
+If `readFile()` resolved successfully, we'll pass that Promise back unmodified to whichever function called `getUser()` (which can then use `.then(functionThatUsesData)`).
+In the event that the Promise returned by `readFile()` rejects, we'll need a backup plan: using the Twitter API.
+
+[`.catch()`](http://bluebirdjs.com/docs/api/catch.html) will pick up any error in the promise chain, just like a `catch()` in a try/ catch block.
+Keeping in mind that we want a Promise to be returned from `getUser()`, we need to get a Promise back from `readFile()`.
+Of course, if a cached file is found, `return readFile()` will already be a Promise and nothing in `.catch()` will be run.
+However, if `.catch()` is run due to an error from `readFile()`, we need `.catch()` to return its own Promise (effectively "replacing" the rejected Promise from `readFile()`).
+
+Helpfully, Twit can natively return Promises! 
+This means `return T.get()` will return a Promise, which we can again chain with `.then()` just like any other Promise.
+Bluebird's [`.then()`](http://bluebirdjs.com/docs/api/then.html) conforms to the [Promises/A+ `.then()`](https://promisesaplus.com/#point-22), meaning that it accepts two functions as arguments: one to run on success, and one to run on failure.
+The net effect is the same as chaining `.then(successFunction).catch(errFunction)`, just more streamlined.
+
+First, we'll tackle the case of success.
+Looking back at the `.then()` block, we can see that we take the `data` value from the result (Twit returns a few other properties we don't need) and log it to disk with `logDataToTemp()`.
+Because this is `getUser()`, we'll specify that the filename to use is `user.json`.
+Lastly, we'll call `return [Promise.resolve(data)](http://bluebirdjs.com/docs/api/promise.resolve.html)`, an easy way to wrap the data from Twit within a Promise (remember that `getUser()` must return a Promise).
+
+If an error occurs, the first function of `.then()` is skipped and instead the error is given to the second function.
+All we do here is call `Promise.reject(makeErrorMessage(err))` to return a Promise (keeping with the all-paths-lead-to-Promise trend) that [rejects](http://bluebirdjs.com/docs/api/promise.reject.html) to the error from `makeErrorMessage()`. 
+And with that, `getUser()` is done!
+
+## Follower information: TwitterAPI.prototype.getFollowers()
+
+Followers are retrieved in a nearly identical manner to users, save for a different call to `T.get()` and having to access `result.data.users` instead of `result.data`.
+
+```javascript
+TwitterAPI.prototype.getFollowers = function(username) {
+  return readFile(username, 'followers.json')
+    .catch(function() {
+      return T.get('followers/list', { screen_name: username, count: userCount, skip_status: true })
+        .then(function(result) {
+          var data = result.data.users;
+          logDataToTemp(data, username, 'followers.json');
+          return Promise.resolve(data);
+        }, function(err) {
+          // error. probably rate limited or private user
+          return Promise.reject(makeErrorMessage(err));
+        });
+    });
+};
+```
+
+Because we're now dealing with followers instead of a single user, the filename is now `followers.json`.
+For more information about how the Promises are working, look back to `getUser()`.
+
+## module.exports
+
+So far, we've created a new object, `TwitterAPI` and given it two functions; however, these functions are completely inaccessible to any other file which `require()`s `twitter_api.js`.
+A single line at the bottom of the file fixes that.
+
+```javascript
+module.exports = new TwitterAPI();
+```
+
+[`module.exports = new TwitterAPI()`](https://nodejs.org/api/modules.html) means that any call to `require('twitter_api.js')` will return a new instance of the `TwitterAPI` object, allowing its functions to be accessed through something like:
+
+```javascript
+var foo = require('./twitter_api.js');
+foo.getAuth();
+```
+
+With that, the Twitter API is finished and we can move onwards to using it in `renderer.js`!
 
 
 # renderer.js
@@ -562,7 +727,14 @@ cyqtip(cytoscape, jQuery); // register extension
 ```
 
 Starting with the top of the document, we'll load a number of other JavaScript files.
-`twitter` is loaded from our own Twitter 
+`twitter` is loaded from our own Twitter API, `cytoscape`, `Promise`, `jQuery`, and `cyqtip` are all loaded from `npm_modules/`, and `shell` is part of Electron.
+`jQuery` is a bit unique because we also set `global.jQuery`; this allows qTip to "see" jQuery.
+
+Speaking of qTip, its loading is more complex.
+Because it's an extension of jQuery, it's loaded as part of the jQuery object rather than as its own variable.
+Next, we need to register `cyqtip` (the Cytoscape.js qTip) extension with the graph (`cytoscape`) and jQuery.
+This is done with `cyqtip(cytoscape, jQuery)` because of the Node environment instead of a browser, where using `<script>` tags was sufficient.
+
 
 
 
