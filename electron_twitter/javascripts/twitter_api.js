@@ -6,10 +6,11 @@ var mkdirp = require('mkdirp');
 var Promise = require('bluebird');
 
 var programTempDir = 'cytoscape-electron';
+var dotEnvPath = path.join(os.tmpdir(), programTempDir, '.env');
 
 try {
   var dotenvConfig = {
-    path: path.join(os.tmpdir(), programTempDir, '.env'),
+    path: dotEnvPath,
     silent: true
   };
   require('dotenv').config(dotenvConfig); // make sure .env is loaded for Twit
@@ -64,12 +65,48 @@ function readFile(username, fileName) {
   return Promise.any([predownloadPromise, cachedPromise]);
 }
 
+function logDataToTemp(data, username, fileName) {
+  var tempPath = path.join(os.tmpdir(), programTempDir, username);
+  var filePath = path.join(tempPath, fileName);
+  try {
+    mkdirp.sync(tempPath);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
+  } catch (error) {
+    console.log('could not write data');
+    console.log(error);
+  }
+}
+
+function makeErrorMessage(err) {
+  if (err.statusCode === 401) {
+    // can't send error status because it breaks promise, so JSON instead
+    return {
+      error: true,
+      status: err.statusCode,
+      statusText: 'User\'s data is private'
+    };
+  } else if (err.statusCode === 429) {
+    // can't send error status because it breaks promise, so JSON instead
+    return {
+      error: true,
+      status: err.statusCode,
+      statusText: 'Rate limited'
+    };
+  }
+  // unknown error
+  return {
+    error: true,
+    status: err.statusCode,
+    statusText: "Other error"
+  };
+}
+
 TwitterAPI.prototype.getAuth = function() {
   return (T && T.getAuth());
 };
 
 TwitterAPI.prototype.clearAuth = function() {
-  fs.unlinkSync(path.join(__dirname, '../', '.env'));
+  fs.unlinkSync(dotEnvPath);
 };
 
 TwitterAPI.prototype.getUser = function(username) {
@@ -103,41 +140,5 @@ TwitterAPI.prototype.getFollowers = function(username) {
         });
     });
 };
-
-function makeErrorMessage(err) {
-  if (err.statusCode === 401) {
-    // can't send error status because it breaks promise, so JSON instead
-    return {
-      error: true,
-      status: err.statusCode,
-      statusText: 'User\'s data is private'
-    };
-  } else if (err.statusCode === 429) {
-    // can't send error status because it breaks promise, so JSON instead
-    return {
-      error: true,
-      status: err.statusCode,
-      statusText: 'Rate limited'
-    };
-  }
-  // unknown error
-  return {
-    error: true,
-    status: err.statusCode,
-    statusText: "Other error"
-  };
-}
-
-function logDataToTemp(data, username, fileName) {
-  var tempPath = path.join(os.tmpdir(), programTempDir, username);
-  var filePath = path.join(tempPath, fileName);
-  try {
-    mkdirp.sync(tempPath);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
-  } catch (error) {
-    console.log('could not write data');
-    console.log(error);
-  }
-}
 
 module.exports = new TwitterAPI();
