@@ -1,14 +1,11 @@
 #full {
     display: flex;
     flex-direction: column;
-    height: 100vmin;
+    height: 100vh;
 }
 #cy {
     height: 100%;
     flex-grow: 1;
-}
-#twitterHandle {
-    width: 100%;
 }
 h1 {
     text-align: center;
