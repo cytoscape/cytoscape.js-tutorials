@@ -2,3 +2,4 @@
 - Use TwitterAPI.clearAuth() to give users a way to erase API key and cache
 - Add .css to tutorial
 - Update tutorial for graph loading spinner and hiding API input boxes for .env
+- Test on Mac to solve "not erasing old frames during render" problem
