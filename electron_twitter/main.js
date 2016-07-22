@@ -1,10 +1,11 @@
-const electron = require('electron');
+var electron = require('electron');
 // Module to control application life.
-const { app } = electron;
+var app = electron.app;
 // Module to create native browser window.
-const { BrowserWindow } = electron;
+var BrowserWindow = electron.BrowserWindow;
 // ipc for talking to loading window
-const { ipcMain } = electron;
+var ipcMain = electron.ipcMain;
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
