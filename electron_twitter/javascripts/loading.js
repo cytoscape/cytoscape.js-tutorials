@@ -20,12 +20,17 @@ apiButton.addEventListener('click', function() {
   if (consumerKey && consumerSecret) {
     var data = 'TWITTER_CONSUMER_KEY=' + consumerKey +
         '\nTWITTER_CONSUMER_SECRET=' + consumerSecret;
+    var tmpDir = path.join(os.tmpdir(), 'cytoscape-electron');
     try {
-      var tmpDir = path.join(os.tmpdir(), 'cytoscape-electron');
-      fs.mkdirSync(tmpDir);
-      fs.writeFileSync(path.join(tmpDir, '.env'), data);
+      fs.mkdirSync(tmpDir); // may throw error if tmpDir already exists
     } catch (error) {
-      console.log('error writing api keys');
+      console.log('error creating directory (already exists?)');
+      console.log(error);
+    }
+    try {
+      fs.writeFileSync(path.join(tmpDir, '.env'), data);      
+    } catch (error) {
+      console.log('error writing to .env');
       console.log(error);
     }
   }
