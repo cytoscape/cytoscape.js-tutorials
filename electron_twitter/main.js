@@ -39,6 +39,12 @@ ipcMain.once('loading-screen', () => {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  // restart app if .env is erased
+  ipcMain.once('restart', () => {
+    app.relaunch({ args: process.argv.slice(1) + ['--relaunch'] });
+    app.exit(0);
+  });
 });
 
 // This method will be called when Electron has finished
