@@ -89,6 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
       mainUser = 'cytoscape';
     }
 
+    // put up loading spinner
+    jQuery("#loading").removeClass("hidden");
+
     // add first user to graph
     getTwitterPromise(mainUser)
       .then(function(then) {
@@ -162,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       // reached the final level, now let's lay things out
       cy.layout(options.layout);
+      // remove loading spinner
+      jQuery("#loading").addClass('hidden');
       // add qtip boxes
       cy.nodes().forEach(function(ele) {
         ele.qtip({
