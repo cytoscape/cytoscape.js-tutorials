@@ -13,9 +13,6 @@
 h1 {
     text-align: center;
 }
-input[type="button"] {
-    width: 100%;
-}
 #loading {
     position: absolute;
     left: 0;
