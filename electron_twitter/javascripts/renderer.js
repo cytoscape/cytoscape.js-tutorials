@@ -111,6 +111,19 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 
+  // erase .env if requested
+  var clearAuthButton = document.getElementById('clearAuth');
+  clearAuthButton.addEventListener('click', function() {
+    try {
+      twitter.clearAuth();
+      ipcRenderer.send('restart');
+    } catch (error) {
+      console.log('could not erase .env');
+      console.log(error);
+      ipcRenderer.send('restart');
+    }
+  });
+
   /**
    * Get followers for the top three users (ranked by followers) at each level.
    *
@@ -187,18 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
-
-  // erase .env if requested
-  document.getElementById('clearAuth').addEventListener('click', function() {
-    try {
-      twitter.clearAuth();
-      ipcRenderer.send('restart');
-    } catch (error) {
-      console.log('could not erase .env');
-      console.log(error);
-      ipcRenderer.send('restart');
-    }
-  });
 });
 
 function getTwitterPromise(targetUser) {

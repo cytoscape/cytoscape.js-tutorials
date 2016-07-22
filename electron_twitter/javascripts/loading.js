@@ -28,7 +28,7 @@ apiButton.addEventListener('click', function() {
       console.log(error);
     }
     try {
-      fs.writeFileSync(path.join(tmpDir, '.env'), data);      
+      fs.writeFileSync(path.join(tmpDir, '.env'), data);
     } catch (error) {
       console.log('error writing to .env');
       console.log(error);
@@ -40,9 +40,9 @@ var submissionButtons = document.getElementById('submission_buttons');
 submissionButtons.addEventListener('click', function(event) {
   // events will bubble up from either button click
   if (event.target === document.getElementById('api_submit')) {
-    ipcRenderer.send('loading-screen', 'done getting API keys');
+    ipcRenderer.send('done-loading', 'done getting API keys');
   } else if (event.target === document.getElementById('example_submit')) {
-    ipcRenderer.send('loading-screen', 'user is skipping API key input');
+    ipcRenderer.send('done-loading', 'user is skipping API key input');
   }
   document.getElementById('loading').className = ""; // unhide loading spinner
 

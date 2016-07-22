@@ -91,10 +91,10 @@ In `package.json`, we indicated that `main.js` is the [main file](https://xkcd.c
 Create a `main.js` file for Electron to use.
 
 ```javascript
-const electron = require('electron');
-const { app } = electron;
-const { BrowserWindow } = electron;
-const { ipcMain } = electron;
+var electron = require('electron');
+var app = electron.app;
+var BrowserWindow = electron.BrowserWindow;
+var ipcMain = electron.ipcMain;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -114,7 +114,7 @@ function createWindow() {
   });
 }
 
-ipcMain.once('loading-screen', (event, arg) => {
+ipcMain.once('done-loading', (event, arg) => {
   console.log(arg);
   // can't create window until user has clicked submit button because Twit needs API key from .env
   win = new BrowserWindow({ width: 800, height: 600, show: false });
@@ -126,6 +126,12 @@ ipcMain.once('loading-screen', (event, arg) => {
   // Emitted when the window is closed.
   win.on('closed', () => {
     win = null;
+  });
+
+  // restart app if .env is erased
+  ipcMain.once('restart', () => {
+    app.relaunch({ args: process.argv.slice(1) });
+    app.exit(0);
   });
 });
 
@@ -161,12 +167,12 @@ The first six statements are all initialization, first of the Electron specific 
 `createWindow()` will create the loading window rather than the Cytoscape.js window.
 This allows a user to input an API key if desired; also, it gives us an opportunity to display a loading spinner while the graph window remains hidden and loading.
 [`loadURL()`](http://electron.atom.io/docs/api/web-contents/#webcontentsloadurlurl-options) loads the loading screen for us.
-Now the uses of Electron and Node.js should be more apparent—instead of a browser running JavaScript, we've written JavaScript that will run a browser!
+Now the purpose of Electron and Node.js should be more apparent—instead of a browser running JavaScript, we've written JavaScript that will run a browser!
 
-## Listening to events: ipcMain.once()
+## Listening to events: [`ipcMain.once()`](http://electron.atom.io/docs/api/ipc-main/#ipcmainoncechannel-listener)
 
 This listener is the biggest change between this code Electron's Quick Start `main.js`. 
-When a button on the loading page is clicked (not yet covered), the page will emit an event which `main.js` acts on.
+When a button on the loading page is clicked (not yet covered), the page will emit an event, `done-loading`, which `main.js` acts on.
 Specifically, the event will indicate that the user is ready to move on the graph.
 At this point, the API key for Twitter will have either been input or skipped; either way, we can move forward and let Twit handle a missing or incorrect API key.
 
@@ -175,8 +181,11 @@ The `.loadURL()` function is used again, this time to load the primary page, wit
 This way, we can display a loading spinner while the page loads (providing a smoother experience).
 The window will emit it's own event once loading is done, this time a [`ready-to-show`](http://electron.atom.io/docs/api/browser-window/#using-ready-to-show-event) event that allows us to display the graph without any worry of page-flickering while loading.
 We'll unhide the new window with [`win.show()`](http://electron.atom.io/docs/api/browser-window/#winshow) and close the loading window with [`loadingWin.close()`](http://electron.atom.io/docs/api/browser-window/#winclose).
-Finally, we'll add a listener for `closed` events to this new window, just like we did for the loading window.
+Next, we'll add a listener for `closed` events to this new window, just like we did for the loading window.
 All that we need to do is set `win = null` so that the window may be garbage collected.
+Lastly, another listener is required for the `Erase Auth` button we'll later add to `index.html`.
+`restart` is similar to `done-loading` in that it's a custom event rather than one related to the Electron lifecycle.
+Relaunching is straightforward to do; [`app.relaunch`](http://electron.atom.io/docs/api/app/#apprelaunchoptions) opens a new instance of the app with the same arguments as before and [`app.close(0)`](http://electron.atom.io/docs/api/app/#appexitexitcode) immediately closes the current copy of the app.
 
 ## The rest of main.js
 
@@ -195,7 +204,7 @@ We're checking for the presence of `win` here despite `createWindow()` creating 
 
 # Loading screen
 
-`main.js` needs a page to load; we'll write that now.
+`main.js` needs a page to load; we'll write `loading.html` now.
 
 ```html
 <!DOCTYPE html>
@@ -215,7 +224,7 @@ We're checking for the presence of `win` here despite `createWindow()` creating 
     <span class="fa fa-refresh fa-spin"></span>
   </div>
 
-  <div class="container">
+  <div id="api_input" class="container">
     <div class="row">
       <div class="six columns">
         <label for="consumer-key">Twitter consumer key</label>
@@ -254,7 +263,8 @@ Finally, there's our own style sheet, also in the `/css/` folder; I'll go over i
 We start out with a `<div>` element for our loading spinner with the corresponding `<span>` element.
 Unlike in Tutorial 3, the loading spinner starts out hidden (while the API key is being entered) and is unhidden when the graph starts loading and before the loading window is closed.
 
-Next, we'll add `<div class="container">`, indicating that we've started to use Skeleton.
+Next, we'll add `<div id="api_input" class="container">`, indicating that we've started to use Skeleton.
+The `api_input` ID will help us hide these input fields if a `.env` file already exists while `class="container"` is for Skeleton.
 Skeleton provides a 12-column grid, so by setting boxes to 6 columns with `<div class="six columns"> we can ensure that input boxes are equally sized.
 The inclusion of `<div class="row">` will keep the input boxes normally on the same line, although will stack them if the window becomes too narrow.
 Each input field, one for `consumer-key` and one for `consumer-secret`, are made the full width (i.e. six columns) with `u-full-width`.
@@ -278,6 +288,16 @@ var path = require('path');
 var os = require('os');
 const { ipcRenderer } = require('electron');
 
+// skip loading screen if .env exists
+fs.stat(path.join(os.tmpdir(), 'cytoscape-electron/.env'), function(err, stats) {
+  if (err) {
+    console.log('.env not found');
+  } else if (stats && stats.isFile()) {
+    document.getElementById('api_input').className = 'hidden'; // hide input fields
+    document.getElementById('example_submit').click(); // skip forward with automatic button click
+  }
+});
+
 var apiButton = document.getElementById('api_submit');
 apiButton.addEventListener('click', function() {
   var consumerKey = document.getElementById('consumer-key').value;
@@ -285,12 +305,17 @@ apiButton.addEventListener('click', function() {
   if (consumerKey && consumerSecret) {
     var data = 'TWITTER_CONSUMER_KEY=' + consumerKey +
         '\nTWITTER_CONSUMER_SECRET=' + consumerSecret;
+    var tmpDir = path.join(os.tmpdir(), 'cytoscape-electron');
     try {
-      var tmpDir = path.join(os.tmpdir(), 'cytoscape-electron');
-      fs.mkdirSync(tmpDir);
-      fs.writeFileSync(path.join(tmpDir, '.env'), data);
+      fs.mkdirSync(tmpDir); // may throw error if tmpDir already exists
     } catch (error) {
-      console.log('error writing api keys');
+      console.log('error creating directory (already exists?)');
+      console.log(error);
+    }
+    try {
+      fs.writeFileSync(path.join(tmpDir, '.env'), data);      
+    } catch (error) {
+      console.log('error writing to .env');
       console.log(error);
     }
   }
@@ -300,9 +325,9 @@ var submissionButtons = document.getElementById('submission_buttons');
 submissionButtons.addEventListener('click', function(event) {
   // events will bubble up from either button click
   if (event.target === document.getElementById('api_submit')) {
-    ipcRenderer.send('loading-screen', 'done getting API keys');
+    ipcRenderer.send('done-loading', 'done getting API keys');
   } else if (event.target === document.getElementById('example_submit')) {
-    ipcRenderer.send('loading-screen', 'user is skipping API key input');
+    ipcRenderer.send('done-loading', 'user is skipping API key input');
   }
   document.getElementById('loading').className = ""; // unhide loading spinner
 
@@ -311,6 +336,11 @@ submissionButtons.addEventListener('click', function(event) {
 ```
 
 Three Node.js modules are necessary, plus `ipcRenderer` from Electron for dispatching events.
+
+Before we start adding event listeners, we'll check whether `.env` already exists.
+If it does, there's no need to show the input boxes so we'll add the `hidden` class and send a `click` event.
+Sending the `click` event allows us to reuse the upcoming event listeners to put up a loading spinner and tell Electron to load the graph window.
+
 Because of the special behavior required of `apiButton` (saving data to disk), it requires its own event listener.
 We'll take the values of `consumer-key` and `consumer-secret` and concatenate them into a single string, provided that both have been provided.
 Writing to disk is done with Node.js's [fs.writeFileSync()](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_writefilesync_file_data_options)—necessary because we don't want the graph to start loading until we've recorded our API keys!
@@ -362,18 +392,25 @@ Once `loading.js` dispatches an event, `main.js` will take care of creating a ne
       </div>
 
       <div class="row">
-        <input type="text" id="twitterHandle" placeholder="Username (leave blank for cytoscape's Twitter profile)">
+        <input type="text" class="u-full-width" id="twitterHandle" placeholder="Username (leave blank for cytoscape's Twitter profile)">
       </div>
 
       <div class="row">
-        <div class="six columns">
-          <input type="button" class="button-primary" id="submitButton" value="Start graph" type="submit">
+        <div class="four columns">
+          <input type="button" class="button-primary u-full-width" id="submitButton" value="Start graph" type="submit">
         </div>
-        <div class="six columns">
-          <input type="button" class="button" id="layoutButton" value="Redo layout">
+        <div class="four columns">
+          <input type="button" class="button u-full-width" id="layoutButton" value="Redo layout">
+        </div>
+        <div class="four columns">
+          <input type="button" class="button u-full-width" id="clearAuth" value="Erase auth">
         </div>
       </div>
 
+    </div>
+
+    <div id="loading" class="hidden">
+      <span class="fa fa-refresh fa-spin"></span>
     </div>
 
     <div id="cy"></div>
@@ -394,7 +431,8 @@ This time, we'll load `renderer.js` in `<head>` because all DOM-sensitive code w
 
 All elements in `<body>` are wrapped within `<div id="full">`, which we'll use later for a [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) powered layout.
 Using flexible boxes allows us to give Cytoscape.js 100% of the remaining space after our Skeleton-related elements are laid out.
-The [Skeleton](http://getskeleton.com/) framework is used again here to help with layout and appearance, so we'll again use the classes provided, such as `six columns`, 'row', and `container`.
+The [Skeleton](http://getskeleton.com/) framework is used again here to help with layout and appearance, so we'll again use the classes provided, such as `six columns`, `u-full-width`, `row`, and `container`.
+Like in Tutorial 3, the Font Awesome spinner is present, this time hidden by default (it will be unhidden when graphing activity starts after a button is clicked).
 The final element in our `full` flexbox is, as in every previous tutorial, the `cy` element which will hold our graph.
 
 # graph_style.css
@@ -765,14 +803,15 @@ var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
 var jQuery = global.jQuery = require('jquery');
 var cyqtip = require('cytoscape-qtip');
-const shell = require('electron').shell;
+var shell = require('electron').shell;
+var ipcRenderer = require('electron').ipcRenderer;
 
 jQuery.qtip = require('qtip2');
 cyqtip(cytoscape, jQuery); // register extension
 ```
 
 Starting with the top of the document, we'll load a number of other JavaScript files.
-`twitter` is loaded from our own Twitter API, `cytoscape`, `Promise`, `jQuery`, and `cyqtip` are all loaded from `npm_modules/`, and `shell` is part of Electron.
+`twitter` is loaded from our own Twitter API, `cytoscape`, `Promise`, `jQuery`, and `cyqtip` are all loaded from `npm_modules/`, and `shell` and `ipcRenderer` are part of Electron.
 `jQuery` is a bit unique because we also set `global.jQuery`; this allows qTip to "see" jQuery.
 
 Speaking of qTip, its loading is more complex.
@@ -867,6 +906,9 @@ document.addEventListener('DOMContentLoaded', function() {
       mainUser = 'cytoscape';
     }
 
+    // put up loading spinner
+    jQuery("#loading").removeClass("hidden");
+
     // add first user to graph
     getTwitterPromise(mainUser)
       .then(function(then) {
@@ -883,6 +925,19 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(function(error) {
         console.log(error);
       });
+  });
+
+  // erase .env if requested
+  var clearAuthButton = document.getElementById('clearAuth');
+  clearAuthButton.addEventListener('click', function() {
+    try {
+      twitter.clearAuth();
+      ipcRenderer.send('restart');
+    } catch (error) {
+      console.log('could not erase .env');
+      console.log(error);
+      ipcRenderer.send('restart');
+    }
   });
 
   function addFollowersByLevel(level, options) {
@@ -927,6 +982,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       // reached the final level, now let's lay things out
       cy.layout(options.layout);
+      // remove loading spinner
+      jQuery("#loading").addClass('hidden');
       // add qtip boxes
       cy.nodes().forEach(function(ele) {
         ele.qtip({
@@ -946,6 +1003,18 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
+
+  // erase .env if requested
+  document.getElementById('clearAuth').addEventListener('click', function() {
+    try {
+      twitter.clearAuth();
+      ipcRenderer.send('restart');
+    } catch (error) {
+      console.log('could not erase .env');
+      console.log(error);
+      ipcRenderer.send('restart');
+    }
+  });
 });
 ```
 
@@ -971,6 +1040,7 @@ The function provided to `submitButton.addEventListener()` is changed slightly:
 
 - Now that we're interacting with Twitter, we need to make sure that there's user input **and** valid authentication before we send a request.
 If either fail, we fall back to using `user = 'cytoscape'` like we did before.
+- The loading spinner will start out hidden and be unhidden when the submit button is clicked.
 - `getUser()` has been renamed to `getTwitterPromise()` because we are now using `twitter_api.js` to handle the work of getting user and follower information.
 This greatly reduces the work done by `renderer.js` because there's no longer a need to use AJAX to load Twitter data.
 To accompany this significant change, I renamed `getUser()` to `getTwitterPromise()` (also a more precise name).
@@ -982,6 +1052,11 @@ The net effect is eliminating the `catch(error) { console.log(error) }` statemen
 With a functional Twitter API now, there's the possibility of a user inputting a name besides `cytoscape` so we no longer need to run `submitButton.click()`.
 The submit button is unhidden in this tutorial and fully functional!
 
+### clearAuthButton.addEventListener()
+
+One significant change from Tutorial 3 is the inclusion of an additional button for deleting the `.env` file.
+We'll be using the `clearAuth()` function from `twitter_api.js` to take care of the details for us.
+Once the authentication is erased, we'll restart the app (by sending a message to Electron's `main.js` so that users can put in new API details (or use example data).
 
 ### addFollowersByLevel()
 
@@ -996,6 +1071,8 @@ The `.catch()` statement can be eliminated because `addFollowersByLevel()` is on
 
 Changing `options.layout` to the object passed to `cy.layout()` means changing up the layout call in our `else { ... }` block slightly: we call `cy.layout(options.layout)` to run a layout.
 Everything related to qTip remains the same; by registering it as a Cytoscape.js extension at the beginning of `renderer.js` we can use qTip just like we did in Tutorial 3.
+
+Additionally, we can hide the loading spinner now that data's been added and the layout is finished.
 
 With qTip done, we're finished with our event listener and can move on to the remaining functions.
 

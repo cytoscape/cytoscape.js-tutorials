@@ -24,7 +24,7 @@ function createWindow() {
   });
 }
 
-ipcMain.once('loading-screen', () => {
+ipcMain.once('done-loading', () => {
   // can't create window until user has clicked submit button because Twit needs API key from .env
   win = new BrowserWindow({ width: 800, height: 600, show: false });
   win.loadURL(`file://${__dirname}/index.html`);
@@ -42,7 +42,7 @@ ipcMain.once('loading-screen', () => {
 
   // restart app if .env is erased
   ipcMain.once('restart', () => {
-    app.relaunch({ args: process.argv.slice(1) + ['--relaunch'] });
+    app.relaunch({ args: process.argv.slice(1) });
     app.exit(0);
   });
 });
