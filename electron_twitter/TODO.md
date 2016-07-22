@@ -1,6 +1,5 @@
 - Package installers (?)
 - Use TwitterAPI.clearAuth() to give users a way to erase API key and cache
-- Add .css to tutorial
 - Update tutorial for graph loading spinner and hiding API input boxes for .env
   - And u-full-width for various elements that used to be width: 100%
 - Test on Mac to solve "not erasing old frames during render" problem

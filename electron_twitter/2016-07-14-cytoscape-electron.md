@@ -240,7 +240,7 @@ We're checking for the presence of `win` here despite `createWindow()` creating 
 </html>
 ```
 
-## <head>
+## \<head\>
 
 Readers who have looked at the [Glycolysis]({% post_url 2016-06-08-glycolysis %}) tutorial may recognzie two of the stylesheets mentioned, [skeleton](http://getskeleton.com/) and [normalize](https://necolas.github.io/normalize.css/).
 [Download the .zip from getskeleton.com](http://getskeleton.com/) and unzip to `/css`.
@@ -249,7 +249,7 @@ Next, we'll borrow the loading spinner [tutorial 3]({% post_url 2016-07-04-socia
 If all this downloading is getting tedious, feel free to copy from [this project on GitHub](https://github.com/cytoscape/cytoscape.js-tutorials/tree/master/electron_twitter).
 Finally, there's our own style sheet, also in the `/css/` folder; I'll go over its contents later on but I encourage you to skip down and take a look at the parts used in `loading.html`.
 
-## <body>
+## \<body\>
 
 We start out with a `<div>` element for our loading spinner with the corresponding `<span>` element.
 Unlike in Tutorial 3, the loading spinner starts out hidden (while the API key is being entered) and is unhidden when the graph starts loading and before the loading window is closed.
@@ -383,24 +383,66 @@ Once `loading.js` dispatches an event, `main.js` will take care of creating a ne
 </html>
 ```
 
-## <head>
+## \<head\>
 
 `<head>` is almost identical to the `<head>` of `loading.html`.
 The only change is the inclusion of qTip's stylesheet to help with styling qTip boxes.
 Unlike previous tutorials, none of the JavaScript files for Cytoscape.js or qTip need to be included because they can be loaded with `require()` 
 This time, we'll load `renderer.js` in `<head>` because all DOM-sensitive code within `renderer.js` is loaded within an event listener which waits for `DOMContentLoaded`, as in previous tutorials.
 
-## <body>
+## \<body\>
 
 All elements in `<body>` are wrapped within `<div id="full">`, which we'll use later for a [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) powered layout.
 Using flexible boxes allows us to give Cytoscape.js 100% of the remaining space after our Skeleton-related elements are laid out.
 The [Skeleton](http://getskeleton.com/) framework is used again here to help with layout and appearance, so we'll again use the classes provided, such as `six columns`, 'row', and `container`.
-The final element in our `full` flexbox is, as in every previous tutorial, the `cy` element which will hold our graph. 
+The final element in our `full` flexbox is, as in every previous tutorial, the `cy` element which will hold our graph.
+
+# graph_style.css
+
+Both `index.html` and `loading.html` rely on a number of CSS rules which I'll cover now.
+`graph_style.css`, like the rest of our `.css` files, will go in the `css/` directory.
+
+```css
+#full {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+#cy {
+    height: 100%;
+    flex-grow: 1;
+}
+h1 {
+    text-align: center;
+}
+#loading {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -0.5em;
+    font-size: 2em;
+    color: #000;
+}
+.hidden {
+    display: none;
+}
+```
+
+[Skeleton](http://getskeleton.com/) takes care of most of the CSS so we only need to write a few of our own rules:
+
+- `#full` is used in `index.html` for creating the flexbox that the rest of the graph (and buttons) are within.
+The `height` property deserves mentioning; by setting `height: 100vh` we'll use the full height of the window Electron created for us.
+- `#cy` is our normal Cytoscape.js container, although here we've also set `flex-grow: 1` which will grow the Cytoscape.js container to all remaining space after the input area is laid out.
+- `'h1'` will center any text with an `<h1>` tag; in this case, the text "Tutorial 4"
+- `#loading` will put any element with a `loading` id (i.e. the Font Awesome loading spinner) in the vertical and horizontal center of the page.
+- `.hidden` has expanded from its original purpose of hiding the loading spinner (although it's stil used for this) to also be used for hiding input fields and buttons in `loading.html`.
 
 
 # twitter_api.js
 
-Before I cover the `renderer.js` file we just `require()`-ed, it's necessary to discuss `twitter_api.js`, which will be used heavily by `renderer.js` to retrieve data from Twitter.
+Before I cover the `renderer.js` file we recently `require()`-ed, it's necessary to discuss `twitter_api.js`, which will be used heavily by `renderer.js` to retrieve data from Twitter.
 `twitter_api.js` is relatively complex so I'll cover it in sections.
 
 ```javascript
