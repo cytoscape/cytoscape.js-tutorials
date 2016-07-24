@@ -1,2 +1,3 @@
 - Package installers (?)   
 - Test on Mac to solve "not erasing old frames during render" problem
+- Add table of contents with anchors

@@ -97,7 +97,7 @@ function makeErrorMessage(err) {
   return {
     error: true,
     status: err.statusCode,
-    statusText: "Other error"
+    statusText: 'Other error'
   };
 }
 
