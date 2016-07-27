@@ -32,6 +32,10 @@ ipcMain.once('done-loading', () => {
     win.show();
     loadingWin.close();
   });
+
+  // DEBUG
+  gpuWin = new BrowserWindow({ width:800, height: 600, show: true });
+  gpuWin.loadURL('chrome://gpu');
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
