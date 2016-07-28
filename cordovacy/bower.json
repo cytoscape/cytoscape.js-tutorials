@@ -1,0 +1,22 @@
+{
+  "name": "cordova-cy",
+  "description": "",
+  "main": "echo \"cordova app\"",
+  "authors": [
+    "Joseph Stahl"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cytoscape/cytoscape.js-tutorials",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "cytoscape": "^2.7.6",
+    "skeleton": "^2.0.4"
+  }
+}
