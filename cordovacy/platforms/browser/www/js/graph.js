@@ -1,10 +1,11 @@
-var cy = cytoscape({
+var cy = window.cy = cytoscape({
   container: document.getElementById('cy'),
-  data: {
-    elements: [
-        { data: { id: 'a' } },
-        { data: { id: 'b' } },
-        { data: { id: 'ab', source: 'a', target: 'b' } }
-    ]
+  elements: [
+      { data: { id: 'a' } },
+      { data: { id: 'b' } },
+      { data: { id: 'ab', source: 'a', target: 'b' } }
+  ],
+  layout: {
+    name: 'grid'
   }
 });
