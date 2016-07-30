@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "cytoscape": "^2.7.6",
-    "skeleton": "^2.0.4"
+    "skeleton": "^2.0.4",
+    "font-awesome": "Font-Awesome#^4.6.3"
   }
 }
