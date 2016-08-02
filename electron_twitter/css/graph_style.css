@@ -23,3 +23,7 @@ h1 {
 .hidden {
     display: none;
 }
+#test {
+    height: 300px;
+    width: 300px;
+}

@@ -47,3 +47,4 @@ typings
 
 ### User defined ###
 .env
+.DS_Store

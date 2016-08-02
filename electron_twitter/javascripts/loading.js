@@ -3,6 +3,9 @@ var path = require('path');
 var os = require('os');
 var ipcRenderer = require('electron').ipcRenderer;
 
+//DEBUG
+var Cytoscape = require('cytoscape');
+
 var apiButton = document.getElementById('api_submit');
 apiButton.addEventListener('click', function() {
   var consumerKey = document.getElementById('consumer-key').value;
@@ -46,5 +49,17 @@ fs.stat(path.join(os.tmpdir(), 'cytoscape-electron/.env'), function(err, stats) 
   } else if (stats && stats.isFile()) {
     document.getElementById('api_input').className = 'hidden'; // hide input fields
     document.getElementById('example_submit').click(); // skip forward with automatic button click
+  }
+});
+
+var testCy = window.testCy = new Cytoscape({
+  container: document.getElementById('test'),
+  elements: [
+      { data: { id: 'a' } },
+      { data: { id: 'b' } },
+      { data: { id: 'ab', source: 'a', target: 'b'} }
+  ],
+  layout: {
+      name: 'grid'
   }
 });
