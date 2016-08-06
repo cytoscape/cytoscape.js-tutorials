@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
-    "cordova": "registry:dt/cordova#0.0.0+20160607055823"
+    "cordova": "registry:dt/cordova#0.0.0+20160607055823",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008"
   }
 }
