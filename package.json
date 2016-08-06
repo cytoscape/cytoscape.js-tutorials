@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/cytoscape/cytoscape.js-tutorials#readme",
   "devDependencies": {
-    "eslint": "^2.11.1",
-    "eslint-config-google": "^0.5.0"
+    "eslint": "^3.2.2",
+    "eslint-config-google": "^0.6.0"
   }
 }
