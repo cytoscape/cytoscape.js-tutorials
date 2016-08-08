@@ -32,14 +32,28 @@
 
 .event {
     color:#000000;
-    height: 100%;
-    width: 100%;
 }
 
-/*.event.listening {
+#loading {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  margin-top: -0.5em;
+  font-size: 2em;
+  color: #fff;
+}
+
+.event.listening {
     display:block;
-}*/
+}
 
 .event.received {
     display:none;
+}
+
+#cy {
+    height: 100%;
+    width: 100%;
 }

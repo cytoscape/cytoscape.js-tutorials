@@ -20,18 +20,12 @@
 <html>
 
 <head>
-  <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
+    <!-- This policy allows everything (eg CSS, AJAX, object, frame, media, etc) except that 
+      * CSS only from the same origin and inline styles,
+      * scripts only from the same origin and inline styles, and eval(). And wikipedia, for JSONP
+    -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * blob:; style-src 'self' 'unsafe-inline'; script-src 'self' https://*.wikipedia.org 'unsafe-inline' 'unsafe-eval'">
 
-        Also allows all content from Wikipedia.
-        -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com https://*.wikipedia.org 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -48,7 +42,7 @@
     <div id="deviceready">
       <!--<p class="event listening">Connecting to Device</p>
       <p class="event received">Device is Ready</p>-->
-      <div class="event listening">
+      <div class="event listening" id="loading">
         <i class="fa fa-refresh fa-spin"></i>
       </div>
       <div id="cy" class="event received"></div>

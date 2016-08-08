@@ -45,6 +45,8 @@ var app = {
     receivedElement.setAttribute('style', 'display:block;');
 
     console.log('Received Event: ' + id);
+    // deviceready event should also resize the cy graph
+    window.cy.resize().center();
   }
 };
 
