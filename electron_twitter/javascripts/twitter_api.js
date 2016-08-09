@@ -101,9 +101,6 @@ TwitterAPI.prototype.getAuth = function() {
   return (T && T.getAuth());
 };
 
-// TwitterAPI.prototype.clearAuth = function() {
-//   fs.unlinkSync(dotEnvPath);
-// };
 
 TwitterAPI.prototype.getUser = function(username) {
   return readFile(username, 'user.json') // checks predownloaded data and cache
