@@ -2,16 +2,117 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach",
-      "type": "node",
+      "name": "Run Android on device",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "android",
+      "target": "device",
+      "port": 9222,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy",
+      "ionicLiveReload": false
+    },
+    {
+      "name": "Run iOS on device",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "ios",
+      "target": "device",
+      "port": 9220,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy",
+      "ionicLiveReload": false
+    },
+    {
+      "name": "Attach to running android on device",
+      "type": "cordova",
       "request": "attach",
-      "port": 5858,
-      "address": "localhost",
-      "restart": false,
-      "sourceMaps": false,
-      "outDir": null,
-      "localRoot": "${workspaceRoot}",
-      "remoteRoot": null
+      "platform": "android",
+      "target": "device",
+      "port": 9222,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy"
+    },
+    {
+      "name": "Attach to running iOS on device",
+      "type": "cordova",
+      "request": "attach",
+      "platform": "ios",
+      "target": "device",
+      "port": 9220,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy"
+    },
+    {
+      "name": "Run Android on emulator",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "android",
+      "target": "emulator",
+      "port": 9222,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy",
+      "ionicLiveReload": false
+    },
+    {
+      "name": "Run iOS on simulator",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "ios",
+      "target": "emulator",
+      "port": 9220,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy",
+      "ionicLiveReload": false
+    },
+    {
+      "name": "Attach to running android on emulator",
+      "type": "cordova",
+      "request": "attach",
+      "platform": "android",
+      "target": "emulator",
+      "port": 5555,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy"
+    },
+    {
+      "name": "Attach to running iOS on simulator",
+      "type": "cordova",
+      "request": "attach",
+      "platform": "ios",
+      "target": "emulator",
+      "port": 9220,
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/cordovacy"
+    },
+    {
+      "name": "Serve to the browser (ionic serve)",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "serve",
+      "cwd": "${workspaceRoot}/cordovacy",
+      "devServerAddress": "localhost",
+      "ionicLiveReload": true
+    },
+    {
+      "name": "Simulate Android in browser",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "android",
+      "target": "chrome",
+      "simulatePort": 8000,
+      "livereload": true,
+      "cwd": "${workspaceRoot}/cordovacy"
+    },
+    {
+      "name": "Simulate iOS in browser",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "ios",
+      "target": "chrome",
+      "simulatePort": 8000,
+      "livereload": true,
+      "cwd": "${workspaceRoot}/cordovacy"
     }
   ]
 }
