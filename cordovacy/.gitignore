@@ -48,3 +48,11 @@ IOS/www/
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+# More cordova stuff
+# Cordova (/platforms is saved with `cordova platform save`)
+/platforms
+/plugins
+
+# res
+resources/signing
