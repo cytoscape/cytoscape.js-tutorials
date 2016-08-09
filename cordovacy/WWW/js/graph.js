@@ -39,59 +39,82 @@ var responseToCyEle = function(title) {
   };
 };
 
-var parseAndAddData = function(response) {
-  // TODO: refactor to separate parsing and adding to graph?
-  var sourcePage;
-  var addLink = function(link) {
-    var node; // cy node (not an ordinary object!)
-    if (cy.getElementById(link.title).length === 0) {
-      node = cy.add(responseToCyEle(link.title));
-    } else {
-      node = cy.getElementById(link.title);
-    }
-
-    var parentToChildEdge = {
-      data: {
-        id: 'edge-' + sourcePage + '-' + node.id(),
-        source: sourcePage,
-        target: node.id()
-      }
-    };
-    if (cy.getElementById(parentToChildEdge.data.id).length === 0) {
-      cy.add(parentToChildEdge);
-    }
-  };
+var parseData = function(response) {
+  var results = [];
+  function makeEdges(sourcePage, links) {
+    return links.map(function(link) {
+      return {
+        data: {
+          id: 'edge-' + sourcePage + '-' + link.title,
+          source: sourcePage,
+          target: link.title
+        }
+      };
+    });
+  }
 
   for (var key in response.query.pages) {
     if ({}.hasOwnProperty.call(response.query.pages, key)) {
       var page = response.query.pages[key];
 
-      // add the main page
-      sourcePage = page.title;
-      if (cy.getElementById(sourcePage).length === 0) {
-        var sourcePageNode = responseToCyEle(sourcePage);
-        cy.add(sourcePageNode);
-      }
+      // source page (the page with the links on it)
+      results.push({
+        data: {
+          id: page.title
+        }
+      });
 
-      // add links on main page as nodes connected to sourcePage
-      page.links.forEach(addLink);
+      // nodes
+      // see note on apply https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
+      var links = page.links;
+      Array.prototype.push.apply(results, links.map(function(link) {
+        return {
+          data: {
+            id: link.title
+          }
+        };
+      }));
+
+      // edges
+      Array.prototype.push.apply(results, makeEdges(page.title, page.links));
     }
   }
+  return results;
 };
 
-createRequest('Albert Einstein').done(function(response) {
-  parseAndAddData(response);
-  cy.layout({ name: 'cose' });
-});
+function addData(elementArr) {
+  var containsElement = function(element) {
+    // true means graph already contains element
+    if (cy.getElementById(element.data.id).length === 0) {
+      return true;
+    }
+    return false;
+  };
+  cy.add(elementArr.filter(containsElement));
+}
+
+var addThenLayout = function(response) {
+  addData(parseData(response));
+  cy.layout({
+    name: 'cose'
+  });
+};
 
 cy.on(`tap`, `node`, function(event) {
   var node = event.cyTarget;
-  createRequest(node.id()).done(function(response) {
-    parseAndAddData(response);
-    cy.layout({
-      name: 'cose',
-      animate: true,
-      animationThreshold: 1
-    });
-  });
+  createRequest(node.id()).done(addThenLayout);
+});
+
+var submitButton = document.getElementById('submitButton');
+submitButton.addEventListener('click', function() {
+  cy.elements().remove();
+  var page = document.getElementById('pageTitle').value;
+  if (page) {
+    createRequest(page).done(addThenLayout);
+  }
+});
+
+var redoLayoutButton = document.getElementById('redoLayoutButton');
+redoLayoutButton.addEventListener('click', function() {
+  cy.layout({ name: 'cose' });
 });
