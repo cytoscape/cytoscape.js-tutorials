@@ -6,16 +6,12 @@ var mkdirp = require('mkdirp');
 var Promise = require('bluebird');
 
 var programTempDir = 'cytoscape-electron';
-var dotEnvPath = path.join(os.tmpdir(), programTempDir, '.env');
+var apiAuth;
 
 try {
-  var dotenvConfig = {
-    path: dotEnvPath,
-    silent: true
-  };
-  require('dotenv').config(dotenvConfig); // make sure .env is loaded for Twit
+  apiAuth = require('../api_key.json');
 } catch (error) {
-  console.log('.env not found');
+  console.log('api_key.json not found');
   console.log(error);
 }
 
@@ -24,10 +20,10 @@ var preDownloadedDir = path.join(__dirname, '../predownload');
 var T;
 
 try {
-  if (process.env.TWITTER_CONSUMER_KEY) {
+  if (apiAuth) {
     T = new Twit({
-      consumer_key: process.env.TWITTER_CONSUMER_KEY,
-      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      consumer_key: apiAuth.key,
+      consumer_secret: apiAuth.secret,
       app_only_auth: true,
       timeout_ms: 60 * 1000
     });
@@ -105,9 +101,9 @@ TwitterAPI.prototype.getAuth = function() {
   return (T && T.getAuth());
 };
 
-TwitterAPI.prototype.clearAuth = function() {
-  fs.unlinkSync(dotEnvPath);
-};
+// TwitterAPI.prototype.clearAuth = function() {
+//   fs.unlinkSync(dotEnvPath);
+// };
 
 TwitterAPI.prototype.getUser = function(username) {
   return readFile(username, 'user.json') // checks predownloaded data and cache
