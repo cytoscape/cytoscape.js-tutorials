@@ -6,7 +6,6 @@
     "bluebird": "^3.4.1",
     "cytoscape": "^2.7.7",
     "cytoscape-qtip": "^2.4.0",
-    "dotenv": "^2.0.0",
     "eslint": "^3.2.2",
     "jquery": "^2.2.4",
     "mkdirp": "^0.5.1",

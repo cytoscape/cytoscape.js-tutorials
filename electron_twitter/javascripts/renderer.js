@@ -4,7 +4,6 @@ var Promise = require('bluebird');
 var jQuery = global.jQuery = require('jquery');
 var cyqtip = require('cytoscape-qtip');
 var shell = require('electron').shell;
-var ipcRenderer = require('electron').ipcRenderer;
 
 jQuery.qtip = require('qtip2');
 cyqtip(cytoscape, jQuery); // register extension
@@ -109,19 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(function(error) {
         console.log(error);
       });
-  });
-
-  // erase .env if requested
-  var clearAuthButton = document.getElementById('clearAuth');
-  clearAuthButton.addEventListener('click', function() {
-    try {
-      twitter.clearAuth();
-      ipcRenderer.send('restart');
-    } catch (error) {
-      console.log('could not erase .env');
-      console.log(error);
-      ipcRenderer.send('restart');
-    }
   });
 
   /**
