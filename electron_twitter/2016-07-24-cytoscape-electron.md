@@ -15,7 +15,11 @@ tags:
 3. [Electron](#electron)
   - [createWindow()](#electron-window)
   - [The rest of `main.js`](#electron-rest)
+<<<<<<< HEAD
 4. [The Cytoscape.js window](#index)
+=======
+5. [The Cytoscape.js window](#index)
+>>>>>>> 4f4f367a8a88d151b515b8275e6438b8ef286528
   - [`<head>`](#index-head)
   - [`<body>`](#index-body)
 5. [CSS](#css)
