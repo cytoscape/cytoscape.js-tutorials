@@ -33,12 +33,6 @@ var createRequest = function(pageTitle) {
   return $.ajax(settings);
 };
 
-var responseToCyEle = function(title) {
-  return {
-    data: { id: title }
-  };
-};
-
 var parseData = function(response) {
   var results = [];
   function makeEdges(sourcePage, links) {

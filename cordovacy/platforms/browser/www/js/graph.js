@@ -33,12 +33,6 @@ var createRequest = function(pageTitle) {
   return $.ajax(settings);
 };
 
-var responseToCyEle = function(title) {
-  return {
-    data: { id: title }
-  };
-};
-
 var parseData = function(response) {
   var results = [];
   function makeEdges(sourcePage, links) {
@@ -65,6 +59,7 @@ var parseData = function(response) {
       });
 
       // nodes
+      // see note on apply https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
       var links = page.links;
       Array.prototype.push.apply(results, links.map(function(link) {
         return {
@@ -75,7 +70,6 @@ var parseData = function(response) {
       }));
 
       // edges
-      // see note on apply https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
       Array.prototype.push.apply(results, makeEdges(page.title, page.links));
     }
   }
@@ -92,46 +86,6 @@ function addData(elementArr) {
   };
   cy.add(elementArr.filter(containsElement));
 }
-
-// var parseAndAddData = function(response) {
-//   // TODO: refactor to separate parsing and adding to graph?
-//   var sourcePage;
-//   var addLink = function(link) {
-//     var node; // cy node (not an ordinary object!)
-//     if (cy.getElementById(link.title).length === 0) {
-//       node = cy.add(responseToCyEle(link.title));
-//     } else {
-//       node = cy.getElementById(link.title);
-//     }
-
-//     var parentToChildEdge = {
-//       data: {
-//         id: 'edge-' + sourcePage + '-' + node.id(),
-//         source: sourcePage,
-//         target: node.id()
-//       }
-//     };
-//     if (cy.getElementById(parentToChildEdge.data.id).length === 0) {
-//       cy.add(parentToChildEdge);
-//     }
-//   };
-
-//   for (var key in response.query.pages) {
-//     if ({}.hasOwnProperty.call(response.query.pages, key)) {
-//       var page = response.query.pages[key];
-
-//       // add the main page
-//       sourcePage = page.title;
-//       if (cy.getElementById(sourcePage).length === 0) {
-//         var sourcePageNode = responseToCyEle(sourcePage);
-//         cy.add(sourcePageNode);
-//       }
-
-//       // add links on main page as nodes connected to sourcePage
-//       page.links.forEach(addLink);
-//     }
-//   }
-// };
 
 var addThenLayout = function(response) {
   addData(parseData(response));
