@@ -19,6 +19,8 @@
     "eslint-config-google": "^0.6.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build-win": "electron-packager . --platform=win32 --arch=x64 --out=out/ --ignore=api_key.json",
+    "build-mac": "electron-packager . --platform=macos --arch=x64 --out=out/ --ignore=api_key.json"
   }
 }
