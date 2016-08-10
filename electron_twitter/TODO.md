@@ -1,2 +1,0 @@
-- Package installers
-- Test on Mac to solve "not erasing old frames during render" problem

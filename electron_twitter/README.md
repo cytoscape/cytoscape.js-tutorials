@@ -6,7 +6,13 @@
 
 `npm start`
 
-## .env
+## Configuration
 
-If a `.env` file is present, it is not necessary to input API key information on the loading screen.
-If API information is entered, it will overwrite `.env`.
+An `api_key.json` file in the root of the program directory will be used if one exists. 
+
+```json
+{
+  "key": "twitterAPIKeyHere",
+  "secret": "twitterAPISecretHere"
+}
+```
