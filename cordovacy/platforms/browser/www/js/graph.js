@@ -61,40 +61,73 @@ var parseData = function(response) {
       // nodes
       // see note on apply https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
       var links = page.links;
-      Array.prototype.push.apply(results, links.map(function(link) {
-        return {
-          data: {
-            id: link.title
-          }
-        };
-      }));
+      try {
+        Array.prototype.push.apply(results, links.map(function(link) {
+          return {
+            data: {
+              id: link.title
+            }
+          };
+        }));
 
-      // edges
-      Array.prototype.push.apply(results, makeEdges(page.title, page.links));
+        // edges
+        Array.prototype.push.apply(results, makeEdges(page.title, page.links));
+      } catch (error) {
+        console.log('error adding pages. API request failed?');
+      }
     }
   }
   return results;
 };
 
 function addData(elementArr) {
-  var containsElement = function(element) {
-    // true means graph already contains element
+  var doesNotContainElement = function(element) {
+    // true means graph does not contain element
     if (cy.getElementById(element.data.id).length === 0) {
       return true;
     }
     return false;
   };
-  cy.add(elementArr.filter(containsElement));
+  var novelElements = elementArr.filter(doesNotContainElement);
+  cy.add(novelElements).nodes().forEach(function(node) {
+    node.qtip({
+      content: { text: '<iframe src="https://en.m.wikipedia.org/wiki/' + encodeURI(node.id()) + '"/>' },
+      // content: { text: 'test' },
+      show: false,
+      position: {
+        my: 'bottom center',
+        at: 'top center',
+        target: node
+      },
+      style: {
+        classes: 'qtip-bootstrap'
+      }
+    });
+  });
 }
 
 var addThenLayout = function(response) {
-  addData(parseData(response));
+  var elements = parseData(response);
+  addData(elements);
   cy.layout({
     name: 'cose'
   });
 };
 
 cy.on('tap', 'node', function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  var node = event.cyTarget;
+  node.qtip('api').show();
+
+  // deselect old node
+  cy.nodes(':selected').unselect();
+  node.select();
+});
+
+cy.on('taphold', 'node', function(event) {
+  event.preventDefault();
+  event.stopPropagation();
   var node = event.cyTarget;
   createRequest(node.id()).done(addThenLayout);
 });

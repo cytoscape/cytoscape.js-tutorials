@@ -16,9 +16,11 @@
     "tests"
   ],
   "dependencies": {
-    "cytoscape": "^2.7.6",
+    "cytoscape": "^2.7.7",
     "skeleton": "^2.0.4",
     "font-awesome": "Font-Awesome#^4.6.3",
-    "jquery": "^3.1.0"
+    "jquery": "2.2.4",
+    "cytoscape-qtip": "^2.4.0",
+    "qtip2": "^2.2.1"
   }
 }
