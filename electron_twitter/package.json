@@ -21,6 +21,6 @@
   "scripts": {
     "start": "electron .",
     "build-win": "electron-packager . --platform=win32 --arch=x64 --out=out/ --ignore=api_key.json",
-    "build-mac": "electron-packager . --platform=macos --arch=x64 --out=out/ --ignore=api_key.json"
+    "build-mac": "electron-packager . --platform=darwin --arch=x64 --out=out/ --ignore=api_key.json"
   }
 }
