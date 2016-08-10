@@ -94,7 +94,7 @@ var addThenLayout = function(response) {
   });
 };
 
-cy.on(`tap`, `node`, function(event) {
+cy.on('tap', 'node', function(event) {
   var node = event.cyTarget;
   createRequest(node.id()).done(addThenLayout);
 });

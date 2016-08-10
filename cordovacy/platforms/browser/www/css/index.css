@@ -17,24 +17,22 @@
  * under the License.
  */
 
+html, body {
+  height: 100%;
+}
+
 #deviceready {
   height: 100%;
   width: 100%;
 }
 
-.app {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  height: 100%;
-  width: 100%;
+.container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 }
 
-.event {
-    color:#000000;
-}
-
-#loading {
+#deviceready {
   position: absolute;
   left: 0;
   top: 50%;
@@ -45,15 +43,6 @@
   color: #fff;
 }
 
-.event.listening {
-    display:block;
-}
-
-.event.received {
-    display:none;
-}
-
 #cy {
-    height: 100%;
-    width: 100%;
+    flex: 1 1 auto;
 }

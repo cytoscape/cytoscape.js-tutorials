@@ -37,24 +37,57 @@
 </head>
 
 <body>
-  <div class="app">
+  <div id="deviceready">
+    <div class="event listening">
+      <i class="fa fa-refresh fa-spin"></i>
+    </div>
+  </div>
+  <div class="container">
+    <!-- input area -->
     <h1>Tutorial 5</h1>
-    <div class="container">
-      <div class="row">
-        <input type="text" class="u-full-width" id="pageTitle" placeholder="Wikipedia starting page">
+    <div class="row">
+      <input type="text" class="u-full-width" id="pageTitle" placeholder="Wikipedia starting page">
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <input type="button" class="button-primary u-full-width" id="submitButton" value="Start graph" type="submit">
       </div>
-      <div class="row">
-        <div class="six columns">
-          <input type="button" class="button-primary u-full-width" id="submitButton" value="Start graph" type="submit">
-        </div>
-        <div class="six columns">
-          <input type="button" class="button-primary u-full-width" id="redoLayoutButton" value="Redo layout" type="submit">
-        </div>
+      <div class="six columns">
+        <input type="button" class="button-primary u-full-width" id="redoLayoutButton" value="Redo layout" type="submit">
       </div>
     </div>
+    <div id="cy"></div>
+  </div>
+
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/cytoscape.js"></script>
+  <script type="text/javascript" src="js/graph.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+
+
+
+
+  <!--<div class="app">
     <div id="deviceready">
-      <!--<p class="event listening">Connecting to Device</p>
-      <p class="event received">Device is Ready</p>-->
+      <h1>Tutorial 5</h1>
+      <div class="container">
+        <div class="row">
+          <input type="text" class="u-full-width" id="pageTitle" placeholder="Wikipedia starting page">
+        </div>
+        <div class="row">
+          <div class="six columns">
+            <input type="button" class="button-primary u-full-width" id="submitButton" value="Start graph" type="submit">
+          </div>
+          <div class="six columns">
+            <input type="button" class="button-primary u-full-width" id="redoLayoutButton" value="Redo layout" type="submit">
+          </div>
+        </div>
+      </div>
+      <p class="event listening">Connecting to Device</p>
+      <p class="event received">Device is Ready</p>
       <div class="event listening" id="loading">
         <i class="fa fa-refresh fa-spin"></i>
       </div>
@@ -66,6 +99,6 @@
   </div>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
-</body>
+</body>-->
 
 </html>

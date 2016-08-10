@@ -1,9 +1,7 @@
-- Add input field to choose jumping-off page and run/ clear buttons
 - TEST ON DEVICES!
-  - On Android, the cy variable does not seem to be properly set. ILLEGAL token error happening and window.cy is inexplicably == HTML instead of the cy element I made.
 - Animate layout changes to transition is less jarring
 - Is there a race condition happening between `window.cy.resize().center()` in `index.js` and `cy.layout()` in `graph.js`?
   - Behavior seems correct but I think it might be possible that `cy.layout()` could be called before `window.cy.resize().center`
   - Would this matter? Regardless of whether graph is laid out, then viewport is centered on graph OR viewport is centered, and graph layout occurs with newly centered viewport?
-- cy.batch() for performance?
-- Refactor ParseAndAdd in graph.js to be 2 separate functions
+- qTip
+- Loading spinner
