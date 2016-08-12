@@ -2,9 +2,6 @@ var apiPath = 'https://en.wikipedia.org/w/api.php';
 
 var cy = window.cy = cytoscape({
   container: document.getElementById('cy'),
-  layout: {
-    name: 'grid'
-  },
   style: [
     {
       selector: 'node',
