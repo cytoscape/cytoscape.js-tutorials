@@ -1,49 +1,17 @@
 <!DOCTYPE html>
+<!-- workaround replacement index.html for electron bug -->
 <html>
 
 <head>
   <meta charset="UTF-8">
-  <title>Tutorial 4</title>
-  <link href="css/normalize.css" rel="stylesheet" type="text/css" />
-  <link href="css/skeleton.css" rel="stylesheet" type="text/css" />
-  <link href="css/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
-  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-  <link href="css/graph_style.css" rel="stylesheet" type="text/css" />
   <script>
-    require("./javascripts/renderer.js");
-
+    // work around electron bug
+    // see https://github.com/electron/electron/issues/6803
+    window.location.assign('./ui.html');
   </script>
 </head>
 
 <body>
-  <div id="full">
-    <div class="container">
-
-      <div class="row">
-        <h1>Tutorial 4</h1>
-      </div>
-
-      <div class="row">
-        <input type="text" class="u-full-width" id="twitterHandle" placeholder="Username (leave blank for cytoscape's Twitter profile)">
-      </div>
-
-      <div class="row">
-        <div class="six columns">
-          <input type="button" class="button-primary u-full-width" id="submitButton" value="Start graph" type="submit">
-        </div>
-        <div class="six columns">
-          <input type="button" class="button u-full-width" id="layoutButton" value="Redo layout">
-        </div>
-      </div>
-
-    </div>
-
-    <div id="loading" class="hidden">
-      <span class="fa fa-refresh fa-spin"></span>
-    </div>
-
-    <div id="cy"></div>
-  </div>
 </body>
 
 </html>
